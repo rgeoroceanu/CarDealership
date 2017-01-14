@@ -1,6 +1,6 @@
 package rgeoroceanu.model.type;
 
-public enum Shape {
+public enum CarType {
 	CABRIO, 
 	ESTATE, 
 	OFFROAD, 

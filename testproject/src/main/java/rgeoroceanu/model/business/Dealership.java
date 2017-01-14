@@ -16,7 +16,7 @@ public class Dealership {
 	
 	private Long id;
 	private List<User> users = new ArrayList<User>();
-	private Address address;
+	private Contact address;
 	private List<Vehicle> vehicles = new ArrayList<>();
 	
 }

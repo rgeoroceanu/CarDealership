@@ -1,5 +1,9 @@
 package rgeoroceanu.model.business;
 
-public class Car extends Vehicle {
+import rgeoroceanu.model.type.CarType;
 
+public class Car extends Vehicle {
+	private CarType type;
+	private int doors;
+	private int seats;
 }
