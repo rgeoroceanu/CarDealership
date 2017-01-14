@@ -35,6 +35,6 @@ public abstract class Vehicle {
 	private Set<String> highResImages = new LinkedHashSet<>();
 	private boolean sold;
 	private Price price;
-	private Set<Feature> feature;
+	private Set<Feature> feature = new LinkedHashSet<>();
 	
 }
