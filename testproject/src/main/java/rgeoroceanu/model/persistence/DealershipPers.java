@@ -15,7 +15,7 @@ import rgeoroceanu.model.business.Contact;
 @Setter
 @Entity
 @Table(name="dealerships")
-public class DealershipPers {
+public class DealershipPers extends BasePers {
 	@OneToMany
 	private List<UserPers> users;
 	@Embedded

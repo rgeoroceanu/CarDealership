@@ -19,7 +19,7 @@ public class MotorhomePers extends VehiclePers {
 	
 	@Column
 	@Enumerated(EnumType.STRING)
-	private MotorhomeType type;
+	private MotorhomeType motorhomeType;
 	@Basic
 	private int length;
 	@Basic

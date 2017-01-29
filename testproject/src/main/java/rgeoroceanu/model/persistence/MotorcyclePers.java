@@ -1,6 +1,5 @@
 package rgeoroceanu.model.persistence;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -20,7 +19,7 @@ public class MotorcyclePers extends VehiclePers {
 	
 	@Column
 	@Enumerated(EnumType.STRING)
-	private MotorcycleType type;
+	private MotorcycleType motorcycleType;
 	@Column
 	@Enumerated(EnumType.STRING)
 	private DriveMode driveMode;

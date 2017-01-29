@@ -1,6 +1,5 @@
 package rgeoroceanu.model.persistence;
 
-import java.util.Currency;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -18,6 +17,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import rgeoroceanu.model.type.Color;
+import rgeoroceanu.model.type.Currency;
 import rgeoroceanu.model.type.Engine;
 import rgeoroceanu.model.type.Feature;
 import rgeoroceanu.model.type.Make;

@@ -19,7 +19,7 @@ public class TruckPers extends VehiclePers {
 
 	@Column
 	@Enumerated(EnumType.STRING)
-	private TruckType type;
+	private TruckType truckType;
 	@Basic
 	private int weight;
 	@Basic

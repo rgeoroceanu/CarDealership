@@ -19,7 +19,7 @@ public class CarPers extends VehiclePers {
 	
 	@Column
 	@Enumerated(EnumType.STRING)
-	private CarType type;
+	private CarType carType;
 	@Basic
 	private int doors;
 	@Basic

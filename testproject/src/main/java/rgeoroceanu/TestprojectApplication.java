@@ -45,23 +45,19 @@ public class TestprojectApplication {
 
 	@Bean
 	public DataSource dataSource() {
-
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
 		return builder.setType(EmbeddedDatabaseType.HSQL).build();
 	}
 
 	@Bean
 	public EntityManagerFactory entityManagerFactory() {
-
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setGenerateDdl(true);
-
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("rgeoroceanu.model.business");
+		factory.setPackagesToScan("rgeoroceanu.model.persistence");
 		factory.setDataSource(dataSource());
 		factory.afterPropertiesSet();
-
 		return factory.getObject();
 	}
 
