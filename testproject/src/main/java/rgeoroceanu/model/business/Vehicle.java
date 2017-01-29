@@ -4,10 +4,8 @@ import java.time.YearMonth;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import rgeoroceanu.model.type.Color;
 import rgeoroceanu.model.type.Engine;
 import rgeoroceanu.model.type.Feature;
@@ -17,8 +15,6 @@ import rgeoroceanu.model.type.Transmission;
 
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 public abstract class Vehicle {
 	
 	private Long id;

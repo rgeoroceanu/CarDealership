@@ -1,14 +1,13 @@
 package rgeoroceanu.model.business;
 
-import lombok.EqualsAndHashCode;
+import javax.persistence.Embeddable;
+
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
+@Embeddable
 public class Contact {
 	private String address;
 	private String city;
