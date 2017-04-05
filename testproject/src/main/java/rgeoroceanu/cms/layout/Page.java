@@ -55,6 +55,7 @@ public class Page extends VerticalLayout implements Localizable {
 		aboutButton = new Button();
 		aboutButton.addStyleName(ValoTheme.BUTTON_LINK);
 		contentPanel = new Panel();
+		
 		HorizontalLayout headerLayout = new HorizontalLayout();
 		HorizontalLayout titleLayout = new HorizontalLayout();
 		titleLayout.addStyleName("title");
@@ -72,10 +73,12 @@ public class Page extends VerticalLayout implements Localizable {
 		this.addComponent(titleLayout);
 		this.addComponent(contentPanel);
 		this.addComponent(footerLayout);
+		
 		// aligning
 		headerLayout.setComponentAlignment(logoutButton, Alignment.MIDDLE_RIGHT);
 		headerLayout.setComponentAlignment(languageSelect, Alignment.MIDDLE_LEFT);
 		titleLayout.setComponentAlignment(titleButtonsLayout, Alignment.TOP_RIGHT);
+		
 		// sizing
 		addVehicleButton.setHeight(70, Unit.PIXELS);
 		statisticsButton.setHeight(70, Unit.PIXELS);
