@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,7 +16,6 @@ import lombok.Getter;
 import lombok.Setter;
 import rgeoroceanu.model.type.CarType;
 import rgeoroceanu.model.type.Color;
-import rgeoroceanu.model.type.Currency;
 import rgeoroceanu.model.type.Engine;
 import rgeoroceanu.model.type.Feature;
 import rgeoroceanu.model.type.Make;
@@ -59,15 +59,10 @@ public class Car {
 	private Set<String> highResImages = new LinkedHashSet<>();
 	@Basic
 	private boolean sold;
-	@Basic
-	private int originalPrice;
-	@Basic
-	private int discountedPrice;
-	@Column
-	@Enumerated(EnumType.STRING)
-	private Currency currency;
+	@Embedded
+	private Price price;
 	@Lob
-	private Set<Feature> feature = new LinkedHashSet<>();
+	private Set<Feature> features = new LinkedHashSet<>();
 	@Column
 	@Enumerated(EnumType.STRING)
 	private CarType carType;
