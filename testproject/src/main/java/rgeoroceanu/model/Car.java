@@ -25,8 +25,8 @@ import rgeoroceanu.model.type.Transmission;
 @Getter
 @Setter
 @Entity
-@Table(name="car" )
-public class Car {
+@Table(name="cars" )
+public class Car extends Base {
 	
 	@Column
 	@Enumerated(EnumType.STRING)

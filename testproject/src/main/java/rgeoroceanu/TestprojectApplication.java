@@ -1,6 +1,5 @@
 package rgeoroceanu;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.boot.SpringApplication;
@@ -18,7 +17,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import rgeoroceanu.cms.tools.Localizer;
+import rgeoroceanu.cms.localization.Localizer;
 
 @SpringBootApplication
 @EnableJpaRepositories
@@ -50,21 +49,20 @@ public class TestprojectApplication {
 	}
 
 	@Bean
-	public EntityManagerFactory entityManagerFactory() {
+	public LocalContainerEntityManagerFactoryBean  entityManagerFactory() {
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setGenerateDdl(true);
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("rgeoroceanu.model.persistence");
+		factory.setPackagesToScan("rgeoroceanu.model");
 		factory.setDataSource(dataSource());
-		factory.afterPropertiesSet();
-		return factory.getObject();
+		return factory;
 	}
 
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 		JpaTransactionManager txManager = new JpaTransactionManager();
-		txManager.setEntityManagerFactory(entityManagerFactory());
+		txManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return txManager;
 	}
 }

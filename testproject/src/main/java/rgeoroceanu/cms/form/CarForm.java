@@ -1,23 +1,11 @@
 package rgeoroceanu.cms.form;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Lob;
-
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.ui.ColorPicker;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.TextField;
-
-import rgeoroceanu.model.type.CarType;
-import rgeoroceanu.model.type.Feature;
 
 public class CarForm extends FormLayout {
 
@@ -41,5 +29,17 @@ public class CarForm extends FormLayout {
 	private @PropertyId("price.discountedPrice") TextField discountedPriceField;
 	private @PropertyId("price.currency") TextField currencyField;
 	private @PropertyId("features") ListSelect featuresField;
+	
+	public CarForm() {
+		initTypeField();
+		initMarqueField();
+	}
+	
+	private void initTypeField() {
+		typeField = new ComboBox();
+	}
 
+	private void initMarqueField() {
+		marqueField = new ComboBox();
+	}
 }

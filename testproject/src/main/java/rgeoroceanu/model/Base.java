@@ -1,5 +1,8 @@
 package rgeoroceanu.model;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
@@ -8,9 +11,6 @@ import javax.persistence.Version;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 @Getter
 @Setter
@@ -21,17 +21,17 @@ public class Base {
 	private Long id;
 	@Version
 	private int version;
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	private DateTime created;
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	private DateTime updated;
+	@Column
+	private LocalDateTime created;
+	@Column
+	private LocalDateTime updated;
 	
 	@PreUpdate
 	@PrePersist
 	public void updateTimeStamps() {
-	    updated = DateTime.now();
+	    updated = LocalDateTime.now();
 	    if (null == created) {
-	    	created = DateTime.now();
+	    	created = LocalDateTime.now();
 	    }
 	}
 }

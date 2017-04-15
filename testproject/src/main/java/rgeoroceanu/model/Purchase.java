@@ -1,12 +1,12 @@
 package rgeoroceanu.model;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +19,8 @@ public class Purchase extends Base {
 	
 	@Lob
 	private Car car;
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-	private DateTime purchaseDate;
+	@Column
+	private LocalDateTime purchaseDate;
 	@Embedded
 	private Price price;
 

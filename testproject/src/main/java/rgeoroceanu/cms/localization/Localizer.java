@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.tools;
+package rgeoroceanu.cms.localization;
 
 import java.util.Locale;
 

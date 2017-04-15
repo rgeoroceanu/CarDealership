@@ -4,9 +4,10 @@ import java.util.Arrays;
 import java.util.Locale;
 
 import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.tools.Localizable;
-import rgeoroceanu.cms.tools.Localizer;
+import rgeoroceanu.cms.localization.Localizable;
+import rgeoroceanu.cms.localization.Localizer;
 
+import com.vaadin.navigator.View;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
@@ -15,45 +16,29 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class Page extends VerticalLayout implements Localizable {
+public abstract class Page extends VerticalLayout implements Localizable, View {
 	private static final long serialVersionUID = 1L;
 
 	private static final Locale ENGLISH_LOCALE = new Locale("en");
 	private static final Locale GERMAN_LOCALE = new Locale("de");
-	private final ComboBox languageSelect;
-	private final Button logoutButton;
-	private final Button addVehicleButton;
-	private final Button statisticsButton;
-	private final Panel contentPanel;
-	private final Button contactButton;
-	private final Button helpButton;
-	private final Button aboutButton;
+	private ComboBox languageSelect;
+	private Button logoutButton;
+	private Button addVehicleButton;
+	private Button statisticsButton;
+	private Panel contentPanel;
+	private Button contactButton;
+	private Button helpButton;
+	private Button aboutButton;
 
 	public Page() {
 		this.addStyleName(ValoTheme.UI_WITH_MENU);
-		languageSelect = new ComboBox();
-		languageSelect.addStyleName(ValoTheme.COMBOBOX_BORDERLESS);
-		languageSelect.addStyleName(ValoTheme.COMBOBOX_TINY);
-		languageSelect.addStyleName(ValoTheme.LINK_SMALL);
-		languageSelect.addItems(Arrays.asList(ENGLISH_LOCALE, GERMAN_LOCALE));
-		languageSelect.setItemCaption(ENGLISH_LOCALE, "English");
-		languageSelect.setItemCaption(GERMAN_LOCALE, "Deutsch");
-		languageSelect.setTextInputAllowed(false);
-		languageSelect.setNullSelectionAllowed(false);
-		languageSelect.addValueChangeListener(e -> changeLocale((Locale) e.getProperty().getValue()));
-		languageSelect.setValue(ENGLISH_LOCALE);
-		logoutButton = new Button();
-		logoutButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		addVehicleButton = new Button();
-		addVehicleButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		statisticsButton = new Button();
-		statisticsButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		contactButton = new Button();
-		contactButton.addStyleName(ValoTheme.BUTTON_LINK);
-		helpButton = new Button();
-		helpButton.addStyleName(ValoTheme.BUTTON_LINK);
-		aboutButton = new Button();
-		aboutButton.addStyleName(ValoTheme.BUTTON_LINK);
+		initLanguageSelect();
+		initLogoutButton();
+		initAddVehicleButton();
+		initStatisticsButton();
+		initContactButton();
+		initHelpButton();
+		initAboutButton();
 		contentPanel = new Panel();
 		
 		HorizontalLayout headerLayout = new HorizontalLayout();
@@ -80,9 +65,6 @@ public class Page extends VerticalLayout implements Localizable {
 		titleLayout.setComponentAlignment(titleButtonsLayout, Alignment.TOP_RIGHT);
 		
 		// sizing
-		addVehicleButton.setHeight(70, Unit.PIXELS);
-		statisticsButton.setHeight(70, Unit.PIXELS);
-		languageSelect.setWidth(7, Unit.EM);
 		contentPanel.setHeight(1280, Unit.PIXELS);
 		contentPanel.setWidth(100, Unit.PERCENTAGE);
 		headerLayout.setWidth(100, Unit.PERCENTAGE);
@@ -93,7 +75,7 @@ public class Page extends VerticalLayout implements Localizable {
 		this.setWidth(100, Unit.PERCENTAGE);
 
 	}
-
+	
 	@Override
 	public void localize() {
 		// localize
@@ -105,8 +87,58 @@ public class Page extends VerticalLayout implements Localizable {
 		aboutButton.setCaption(Localizer.getLocalizedString("about"));
 	}
 	
+	private void initLanguageSelect() {
+		languageSelect = new ComboBox();
+		languageSelect.addStyleName(ValoTheme.COMBOBOX_BORDERLESS);
+		languageSelect.addStyleName(ValoTheme.COMBOBOX_TINY);
+		languageSelect.addStyleName(ValoTheme.LINK_SMALL);
+		languageSelect.addItems(Arrays.asList(ENGLISH_LOCALE, GERMAN_LOCALE));
+		languageSelect.setItemCaption(ENGLISH_LOCALE, "English");
+		languageSelect.setItemCaption(GERMAN_LOCALE, "Deutsch");
+		languageSelect.setTextInputAllowed(false);
+		languageSelect.setNullSelectionAllowed(false);
+		languageSelect.addValueChangeListener(e -> changeLocale((Locale) e.getProperty().getValue()));
+		languageSelect.setValue(ENGLISH_LOCALE);
+		languageSelect.setWidth(7, Unit.EM);
+	}
+	
+	private void initLogoutButton() {
+		logoutButton = new Button();
+		logoutButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+	}
+	
+	private void initAddVehicleButton() {
+		addVehicleButton = new Button();
+		addVehicleButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		addVehicleButton.setHeight(70, Unit.PIXELS);
+	}
+	
+	private void initStatisticsButton() {
+		statisticsButton = new Button();
+		statisticsButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		statisticsButton.setHeight(70, Unit.PIXELS);
+	}
+	
+	private void initContactButton() {
+		contactButton = new Button();
+		contactButton.addStyleName(ValoTheme.BUTTON_LINK);
+	}
+	
+	private void initHelpButton() {
+		helpButton = new Button();
+		helpButton.addStyleName(ValoTheme.BUTTON_LINK);
+	}
+	
+	private void initAboutButton() {
+		aboutButton = new Button();
+		aboutButton.addStyleName(ValoTheme.BUTTON_LINK);
+	}
+	
 	private void changeLocale(Locale locale) {
 		Localizer.setLocale(locale);
-		App.getCurrent().localize();
+		App app = App.getCurrent();
+		if (app != null) {
+			app.localize();
+		}
 	}
 }
