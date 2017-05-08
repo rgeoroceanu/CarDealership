@@ -10,9 +10,9 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.UI;
 
-import rgeoroceanu.cms.layout.CarPage;
-import rgeoroceanu.cms.layout.StartPage;
 import rgeoroceanu.cms.localization.Localizable;
+import rgeoroceanu.cms.page.CarPage;
+import rgeoroceanu.cms.page.StartPage;
 
 @SpringUI
 @Theme("cms")
@@ -34,17 +34,29 @@ public class App extends UI implements Localizable {
 		navigator.navigateTo(START_PAGE_NAV_NAME);
         localize();
     }
-
+	
 	public static App getCurrent() {
 		return (App) UI.getCurrent();
 	}
 	
 	@Override
 	public void localize() {
-		localizeRecursive(this);
+		localizeRecursive(carPage);
+		localizeRecursive(startPage);
+	}
+	
+	public void navigateToCarPage() {
+		navigator.navigateTo(CAR_PAGE_NAV_NAME);
+	}
+	
+	public void navigateToStartPage() {
+		navigator.navigateTo(START_PAGE_NAV_NAME);
 	}
 	
 	private void localizeRecursive(HasComponents root) {
+		if(root instanceof Localizable) {
+			((Localizable) root).localize();
+		}
 		for(Component child : root) {
 	        if(child instanceof Localizable) {
 	        	Localizable localizable = (Localizable)child;

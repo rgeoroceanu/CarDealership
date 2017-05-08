@@ -1,20 +1,21 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cms.page;
 
 import java.util.Arrays;
 import java.util.Locale;
-
-import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.localization.Localizer;
 
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+
+import rgeoroceanu.cms.App;
+import rgeoroceanu.cms.localization.Localizable;
+import rgeoroceanu.cms.localization.Localizer;
 
 public abstract class Page extends VerticalLayout implements Localizable, View {
 	private static final long serialVersionUID = 1L;
@@ -65,7 +66,6 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		titleLayout.setComponentAlignment(titleButtonsLayout, Alignment.TOP_RIGHT);
 		
 		// sizing
-		contentPanel.setHeight(1280, Unit.PIXELS);
 		contentPanel.setWidth(100, Unit.PERCENTAGE);
 		headerLayout.setWidth(100, Unit.PERCENTAGE);
 		headerLayout.setHeight(70, Unit.PIXELS);
@@ -85,6 +85,10 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		contactButton.setCaption(Localizer.getLocalizedString("contact"));
 		helpButton.setCaption(Localizer.getLocalizedString("help"));
 		aboutButton.setCaption(Localizer.getLocalizedString("about"));
+	}
+	
+	public void setContent(final Component content) {
+		contentPanel.setContent(content);
 	}
 	
 	private void initLanguageSelect() {
@@ -111,12 +115,14 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		addVehicleButton = new Button();
 		addVehicleButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		addVehicleButton.setHeight(70, Unit.PIXELS);
+		addVehicleButton.addClickListener(e -> App.getCurrent().navigateToCarPage());
 	}
 	
 	private void initStatisticsButton() {
 		statisticsButton = new Button();
 		statisticsButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		statisticsButton.setHeight(70, Unit.PIXELS);
+		statisticsButton.addClickListener(e -> App.getCurrent().navigateToStartPage());
 	}
 	
 	private void initContactButton() {

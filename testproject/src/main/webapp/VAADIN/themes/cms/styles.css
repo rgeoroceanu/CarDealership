@@ -12840,3 +12840,12 @@ div.v-layout.v-horizontal.v-widget {
 .cms .title {
 	background: #96be5a;
 }
+
+.cms .v-select-optiongroup-multicol .v-select-option {
+	float: left;
+	width: 150px;
+}
+
+.cms .v-select-optiongroup-multicol {
+	width: 300px;
+}
