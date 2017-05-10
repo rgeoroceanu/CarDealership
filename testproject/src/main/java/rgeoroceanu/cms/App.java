@@ -11,7 +11,8 @@ import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.UI;
 
 import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.page.CarPage;
+import rgeoroceanu.cms.page.CarEditPage;
+import rgeoroceanu.cms.page.CarSearchPage;
 import rgeoroceanu.cms.page.StartPage;
 
 @SpringUI
@@ -19,18 +20,22 @@ import rgeoroceanu.cms.page.StartPage;
 public class App extends UI implements Localizable {
 	private static final long serialVersionUID = 1L;
 	private static final String START_PAGE_NAV_NAME = "start";
-	private static final String CAR_PAGE_NAV_NAME = "add-car";
+	private static final String CAR_EDIT_PAGE_NAV_NAME = "car";
+	private static final String CAR_SEARCH_PAGE_NAV_NAME = "car_search";
 	@Autowired
 	private StartPage startPage;
 	@Autowired
-	private CarPage carPage;
+	private CarEditPage carEditPage;
+	@Autowired
+	private CarSearchPage carSearchPage;
 	private Navigator navigator;
 	
 	@Override
     protected void init(VaadinRequest vaadinRequest) {
 		navigator = new Navigator(this, this);
 		navigator.addView(START_PAGE_NAV_NAME, startPage);
-		navigator.addView(CAR_PAGE_NAV_NAME, carPage);
+		navigator.addView(CAR_EDIT_PAGE_NAV_NAME, carEditPage);
+		navigator.addView(CAR_SEARCH_PAGE_NAV_NAME, carSearchPage);
 		navigator.navigateTo(START_PAGE_NAV_NAME);
         localize();
     }
@@ -41,12 +46,17 @@ public class App extends UI implements Localizable {
 	
 	@Override
 	public void localize() {
-		localizeRecursive(carPage);
+		localizeRecursive(carEditPage);
+		localizeRecursive(carSearchPage);
 		localizeRecursive(startPage);
 	}
 	
 	public void navigateToCarPage() {
-		navigator.navigateTo(CAR_PAGE_NAV_NAME);
+		navigator.navigateTo(CAR_EDIT_PAGE_NAV_NAME);
+	}
+	
+	public void navigateToSearchPage() {
+		navigator.navigateTo(CAR_SEARCH_PAGE_NAV_NAME);
 	}
 	
 	public void navigateToStartPage() {

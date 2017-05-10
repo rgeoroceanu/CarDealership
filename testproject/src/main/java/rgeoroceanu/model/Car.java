@@ -44,6 +44,8 @@ public class Car extends Base {
 	private Engine engine;
 	@Basic
 	private int cubicCentimeters;
+	@Basic
+	private int horsePower;
 	@Column
 	@Enumerated(EnumType.STRING)
 	private Transmission transmission;
@@ -70,4 +72,8 @@ public class Car extends Base {
 	private int doors;
 	@Basic
 	private int seats;
+	@Basic
+	private String shortDescription;
+	@Basic
+	private String description;
 }

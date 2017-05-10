@@ -3,6 +3,8 @@ package rgeoroceanu.cms.page;
 import java.util.Arrays;
 import java.util.Locale;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -16,30 +18,35 @@ import com.vaadin.ui.themes.ValoTheme;
 import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
+import rgeoroceanu.service.DataService;
 
 public abstract class Page extends VerticalLayout implements Localizable, View {
 	private static final long serialVersionUID = 1L;
 
 	private static final Locale ENGLISH_LOCALE = new Locale("en");
 	private static final Locale GERMAN_LOCALE = new Locale("de");
-	private ComboBox languageSelect;
-	private Button logoutButton;
-	private Button addVehicleButton;
-	private Button statisticsButton;
-	private Panel contentPanel;
-	private Button contactButton;
-	private Button helpButton;
-	private Button aboutButton;
-
+	private final ComboBox languageSelect;
+	private final Button logoutButton;
+	private final Button addVehicleButton;
+	private final Button searchButton;
+	private final Button statisticsButton;
+	private final Panel contentPanel;
+	private final Button contactButton;
+	private final Button helpButton;
+	private final Button aboutButton;
+	@Autowired
+	protected DataService dataService;
+	
 	public Page() {
 		this.addStyleName(ValoTheme.UI_WITH_MENU);
-		initLanguageSelect();
-		initLogoutButton();
-		initAddVehicleButton();
-		initStatisticsButton();
-		initContactButton();
-		initHelpButton();
-		initAboutButton();
+		this.languageSelect = initLanguageSelect();
+		this.logoutButton = initLogoutButton();
+		this.addVehicleButton = initAddVehicleButton();
+		this.searchButton = initSearchButton();
+		this.statisticsButton = initStatisticsButton();
+		this.contactButton = initContactButton();
+		this.helpButton = initHelpButton();
+		this.aboutButton = initAboutButton();
 		contentPanel = new Panel();
 		
 		HorizontalLayout headerLayout = new HorizontalLayout();
@@ -50,6 +57,7 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		headerLayout.addComponent(languageSelect);
 		headerLayout.addComponent(logoutButton);
 		titleButtonsLayout.addComponent(statisticsButton);
+		titleButtonsLayout.addComponent(searchButton);
 		titleButtonsLayout.addComponent(addVehicleButton);
 		titleLayout.addComponent(titleButtonsLayout);
 		footerLayout.addComponent(contactButton);
@@ -73,7 +81,6 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		titleLayout.setHeight(70, Unit.PIXELS);
 		footerLayout.setHeight(70, Unit.PIXELS);
 		this.setWidth(100, Unit.PERCENTAGE);
-
 	}
 	
 	@Override
@@ -82,6 +89,7 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		logoutButton.setCaption(Localizer.getLocalizedString("logout"));
 		statisticsButton.setCaption(Localizer.getLocalizedString("statistics"));
 		addVehicleButton.setCaption(Localizer.getLocalizedString("addVehicle"));
+		searchButton.setCaption(Localizer.getLocalizedString("search"));
 		contactButton.setCaption(Localizer.getLocalizedString("contact"));
 		helpButton.setCaption(Localizer.getLocalizedString("help"));
 		aboutButton.setCaption(Localizer.getLocalizedString("about"));
@@ -91,8 +99,8 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		contentPanel.setContent(content);
 	}
 	
-	private void initLanguageSelect() {
-		languageSelect = new ComboBox();
+	private ComboBox initLanguageSelect() {
+		final ComboBox languageSelect = new ComboBox();
 		languageSelect.addStyleName(ValoTheme.COMBOBOX_BORDERLESS);
 		languageSelect.addStyleName(ValoTheme.COMBOBOX_TINY);
 		languageSelect.addStyleName(ValoTheme.LINK_SMALL);
@@ -104,40 +112,55 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		languageSelect.addValueChangeListener(e -> changeLocale((Locale) e.getProperty().getValue()));
 		languageSelect.setValue(ENGLISH_LOCALE);
 		languageSelect.setWidth(7, Unit.EM);
+		return languageSelect;
 	}
 	
-	private void initLogoutButton() {
-		logoutButton = new Button();
+	private Button initLogoutButton() {
+		final Button logoutButton = new Button();
 		logoutButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		return logoutButton;
 	}
 	
-	private void initAddVehicleButton() {
-		addVehicleButton = new Button();
+	private Button initAddVehicleButton() {
+		final Button addVehicleButton = new Button();
 		addVehicleButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		addVehicleButton.setHeight(70, Unit.PIXELS);
 		addVehicleButton.addClickListener(e -> App.getCurrent().navigateToCarPage());
+		return addVehicleButton;
 	}
 	
-	private void initStatisticsButton() {
-		statisticsButton = new Button();
+	private Button initSearchButton() {
+		final Button searchButton = new Button();
+		searchButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		searchButton.setHeight(70, Unit.PIXELS);
+		searchButton.addClickListener(e -> App.getCurrent().navigateToSearchPage());
+		return searchButton;
+	}
+	
+	private Button  initStatisticsButton() {
+		Button statisticsButton = new Button();
 		statisticsButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		statisticsButton.setHeight(70, Unit.PIXELS);
 		statisticsButton.addClickListener(e -> App.getCurrent().navigateToStartPage());
+		return statisticsButton;
 	}
 	
-	private void initContactButton() {
-		contactButton = new Button();
+	private Button initContactButton() {
+		Button contactButton = new Button();
 		contactButton.addStyleName(ValoTheme.BUTTON_LINK);
+		return contactButton;
 	}
 	
-	private void initHelpButton() {
-		helpButton = new Button();
+	private Button initHelpButton() {
+		Button helpButton = new Button();
 		helpButton.addStyleName(ValoTheme.BUTTON_LINK);
+		return helpButton;
 	}
 	
-	private void initAboutButton() {
-		aboutButton = new Button();
+	private Button initAboutButton() {
+		Button aboutButton = new Button();
 		aboutButton.addStyleName(ValoTheme.BUTTON_LINK);
+		return aboutButton;
 	}
 	
 	private void changeLocale(Locale locale) {

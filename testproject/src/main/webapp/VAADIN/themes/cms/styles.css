@@ -12844,6 +12844,7 @@ div.v-layout.v-horizontal.v-widget {
 .cms .v-select-optiongroup-multicol .v-select-option {
 	float: left;
 	width: 150px;
+	padding-right: 70px;
 }
 
 .cms .v-select-optiongroup-multicol {

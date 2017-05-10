@@ -16,10 +16,11 @@
 	.v-select-optiongroup-multicol .v-select-option {
     	float: left;
     	width: 150px;
+    	padding-right: 70px;
 	}
 
 	.v-select-optiongroup-multicol {
-    	width: 300px; /* Multiple of the width of individual items, specified the amount of columns */
+    	width: 300px;
 	}	
 }
 
