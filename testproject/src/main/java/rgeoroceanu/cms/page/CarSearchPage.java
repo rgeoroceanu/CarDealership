@@ -43,7 +43,8 @@ public class CarSearchPage extends Page {
 		carOverview.setDetails(car.getState().toString(), car.getRegistrationMonth() 
 				+ "/" + car.getRegistrationYear(), car.getEngine().toString(), String.valueOf(car.getCubicCentimeters()), 
 				car.getTransmission().toString(), String.valueOf(car.getHorsePower()), String.valueOf(car.getDoors()));
-		
+		carOverview.setPrice("49000 €", "55000 €");
+		carOverview.localize();
 		return carOverview;
 	}
 }

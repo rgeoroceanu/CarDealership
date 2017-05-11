@@ -74,7 +74,7 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		titleLayout.setComponentAlignment(titleButtonsLayout, Alignment.TOP_RIGHT);
 		
 		// sizing
-		contentPanel.setWidth(100, Unit.PERCENTAGE);
+		//contentPanel.setWidth(100, Unit.PERCENTAGE);
 		headerLayout.setWidth(100, Unit.PERCENTAGE);
 		headerLayout.setHeight(70, Unit.PIXELS);
 		titleLayout.setWidth(100, Unit.PERCENTAGE);

@@ -22,6 +22,12 @@
 	.v-select-optiongroup-multicol {
     	width: 300px;
 	}	
+	
+	.small-layout > .v-formlayout-spacing > tbody > .v-formlayout-row > .v-formlayout-captioncell,
+	.small-layout > .v-formlayout-spacing > tbody > .v-formlayout-row > .v-formlayout-contentcell,
+	.small-layout > .v-formlayout-spacing > tbody > .v-formlayout-row > .v-formlayout-errorcell {
+ 		padding-top: 4px; padding-bottom: 4px;
+	}
 }
 
 
