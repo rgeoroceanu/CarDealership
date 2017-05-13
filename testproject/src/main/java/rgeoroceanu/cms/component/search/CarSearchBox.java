@@ -9,6 +9,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Layout;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
@@ -26,7 +27,7 @@ public class CarSearchBox extends CustomComponent implements Localizable {
 	private final BeanFieldGroup<CarSearchCriteria> binder;
 	
 	public interface SearchListener {
-		public void startSearch(CarSearchCriteria searchOptions) throws InvalidValueException;
+		public void startSearch(CarSearchCriteria searchOptions);
 	}
 	
 	public CarSearchBox() {
@@ -41,11 +42,19 @@ public class CarSearchBox extends CustomComponent implements Localizable {
 	
 	public void setSearchListener(final SearchListener searchListener) {
 		searchButton.getListeners(ClickEvent.class).forEach(listener -> searchButton.removeClickListener((ClickListener) listener));
-		searchButton.addClickListener(e -> searchListener.startSearch(getCurrentSearchOptions()));
+		searchButton.addClickListener(e -> {
+			try {
+				final CarSearchCriteria criteria = getCurrentSearchOptions();
+				searchListener.startSearch(criteria);
+			} catch (InvalidValueException ex) {
+				Notification.show("Invalid search options");
+			}
+		});
 	}
 	
 	private BeanFieldGroup<CarSearchCriteria> initBinder() {
 		BeanFieldGroup<CarSearchCriteria> binder = new BeanFieldGroup<>(CarSearchCriteria.class);
+		binder.bindMemberFields(searchForm);
 		binder.setItemDataSource(new CarSearchCriteria());
 		return binder;
 	}

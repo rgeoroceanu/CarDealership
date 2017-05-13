@@ -1,5 +1,6 @@
 package rgeoroceanu.cms.component.search;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,20 +8,22 @@ import java.util.Map;
 import com.google.common.base.Preconditions;
 import com.vaadin.ui.VerticalLayout;
 
+import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.model.Car;
 
 public class CarSearchContainer extends VerticalLayout implements Localizable {
 	
 	private static final long serialVersionUID = 1L;
-	private final Map<Car, CarOverview> resultsMap = new HashMap<>();
+	private final Map<CarOverview, Car> resultsMap = new HashMap<>();
 	
 	public void addItems(final List<Car> items) {
 		clear();
 		for (final Car item : items) {
 			final CarOverview overview = buildCarOverview(item);
+			overview.addEditListener(e -> App.getCurrent().navigateToCarPage(item.getId()));
 			this.addComponent(overview);
-			resultsMap.put(item, overview);
+			resultsMap.put(overview, item);
 		}
 		localize();
 	}
@@ -32,7 +35,7 @@ public class CarSearchContainer extends VerticalLayout implements Localizable {
 	
 	@Override
 	public void localize() {
-		resultsMap.values().forEach(overview -> overview.localize());	
+		resultsMap.keySet().forEach(overview -> overview.localize());	
 	}
 	
 	private CarOverview buildCarOverview(final Car car) {
@@ -53,23 +56,8 @@ public class CarSearchContainer extends VerticalLayout implements Localizable {
 			final String displayPrice = car.getPrice().getDiscountedPrice() + " €";
 			carOverview.setPrice(displayPrice);
 		}
+		final String path = "http://localhost/images/" + car.getId();
+		carOverview.setImageUrls(Arrays.asList(path + "/img1", path + "/img2"));
 		return carOverview;
 	}
-
-//	@Override
-//	public void replaceComponent(Component oldComponent, Component newComponent) {
-//		
-//	}
-//
-//	@Override
-//	public int getComponentCount() {
-//		return resultsMap.size();
-//	}
-//
-//	@Override
-//	public Iterator<Component> iterator() {
-//		Collection<Component> components = new ArrayList<Component>();
-//		resultsMap.values().forEach(overview -> components.add(overview));
-//		return components.iterator();
-//	}
 }

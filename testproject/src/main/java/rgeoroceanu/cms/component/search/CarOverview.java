@@ -1,23 +1,29 @@
 package rgeoroceanu.cms.component.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.vaadin.server.ExternalResource;
+import com.vaadin.server.Resource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
+import rgeoroceanu.cms.component.image.ImagePreview;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
 
 public class CarOverview extends CustomComponent implements Localizable {
 	
 	private static final long serialVersionUID = 1L;
-	private final Image imageField;
+	private final ImagePreview imageField;
 	private final Label titleField;
 	private final Label subtitleField;
 	private final Label priceField;
@@ -28,6 +34,10 @@ public class CarOverview extends CustomComponent implements Localizable {
 	private final Label transmissionField;
 	private final Label horsePowerField;
 	private final Button editButton;
+	
+	public interface EditListener {
+		public void edit();
+	}
 	
 	public CarOverview() {
 		imageField = initImageField();
@@ -56,12 +66,16 @@ public class CarOverview extends CustomComponent implements Localizable {
 		layout.addComponent(infoLayout);
 		layout.setExpandRatio(infoLayout, 1);
 		layout.setWidth(100, Unit.PERCENTAGE);
-		layout.setSpacing(false);
+		layout.setSpacing(true);
 		layout.setMargin(true);
 		final Panel panel = new Panel();
 		panel.setWidth(700, Unit.PIXELS);
 		panel.setContent(layout);
 		this.setCompositionRoot(panel);
+	}
+	
+	public void addEditListener(final ClickListener editListener) {
+		editButton.addClickListener(editListener);
 	}
 	
 	public void setTitle(final String title) {
@@ -86,6 +100,15 @@ public class CarOverview extends CustomComponent implements Localizable {
 		this.cubicCapacityField.setValue(cubicCapacity);
 		this.transmissionField.setValue(transmission);
 		this.horsePowerField.setValue(horsePower);
+	}
+	
+	public void setImageUrls(final List<String> imageUrls) {
+		final List<Resource> resources = new ArrayList<>();
+		for (final String url : imageUrls) {
+			final Resource resource = new ExternalResource(url);
+			resources.add(resource);
+		}
+		imageField.setImageResources(resources);
 	}
 	
 	private HorizontalLayout initHeader() {
@@ -121,8 +144,8 @@ public class CarOverview extends CustomComponent implements Localizable {
 		return propertiesLayout;
 	}
 	
-	private Image initImageField() {
-		final Image imageField = new Image();
+	private ImagePreview initImageField() {
+		final ImagePreview imageField = new ImagePreview();
 		imageField.setWidth(200, Unit.PIXELS);
 		imageField.setHeight(200, Unit.PIXELS);
 		return imageField;
@@ -143,7 +166,7 @@ public class CarOverview extends CustomComponent implements Localizable {
 	
 	private Label initPropertyLabel() {
 		final Label label = new Label();
-		label.addStyleName(ValoTheme.LABEL_TINY);
+		label.addStyleName(ValoTheme.LABEL_SMALL);
 		return label;
 	}
 

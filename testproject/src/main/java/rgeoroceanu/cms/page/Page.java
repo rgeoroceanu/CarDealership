@@ -125,7 +125,7 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		final Button addVehicleButton = new Button();
 		addVehicleButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		addVehicleButton.setHeight(70, Unit.PIXELS);
-		addVehicleButton.addClickListener(e -> App.getCurrent().navigateToCarPage());
+		addVehicleButton.addClickListener(e -> App.getCurrent().navigateToCarPage(null));
 		return addVehicleButton;
 	}
 	

@@ -20,6 +20,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
+import rgeoroceanu.cms.converter.DateToYearConverter;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
 import rgeoroceanu.model.type.CarType;
@@ -40,7 +41,7 @@ public class CarForm extends Form implements Localizable {
 	private final @PropertyId("model") TextField modelField;
 	private final @PropertyId("doors") OptionGroup doorsField;
 	private final @PropertyId("seats") ComboBox seatsField;
-	private final DateField registrationDateField;
+	private final @PropertyId("registrationYear") DateField registrationDateField;
 	private final @PropertyId("kilometers") TextField kilometersField;
 	private final @PropertyId("engine") ComboBox engineField;
 	private final @PropertyId("cubicCentimeters") TextField cubicCapacityField;
@@ -89,8 +90,9 @@ public class CarForm extends Form implements Localizable {
 		seatsField.setNullSelectionAllowed(false);
 		seatsField.setRequired(true);
 		registrationDateField = new InlineDateField();
-		registrationDateField.setResolution(Resolution.MONTH);
+		registrationDateField.setResolution(Resolution.YEAR);
 		registrationDateField.setRequired(true);
+		registrationDateField.setConverter(new DateToYearConverter());
 		kilometersField = new TextField();
 		kilometersField.addValidator(new IntegerRangeValidator("", 0, 1000000));
 		engineField = new ComboBox(null, Arrays.asList(Engine.values()));
@@ -126,11 +128,11 @@ public class CarForm extends Form implements Localizable {
 		currencyField.setRequired(true);
 		descriptionField = new TextArea();
 		descriptionField.setRows(6);
-		descriptionField.setWidth(200, Unit.PIXELS);
+		descriptionField.setWidth(400, Unit.PIXELS);
 		descriptionField.setNullRepresentation("");
 		shortDescriptionField = new TextArea();
 		shortDescriptionField.setRows(2);
-		shortDescriptionField.setWidth(200, Unit.PIXELS);
+		shortDescriptionField.setWidth(400, Unit.PIXELS);
 		shortDescriptionField.setNullRepresentation("");
 		
 		detailsPanel = new Panel();

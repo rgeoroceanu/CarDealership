@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.HorizontalLayout;
 
@@ -38,7 +37,7 @@ public class CarSearchPage extends Page implements SearchListener {
 	}
 
 	@Override
-	public void startSearch(CarSearchCriteria searchCriteria) throws InvalidValueException {
+	public void startSearch(CarSearchCriteria searchCriteria) {
 		final List<Car> results = dataService.getAllCarsBySearchCriteria(searchCriteria);
 		searchContainer.addItems(results);
 	}

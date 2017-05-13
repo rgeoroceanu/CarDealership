@@ -61,7 +61,7 @@ public class Car extends Base {
 	@Basic
 	private boolean sold;
 	@Embedded
-	private Price price;
+	private Price price = new Price();
 	@Lob
 	private LinkedHashSet<Feature> features = new LinkedHashSet<>();
 	@Column

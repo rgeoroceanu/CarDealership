@@ -51,8 +51,13 @@ public class App extends UI implements Localizable {
 		localizeRecursive(startPage);
 	}
 	
-	public void navigateToCarPage() {
-		navigator.navigateTo(CAR_EDIT_PAGE_NAV_NAME);
+	public void navigateToCarPage(Long carId) {
+		final StringBuilder path = new StringBuilder(CAR_EDIT_PAGE_NAV_NAME);
+		if (carId != null) {
+			path.append("/");
+			path.append(String.valueOf(carId));
+		}
+		navigator.navigateTo(path.toString());
 	}
 	
 	public void navigateToSearchPage() {

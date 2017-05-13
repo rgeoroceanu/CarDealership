@@ -16,5 +16,5 @@ public class Price {
 	@Basic
 	private int discountedPrice;
 	@Basic
-	private Currency currency;
+	private Currency currency = Currency.EURO;
 }

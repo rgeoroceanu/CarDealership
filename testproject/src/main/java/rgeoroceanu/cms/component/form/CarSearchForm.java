@@ -9,6 +9,7 @@ import com.vaadin.ui.DateField;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.TextField;
 
+import rgeoroceanu.cms.converter.DateToYearConverter;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
 import rgeoroceanu.model.type.Engine;
@@ -109,6 +110,7 @@ public class CarSearchForm extends GridLayout implements Localizable {
 		final DateField yearField = new DateField();
 		yearField.setResolution(Resolution.YEAR);
 		yearField.setWidth(110, Unit.PIXELS);
+		yearField.setConverter(new DateToYearConverter());
 		return yearField;
 	}
 
