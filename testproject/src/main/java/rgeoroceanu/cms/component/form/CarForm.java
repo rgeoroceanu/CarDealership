@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cms.component.form;
 
 import java.util.Arrays;
 
@@ -36,7 +36,7 @@ public class CarForm extends Form implements Localizable {
 	private static final long serialVersionUID = 1L;
 	
 	private final @PropertyId("carType") ComboBox typeField;
-	private final @PropertyId("marque") ComboBox marqueField;
+	private final @PropertyId("make") ComboBox marqueField;
 	private final @PropertyId("model") TextField modelField;
 	private final @PropertyId("doors") OptionGroup doorsField;
 	private final @PropertyId("seats") ComboBox seatsField;
@@ -222,7 +222,7 @@ public class CarForm extends Form implements Localizable {
 		originalPriceField.setCaption(Localizer.getLocalizedString("original_price"));
 		discountedPriceField.setCaption(Localizer.getLocalizedString("discounted_price"));
 		currencyField.setCaption(Localizer.getLocalizedString("currency"));
-		shortDescriptionField.setCaption(Localizer.getLocalizedString("shortDescription"));
+		shortDescriptionField.setCaption(Localizer.getLocalizedString("short_description"));
 		descriptionField.setCaption(Localizer.getLocalizedString("description"));
 		descriptionPanel.setCaption(Localizer.getLocalizedString("description"));
 	}

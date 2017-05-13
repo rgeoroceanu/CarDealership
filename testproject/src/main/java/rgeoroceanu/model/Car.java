@@ -1,7 +1,6 @@
 package rgeoroceanu.model;
 
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -30,7 +29,7 @@ public class Car extends Base {
 	
 	@Column
 	@Enumerated(EnumType.STRING)
-	private Make marque;
+	private Make make;
 	@Basic
 	private String model;
 	@Basic
@@ -56,15 +55,15 @@ public class Car extends Base {
 	@Enumerated(EnumType.STRING)
 	private State state;
 	@Lob
-	private Set<String> lowResImages = new LinkedHashSet<>();
+	private LinkedHashSet<String> lowResImages = new LinkedHashSet<>();
 	@Lob
-	private Set<String> highResImages = new LinkedHashSet<>();
+	private LinkedHashSet<String> highResImages = new LinkedHashSet<>();
 	@Basic
 	private boolean sold;
 	@Embedded
 	private Price price;
 	@Lob
-	private Set<Feature> features = new LinkedHashSet<>();
+	private LinkedHashSet<Feature> features = new LinkedHashSet<>();
 	@Column
 	@Enumerated(EnumType.STRING)
 	private CarType carType;

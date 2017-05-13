@@ -4,47 +4,42 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.HorizontalLayout;
 
-import rgeoroceanu.cms.layout.CarOverview;
+import rgeoroceanu.cms.component.search.CarSearchBox;
+import rgeoroceanu.cms.component.search.CarSearchBox.SearchListener;
+import rgeoroceanu.cms.component.search.CarSearchContainer;
 import rgeoroceanu.model.Car;
+import rgeoroceanu.model.CarSearchCriteria;
 
 @Component
-public class CarSearchPage extends Page {
+public class CarSearchPage extends Page implements SearchListener {
 	
 	private static final long serialVersionUID = 1L;
-	private final VerticalLayout itemsLayout;
+	private final CarSearchContainer searchContainer;
+	private final CarSearchBox searchBox;
 	
 	public CarSearchPage() {
 		super();
-		itemsLayout = new VerticalLayout();
-		this.setContent(itemsLayout);
+		searchContainer = new CarSearchContainer();
+		searchBox = new CarSearchBox();
+		searchBox.setSearchListener(this);
+		final HorizontalLayout layout = new HorizontalLayout();
+		layout.addComponent(searchBox);
+		layout.addComponent(searchContainer);
+		this.setContent(layout);
 	}
 	
 	@Override
 	public void enter(ViewChangeEvent event) { 
-		final List<Car> cars = dataService.getAllCars();
-		setResultsList(cars);
+		searchContainer.clear();
 	}
-	
-	private void setResultsList(final List<Car> resultsList) {
-		itemsLayout.removeAllComponents();
-		for (Car car : resultsList) {
-			final CarOverview carOverview = buildCarOverview(car);
-			itemsLayout.addComponent(carOverview);
-		}
-	}
-	
-	private CarOverview buildCarOverview(final Car car) {
-		final CarOverview carOverview = new CarOverview();
-		carOverview.setTitle(car.getMarque() + " " + car.getModel());
-		carOverview.setSubtitle(car.getShortDescription());
-		carOverview.setDetails(car.getState().toString(), car.getRegistrationMonth() 
-				+ "/" + car.getRegistrationYear(), car.getEngine().toString(), String.valueOf(car.getCubicCentimeters()), 
-				car.getTransmission().toString(), String.valueOf(car.getHorsePower()), String.valueOf(car.getDoors()));
-		carOverview.setPrice("49000 €", "55000 €");
-		carOverview.localize();
-		return carOverview;
+
+	@Override
+	public void startSearch(CarSearchCriteria searchCriteria) throws InvalidValueException {
+		final List<Car> results = dataService.getAllCarsBySearchCriteria(searchCriteria);
+		searchContainer.addItems(results);
 	}
 }

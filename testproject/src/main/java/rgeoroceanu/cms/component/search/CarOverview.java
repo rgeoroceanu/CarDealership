@@ -1,6 +1,8 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cms.component.search;
 
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
@@ -12,39 +14,43 @@ import com.vaadin.ui.themes.ValoTheme;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
 
-public class CarOverview extends Panel implements Localizable {
+public class CarOverview extends CustomComponent implements Localizable {
 	
 	private static final long serialVersionUID = 1L;
 	private final Image imageField;
 	private final Label titleField;
 	private final Label subtitleField;
-	private final Label discountedPriceField;
+	private final Label priceField;
 	private final Label stateField;
 	private final Label registrationDateField;
 	private final Label engineField;
 	private final Label cubicCapacityField;
 	private final Label transmissionField;
 	private final Label horsePowerField;
+	private final Button editButton;
 	
 	public CarOverview() {
 		imageField = initImageField();
 		titleField = initTitleLabel();
 		subtitleField = initSubtitleLabel();
-		discountedPriceField = initTitleLabel();
+		priceField = initTitleLabel();
 		stateField = initPropertyLabel();
 		registrationDateField = initPropertyLabel();
 		engineField = initPropertyLabel();
 		cubicCapacityField = initPropertyLabel();
 		transmissionField = initPropertyLabel();
 		horsePowerField = initPropertyLabel();
+		editButton = initEditButton();
 		final HorizontalLayout headerLayout = initHeader();
 		final VerticalLayout infoLayout = new VerticalLayout();
 		final HorizontalLayout propertiesLayout = initPropertiesLayout();
 		infoLayout.addComponent(headerLayout);
 		infoLayout.addComponent(subtitleField);
 		infoLayout.addComponent(propertiesLayout);
+		infoLayout.addComponent(editButton);
 		infoLayout.setSpacing(false);
 		infoLayout.setMargin(false);
+		infoLayout.setComponentAlignment(editButton, Alignment.BOTTOM_RIGHT);
 		final HorizontalLayout layout = new HorizontalLayout();
 		layout.addComponent(imageField);
 		layout.addComponent(infoLayout);
@@ -52,8 +58,10 @@ public class CarOverview extends Panel implements Localizable {
 		layout.setWidth(100, Unit.PERCENTAGE);
 		layout.setSpacing(false);
 		layout.setMargin(true);
-		this.setWidth(700, Unit.PIXELS);
-		this.setContent(layout);
+		final Panel panel = new Panel();
+		panel.setWidth(700, Unit.PIXELS);
+		panel.setContent(layout);
+		this.setCompositionRoot(panel);
 	}
 	
 	public void setTitle(final String title) {
@@ -64,13 +72,13 @@ public class CarOverview extends Panel implements Localizable {
 		this.subtitleField.setValue(subtitle);
 	}
 	
-	public void setPrice(final String discountedPrice, final String originalPrice) {
-		this.discountedPriceField.setValue(discountedPrice);
+	public void setPrice(final String price) {
+		this.priceField.setValue(price);
 	}
 	
 	public void setDetails(final String state, final String registrationDate, 
 			final String engine, final String cubicCapacity, final String transmission, 
-			final String horsePower, final String doors) {
+			final String horsePower) {
 		
 		this.stateField.setValue(state);
 		this.registrationDateField.setValue(registrationDate);
@@ -83,8 +91,8 @@ public class CarOverview extends Panel implements Localizable {
 	private HorizontalLayout initHeader() {
 		final HorizontalLayout headerLayout = new HorizontalLayout();
 		headerLayout.addComponent(titleField);
-		headerLayout.addComponent(discountedPriceField);
-		headerLayout.setComponentAlignment(discountedPriceField, Alignment.MIDDLE_RIGHT);
+		headerLayout.addComponent(priceField);
+		headerLayout.setComponentAlignment(priceField, Alignment.MIDDLE_RIGHT);
 		headerLayout.setWidth(100, Unit.PERCENTAGE);
 		headerLayout.setSpacing(false);
 		headerLayout.setMargin(false);
@@ -110,7 +118,6 @@ public class CarOverview extends Panel implements Localizable {
 		propertiesFormLayout2.setSpacing(false);
 		propertiesFormLayout1.setMargin(false);
 		propertiesFormLayout2.setMargin(false);
-		propertiesLayout.setMargin(true);
 		return propertiesLayout;
 	}
 	
@@ -123,7 +130,7 @@ public class CarOverview extends Panel implements Localizable {
 	
 	private Label initTitleLabel() {
 		final Label label = new Label();
-		label.addStyleName(ValoTheme.LABEL_H3);
+		label.addStyleName(ValoTheme.LABEL_LARGE);
 		label.setWidthUndefined();
 		return label;
 	}
@@ -136,10 +143,16 @@ public class CarOverview extends Panel implements Localizable {
 	
 	private Label initPropertyLabel() {
 		final Label label = new Label();
-		label.addStyleName(ValoTheme.LABEL_SMALL);
+		label.addStyleName(ValoTheme.LABEL_TINY);
 		return label;
 	}
 
+	private Button initEditButton() {
+		final Button button = new Button();
+		button.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		return button;
+	}
+	
 	@Override
 	public void localize() {
 		this.stateField.setCaption(Localizer.getLocalizedString("state"));
@@ -148,5 +161,6 @@ public class CarOverview extends Panel implements Localizable {
 		this.cubicCapacityField.setCaption(Localizer.getLocalizedString("cubic_capacity"));
 		this.transmissionField.setCaption(Localizer.getLocalizedString("transmission"));
 		this.horsePowerField.setCaption(Localizer.getLocalizedString("horse_power"));
+		this.editButton.setCaption(Localizer.getLocalizedString("edit"));
 	}
 }

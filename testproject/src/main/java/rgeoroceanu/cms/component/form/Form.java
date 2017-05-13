@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cms.component.form;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -16,9 +16,6 @@ public abstract class Form extends VerticalLayout implements Localizable {
 	private final Button saveButton;
 	private final Button discardButton;
 	private final Button removeButton;
-	private SaveButtonListener saveButtonListener;
-	private RemoveButtonListener removeButtonListener;
-	private DiscardButtonListener discardButtonListener;
 	
 	public interface SaveButtonListener {
 		public void handleSave();
@@ -49,19 +46,16 @@ public abstract class Form extends VerticalLayout implements Localizable {
 	}
 	
 	public void setSaveButtonListener(final SaveButtonListener saveButtonListener) {
-		this.saveButtonListener = saveButtonListener;
 		saveButton.getListeners(ClickEvent.class).forEach(listener -> saveButton.removeClickListener((ClickListener) listener));
 		saveButton.addClickListener(listener -> saveButtonListener.handleSave());
 	}
 	
 	public void setRemoveButtonListener(final RemoveButtonListener removeButtonListener) {
-		this.removeButtonListener = removeButtonListener;
 		removeButton.getListeners(ClickEvent.class).forEach(listener -> removeButton.removeClickListener((ClickListener) listener));
 		removeButton.addClickListener(listener -> removeButtonListener.handleRemove());
 	}
 	
 	public void setDiscardButtonListener(final DiscardButtonListener discardButtonListener) {
-		this.discardButtonListener = discardButtonListener;
 		discardButton.getListeners(ClickEvent.class).forEach(listener -> discardButton.removeClickListener((ClickListener) listener));
 		discardButton.addClickListener(listener -> discardButtonListener.handleDiscard());
 	}
@@ -73,18 +67,6 @@ public abstract class Form extends VerticalLayout implements Localizable {
 		discardButton.setEnabled(saveButtonEnabled);
 		removeButton.setEnabled(saveButtonEnabled);
 	}
-	
-	public SaveButtonListener getSaveButtonListener() {
-		return saveButtonListener;
-	}
-
-	public RemoveButtonListener getRemoveButtonListener() {
-		return removeButtonListener;
-	}
-
-	public DiscardButtonListener getDiscardButtonListener() {
-		return discardButtonListener;
-	}
 
 	@Override
 	public void localize() {
@@ -92,5 +74,4 @@ public abstract class Form extends VerticalLayout implements Localizable {
 		discardButton.setCaption(Localizer.getLocalizedString("discard"));
 		removeButton.setCaption(Localizer.getLocalizedString("remove"));
 	}
-	
 }

@@ -7,10 +7,10 @@ import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
-import rgeoroceanu.cms.layout.CarForm;
-import rgeoroceanu.cms.layout.Form.DiscardButtonListener;
-import rgeoroceanu.cms.layout.Form.RemoveButtonListener;
-import rgeoroceanu.cms.layout.Form.SaveButtonListener;
+import rgeoroceanu.cms.component.form.CarForm;
+import rgeoroceanu.cms.component.form.Form.DiscardButtonListener;
+import rgeoroceanu.cms.component.form.Form.RemoveButtonListener;
+import rgeoroceanu.cms.component.form.Form.SaveButtonListener;
 import rgeoroceanu.model.Car;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
 

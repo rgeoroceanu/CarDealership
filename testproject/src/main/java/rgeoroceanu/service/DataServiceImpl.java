@@ -1,12 +1,19 @@
 package rgeoroceanu.service;
 
-import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Preconditions;
+
 import rgeoroceanu.model.Car;
+import rgeoroceanu.model.CarSearchCriteria;
 import rgeoroceanu.model.Price;
+import rgeoroceanu.model.access.CarDao;
+import rgeoroceanu.model.access.CarSearchSpecification;
 import rgeoroceanu.model.type.CarType;
 import rgeoroceanu.model.type.Currency;
 import rgeoroceanu.model.type.Engine;
@@ -17,20 +24,17 @@ import rgeoroceanu.service.exception.DataDoesNotExistException;
 
 @Service
 public class DataServiceImpl implements DataService {
-
-	@Override
-	public Car getCar(Long id) throws DataDoesNotExistException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Car> getAllCars() {
+	
+	@Autowired
+	private CarDao carDao;
+	
+	@PostConstruct
+	public void init() {
 		final Car car1 = new Car();
 		car1.setCarType(CarType.SALOON);
 		car1.setModel("330i");
 		car1.setCubicCentimeters(2000);
-		car1.setMarque(Make.BMW);
+		car1.setMake(Make.BMW);
 		car1.setShortDescription("Test desc 1");
 		car1.setDoors(2);
 		car1.setEngine(Engine.PETROL);
@@ -48,7 +52,7 @@ public class DataServiceImpl implements DataService {
 		car2.setCarType(CarType.SALOON);
 		car2.setCubicCentimeters(3500);
 		car2.setModel("Freelander");
-		car2.setMarque(Make.LANDROVER);
+		car2.setMake(Make.LANDROVER);
 		car2.setShortDescription("Test desc 2");
 		car2.setDoors(4);
 		car2.setEngine(Engine.PETROL);
@@ -62,19 +66,36 @@ public class DataServiceImpl implements DataService {
 		p2.setOriginalPrice(49000);
 		p2.setDiscountedPrice(44900);
 		car2.setPrice(p2);
-		return Arrays.asList(car1, car2);
+		this.saveCar(car1);
+		this.saveCar(car2);
+	}
+	
+	@Override
+	public Car getCar(Long id) throws DataDoesNotExistException {
+		Preconditions.checkNotNull(id, "Id must not be null!");
+		return carDao.findOne(id);
 	}
 
+	@Override
+	public List<Car> getAllCars() {
+		return carDao.findAll();
+	}
+	
+	@Override
+	public List<Car> getAllCarsBySearchCriteria(CarSearchCriteria searchCriteria) {
+		Preconditions.checkNotNull(searchCriteria, "Search criteria must not be null!");
+		return carDao.findAll(new CarSearchSpecification(searchCriteria));
+	}
+	
 	@Override
 	public Car saveCar(Car car) {
-		// TODO Auto-generated method stub
-		return null;
+		Preconditions.checkNotNull(car, "Car must not be null!");
+		return carDao.saveAndFlush(car);
 	}
 
 	@Override
-	public void removeCar(Long carId) throws DataDoesNotExistException {
-		// TODO Auto-generated method stub
-		
+	public void removeCar(Long id) throws DataDoesNotExistException {
+		Preconditions.checkNotNull(id, "Id must not be null!");
+		carDao.delete(id);
 	}
-
 }
