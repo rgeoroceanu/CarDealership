@@ -63,7 +63,7 @@ public class ImagePreview extends CustomComponent {
 	private Button initLeftButton() {
 		final Button button = new Button();
 		button.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
-		button.setIcon(FontAwesome.ARROW_LEFT);
+		button.setIcon(FontAwesome.ANGLE_LEFT);
 		button.addClickListener(e -> {
 			decrementIndex();
 			displayImage(currentIndex);
@@ -74,7 +74,7 @@ public class ImagePreview extends CustomComponent {
 	private Button initRightButton() {
 		final Button button = new Button();
 		button.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
-		button.setIcon(FontAwesome.ARROW_RIGHT);
+		button.setIcon(FontAwesome.ANGLE_RIGHT);
 		button.addClickListener(e -> {
 			incrementIndex();
 			displayImage(currentIndex);

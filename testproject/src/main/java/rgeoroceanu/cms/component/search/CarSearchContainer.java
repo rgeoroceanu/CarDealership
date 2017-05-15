@@ -26,6 +26,7 @@ public class CarSearchContainer extends VerticalLayout implements Localizable {
 			resultsMap.put(overview, item);
 		}
 		localize();
+		this.setSpacing(true);
 	}
 	
 	public void clear() {
@@ -56,8 +57,8 @@ public class CarSearchContainer extends VerticalLayout implements Localizable {
 			final String displayPrice = car.getPrice().getDiscountedPrice() + " €";
 			carOverview.setPrice(displayPrice);
 		}
-		final String path = "http://localhost/images/" + car.getId();
-		carOverview.setImageUrls(Arrays.asList(path + "/img1", path + "/img2"));
+		carOverview.setImageUrls(Arrays.asList("https://data.motor-talk.de/data/galleries/0/160/2907/69570746/url-3010870319480993900-7706099403658557496.jpg", 
+				"https://img.bmw-syndikat.de/gallery/196/502/943027_bmw-syndikat_bild_high.jpg"));
 		return carOverview;
 	}
 }

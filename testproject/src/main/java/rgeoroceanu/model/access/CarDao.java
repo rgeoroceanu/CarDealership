@@ -8,5 +8,4 @@ import rgeoroceanu.model.Car;
 
 @Repository
 public interface CarDao extends JpaRepository<Car, Long>, JpaSpecificationExecutor<Car> {
-	
 }

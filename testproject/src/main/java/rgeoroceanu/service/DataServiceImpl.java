@@ -5,6 +5,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
@@ -97,5 +100,12 @@ public class DataServiceImpl implements DataService {
 	public void removeCar(Long id) throws DataDoesNotExistException {
 		Preconditions.checkNotNull(id, "Id must not be null!");
 		carDao.delete(id);
+	}
+
+	@Override
+	public List<Car> getLatestCars(int resultsLimit) {
+		final Pageable pageRequest = new PageRequest(0, resultsLimit);
+		final Page<Car> page = carDao.findAll(pageRequest);
+		return page.getContent();
 	}
 }

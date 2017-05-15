@@ -1,0 +1,8 @@
+<module>
+	<!-- Inherit the default widget set -->
+	
+
+    <inherits name="com.vaadin.addon.charts.Widgetset" />
+
+    <inherits name="com.vaadin.DefaultWidgetSet" />
+</module>

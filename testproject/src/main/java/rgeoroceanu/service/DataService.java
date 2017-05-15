@@ -12,4 +12,5 @@ public interface DataService {
 	public Car saveCar(final Car car);
 	public void removeCar(final Long carId) throws DataDoesNotExistException;
 	public List<Car> getAllCarsBySearchCriteria(CarSearchCriteria searchCriteria);
+	public List<Car> getLatestCars(final int resultsLimit);
 }

@@ -3,6 +3,7 @@ package rgeoroceanu.cms;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Widgetset;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -17,6 +18,7 @@ import rgeoroceanu.cms.page.StartPage;
 
 @SpringUI
 @Theme("cms")
+@Widgetset("rgeoroceanu.cms.widgetset.AppWidgetSet")
 public class App extends UI implements Localizable {
 	private static final long serialVersionUID = 1L;
 	private static final String START_PAGE_NAV_NAME = "start";
@@ -37,6 +39,7 @@ public class App extends UI implements Localizable {
 		navigator.addView(CAR_EDIT_PAGE_NAV_NAME, carEditPage);
 		navigator.addView(CAR_SEARCH_PAGE_NAV_NAME, carSearchPage);
 		navigator.navigateTo(START_PAGE_NAV_NAME);
+		// TODO add error page
         localize();
     }
 	

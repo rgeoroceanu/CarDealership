@@ -28,6 +28,8 @@ public class CarSearchPage extends Page implements SearchListener {
 		final HorizontalLayout layout = new HorizontalLayout();
 		layout.addComponent(searchBox);
 		layout.addComponent(searchContainer);
+		layout.setSpacing(true);
+		layout.setMargin(true);
 		this.setContent(layout);
 	}
 	
