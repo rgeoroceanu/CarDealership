@@ -20,6 +20,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
+import rgeoroceanu.cms.component.image.ImagesComponent;
 import rgeoroceanu.cms.converter.DateToYearConverter;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
@@ -49,7 +50,7 @@ public class CarForm extends Form implements Localizable {
 	private final @PropertyId("transmission") ComboBox transmissionField;
 	private final @PropertyId("color") ColorPicker colorField;
 	private final @PropertyId("state") ComboBox stateField;
-	// TODO upload component for multiple images
+	private final ImagesComponent imagesComponent;
 	private final @PropertyId("price.originalPrice") TextField originalPriceField;
 	private final @PropertyId("price.discountedPrice") TextField discountedPriceField;
 	private final @PropertyId("price.currency") ComboBox currencyField;
@@ -63,77 +64,27 @@ public class CarForm extends Form implements Localizable {
 	private final Panel descriptionPanel;
 	
 	public CarForm() {
-		typeField = new ComboBox(null, Arrays.asList(CarType.values()));
-		typeField.setTextInputAllowed(false);
-		typeField.setNullSelectionAllowed(false);
-		typeField.setRequired(true);
-		marqueField = new ComboBox(null, Arrays.asList(Make.values()));
-		marqueField.setTextInputAllowed(false);
-		marqueField.setNullSelectionAllowed(false);
-		marqueField.setRequired(true);
-		modelField = new TextField();
-		modelField.setRequired(true);
-		modelField.setNullRepresentation("");
-		featuresField = new OptionGroup();
-		featuresField.setMultiSelect(true);
-		featuresField.addStyleName("multicol");
-		featuresField.addItems(Arrays.asList(Feature.values()));
-		featuresField.setWidth(907, Unit.PIXELS);
-		transmissionField = new ComboBox(null, Arrays.asList(Transmission.values()));	
-		transmissionField.setTextInputAllowed(false);
-		transmissionField.setNullSelectionAllowed(false);
-		transmissionField.setRequired(true);
-		doorsField = new OptionGroup(null, Arrays.asList(2, 3, 5));
-		doorsField.setRequired(true);
-		seatsField = new ComboBox(null, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
-		seatsField.setTextInputAllowed(false);
-		seatsField.setNullSelectionAllowed(false);
-		seatsField.setRequired(true);
-		registrationDateField = new InlineDateField();
-		registrationDateField.setResolution(Resolution.YEAR);
-		registrationDateField.setRequired(true);
-		registrationDateField.setConverter(new DateToYearConverter());
-		kilometersField = new TextField();
-		kilometersField.addValidator(new IntegerRangeValidator("", 0, 1000000));
-		engineField = new ComboBox(null, Arrays.asList(Engine.values()));
-		engineField.setTextInputAllowed(false);
-		engineField.setNullSelectionAllowed(false);
-		engineField.setRequired(true);
-		cubicCapacityField = new TextField();
-		cubicCapacityField.addValidator(new IntegerRangeValidator("", 299, 15000));
-		cubicCapacityField.setRequired(true);
-		horsePowerField = new TextField();
-		horsePowerField.addValidator(new IntegerRangeValidator("", 0, 1000));
-		horsePowerField.setRequired(true);
-		colorField = new ColorPicker();
-		colorField.setHSVVisibility(false);
-		colorField.setRGBVisibility(false);
-		colorField.setTextfieldVisibility(false);
-		colorField.setPopupStyle(PopupStyle.POPUP_SIMPLE);
-		stateField = new ComboBox(null, Arrays.asList(State.values()));
-		stateField.setTextInputAllowed(false);
-		stateField.setNullSelectionAllowed(false);
-		stateField.setRequired(true);
-		originalPriceField = new TextField();
-		originalPriceField.setRequired(true);
-		originalPriceField.addValidator(new IntegerRangeValidator("", 0, 100000));
-		originalPriceField.setNullRepresentation("");
-		discountedPriceField = new TextField();
-		discountedPriceField.addValidator(new IntegerRangeValidator("", 0, 100000));
-		discountedPriceField.setRequired(true);
-		discountedPriceField.setNullRepresentation("");
-		currencyField = new ComboBox(null, Arrays.asList(Currency.values()));
-		currencyField.setTextInputAllowed(false);
-		currencyField.setNullSelectionAllowed(false);
-		currencyField.setRequired(true);
-		descriptionField = new TextArea();
-		descriptionField.setRows(6);
-		descriptionField.setWidth(400, Unit.PIXELS);
-		descriptionField.setNullRepresentation("");
-		shortDescriptionField = new TextArea();
+		imagesComponent = initImagesComponent();
+		typeField = initTypeField();
+		marqueField = initMarqueField();
+		modelField = initModelField();
+		featuresField = initFeaturesField();
+		transmissionField = initTransmissionField();
+		doorsField = initDoorsField();
+		seatsField = initSeatsField();
+		registrationDateField = initRegistrationDateField();
+		kilometersField = initKilometersField();
+		engineField = initEngineField();
+		cubicCapacityField = initCapacityField();
+		horsePowerField = initPowerField();
+		colorField = initColorField();
+		stateField = initStateField();
+		originalPriceField = initPriceField();
+		discountedPriceField = initPriceField();
+		currencyField = initCurrencyField();
+		descriptionField = initDescriptionField();
+		shortDescriptionField = initDescriptionField();
 		shortDescriptionField.setRows(2);
-		shortDescriptionField.setWidth(400, Unit.PIXELS);
-		shortDescriptionField.setNullRepresentation("");
 		
 		detailsPanel = new Panel();
 		pricingPanel = new Panel();
@@ -141,14 +92,55 @@ public class CarForm extends Form implements Localizable {
 		featuresPanel = new Panel();
 		descriptionPanel = new Panel();
 		
-		HorizontalLayout detailsLayout = new HorizontalLayout();
-		FormLayout detailsFormLayout1 = new FormLayout();
-		FormLayout detailsFormLayout2 = new FormLayout();
-		HorizontalLayout pricingLayout = new HorizontalLayout();
-		FormLayout pricingFormLayout1 = new FormLayout();
-		FormLayout pricingFormLayout2 = new FormLayout();
-		FormLayout featuresLayout = new FormLayout();
-		FormLayout descriptionLayout = new FormLayout();
+		setupLayout();
+		
+		this.addComponent(imagesPanel);
+		this.addComponent(detailsPanel);
+		this.addComponent(featuresPanel);
+		this.addComponent(pricingPanel);
+		this.addComponent(descriptionPanel);
+		this.setSpacing(true);
+	}
+	
+	public ImagesComponent getImagesComponent() {
+		return imagesComponent;
+	}
+	
+	@Override
+	public void localize() {
+		super.localize();
+		typeField.setCaption(Localizer.getLocalizedString("type"));
+		marqueField.setCaption(Localizer.getLocalizedString("marque"));
+		modelField.setCaption(Localizer.getLocalizedString("model"));
+		detailsPanel.setCaption(Localizer.getLocalizedString("details"));
+		featuresPanel.setCaption(Localizer.getLocalizedString("features"));
+		pricingPanel.setCaption(Localizer.getLocalizedString("pricing"));
+		imagesPanel.setCaption(Localizer.getLocalizedString("images"));
+		registrationDateField.setCaption(Localizer.getLocalizedString("registration_date"));
+		stateField.setCaption(Localizer.getLocalizedString("state"));
+		engineField.setCaption(Localizer.getLocalizedString("engine"));
+		cubicCapacityField.setCaption(Localizer.getLocalizedString("cubic_capacity"));
+		transmissionField.setCaption(Localizer.getLocalizedString("transmission"));
+		doorsField.setCaption(Localizer.getLocalizedString("doors"));
+		seatsField.setCaption(Localizer.getLocalizedString("seats"));
+		colorField.setCaption(Localizer.getLocalizedString("color"));
+		originalPriceField.setCaption(Localizer.getLocalizedString("original_price"));
+		discountedPriceField.setCaption(Localizer.getLocalizedString("discounted_price"));
+		currencyField.setCaption(Localizer.getLocalizedString("currency"));
+		shortDescriptionField.setCaption(Localizer.getLocalizedString("short_description"));
+		descriptionField.setCaption(Localizer.getLocalizedString("description"));
+		descriptionPanel.setCaption(Localizer.getLocalizedString("description"));
+	}
+	
+	private void setupLayout() {
+		final HorizontalLayout detailsLayout = new HorizontalLayout();
+		final FormLayout detailsFormLayout1 = new FormLayout();
+		final FormLayout detailsFormLayout2 = new FormLayout();
+		final HorizontalLayout pricingLayout = new HorizontalLayout();
+		final FormLayout pricingFormLayout1 = new FormLayout();
+		final FormLayout pricingFormLayout2 = new FormLayout();
+		final FormLayout featuresLayout = new FormLayout();
+		final FormLayout descriptionLayout = new FormLayout();
 		
 		detailsFormLayout1.addComponent(typeField);
 		detailsFormLayout1.addComponent(marqueField);
@@ -190,43 +182,149 @@ public class CarForm extends Form implements Localizable {
 		pricingFormLayout2.setSpacing(true);
 		featuresLayout.setSpacing(true);
 		featuresLayout.setMargin(true);
+		descriptionLayout.setSpacing(true);
+		descriptionLayout.setMargin(true);
 		featuresPanel.setContent(featuresLayout);
 		detailsPanel.setContent(detailsLayout);
 		pricingPanel.setContent(pricingLayout);
 		descriptionPanel.setContent(descriptionLayout);
-		
-		this.addComponent(detailsPanel);
-		this.addComponent(featuresPanel);
-		this.addComponent(imagesPanel);
-		this.addComponent(pricingPanel);
-		this.addComponent(descriptionPanel);
+		imagesPanel.setContent(imagesComponent);
+	}
+	
+	private ImagesComponent initImagesComponent() {
+		final ImagesComponent imagesComponent = new ImagesComponent();
+		return imagesComponent;
+	}
+	
+	private ComboBox initTypeField() {
+		final ComboBox typeField = new ComboBox(null, Arrays.asList(CarType.values()));
+		typeField.setTextInputAllowed(false);
+		typeField.setNullSelectionAllowed(false);
+		typeField.setRequired(true);
+		return typeField;
+	}
+	
+	private ComboBox initMarqueField() {
+		final ComboBox marqueField = new ComboBox(null, Arrays.asList(Make.values()));
+		marqueField.setTextInputAllowed(false);
+		marqueField.setNullSelectionAllowed(false);
+		marqueField.setRequired(true);
+		return marqueField;
+	}
+	
+	private TextField initModelField() {
+		final TextField modelField = new TextField();
+		modelField.setRequired(true);
+		modelField.setNullRepresentation("");
+		return modelField;
 		
 	}
 	
-	@Override
-	public void localize() {
-		super.localize();
-		typeField.setCaption(Localizer.getLocalizedString("type"));
-		marqueField.setCaption(Localizer.getLocalizedString("marque"));
-		modelField.setCaption(Localizer.getLocalizedString("model"));
-		detailsPanel.setCaption(Localizer.getLocalizedString("details"));
-		featuresPanel.setCaption(Localizer.getLocalizedString("features"));
-		pricingPanel.setCaption(Localizer.getLocalizedString("pricing"));
-		imagesPanel.setCaption(Localizer.getLocalizedString("images"));
-		registrationDateField.setCaption(Localizer.getLocalizedString("registration_date"));
-		stateField.setCaption(Localizer.getLocalizedString("state"));
-		engineField.setCaption(Localizer.getLocalizedString("engine"));
-		cubicCapacityField.setCaption(Localizer.getLocalizedString("cubic_capacity"));
-		transmissionField.setCaption(Localizer.getLocalizedString("transmission"));
-		doorsField.setCaption(Localizer.getLocalizedString("doors"));
-		seatsField.setCaption(Localizer.getLocalizedString("seats"));
-		colorField.setCaption(Localizer.getLocalizedString("color"));
-		originalPriceField.setCaption(Localizer.getLocalizedString("original_price"));
-		discountedPriceField.setCaption(Localizer.getLocalizedString("discounted_price"));
-		currencyField.setCaption(Localizer.getLocalizedString("currency"));
-		shortDescriptionField.setCaption(Localizer.getLocalizedString("short_description"));
-		descriptionField.setCaption(Localizer.getLocalizedString("description"));
-		descriptionPanel.setCaption(Localizer.getLocalizedString("description"));
+	private OptionGroup initFeaturesField() {
+		final OptionGroup featuresField = new OptionGroup();
+		featuresField.setMultiSelect(true);
+		featuresField.addStyleName("multicol");
+		featuresField.addItems(Arrays.asList(Feature.values()));
+		featuresField.setWidth(907, Unit.PIXELS);
+		return featuresField;
 	}
 	
+	private ComboBox initTransmissionField() {
+		final ComboBox transmissionField = new ComboBox(null, Arrays.asList(Transmission.values()));	
+		transmissionField.setTextInputAllowed(false);
+		transmissionField.setNullSelectionAllowed(false);
+		transmissionField.setRequired(true);
+		return transmissionField;
+	}
+	
+	private OptionGroup initDoorsField() {
+		final OptionGroup doorsField = new OptionGroup(null, Arrays.asList(2, 3, 5));
+		doorsField.setRequired(true);
+		return doorsField;
+	}
+	
+	private ComboBox initSeatsField() {
+		final ComboBox seatsField = new ComboBox(null, Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+		seatsField.setTextInputAllowed(false);
+		seatsField.setNullSelectionAllowed(false);
+		seatsField.setRequired(true);
+		return seatsField;
+	}
+	
+	private DateField initRegistrationDateField() {
+		final DateField registrationDateField = new InlineDateField();
+		registrationDateField.setResolution(Resolution.YEAR);
+		registrationDateField.setRequired(true);
+		registrationDateField.setConverter(new DateToYearConverter());
+		return registrationDateField;
+	}
+	
+	private TextField initKilometersField() {
+		final TextField kilometersField = new TextField();
+		kilometersField.addValidator(new IntegerRangeValidator("", 0, 1000000));
+		return kilometersField;
+	}
+	
+	private ComboBox initEngineField() {
+		final ComboBox engineField = new ComboBox(null, Arrays.asList(Engine.values()));
+		engineField.setTextInputAllowed(false);
+		engineField.setNullSelectionAllowed(false);
+		engineField.setRequired(true);
+		return engineField;
+	}
+	
+	private TextField initCapacityField() {
+		final TextField capacityField = new TextField();
+		capacityField.addValidator(new IntegerRangeValidator("", 299, 15000));
+		capacityField.setRequired(true);
+		return capacityField;
+	}
+	
+	private TextField initPowerField() {
+		final TextField powerField = new TextField();
+		powerField.addValidator(new IntegerRangeValidator("", 0, 1000));
+		powerField.setRequired(true);
+		return powerField;
+	}
+	
+	private ColorPicker initColorField() {
+		final ColorPicker colorField = new ColorPicker();
+		colorField.setHSVVisibility(false);
+		colorField.setRGBVisibility(false);
+		colorField.setTextfieldVisibility(false);
+		colorField.setPopupStyle(PopupStyle.POPUP_SIMPLE);
+		return colorField;
+	}
+	
+	private ComboBox initStateField() {
+		final ComboBox stateField = new ComboBox(null, Arrays.asList(State.values()));
+		stateField.setTextInputAllowed(false);
+		stateField.setNullSelectionAllowed(false);
+		stateField.setRequired(true);
+		return stateField;
+	}
+	
+	private TextField initPriceField() {
+		final TextField priceField = new TextField();
+		priceField.setRequired(true);
+		priceField.addValidator(new IntegerRangeValidator("", 0, 100000));
+		priceField.setNullRepresentation("");
+		return priceField;
+	}
+	
+	private ComboBox initCurrencyField() {
+		final ComboBox currencyField = new ComboBox(null, Arrays.asList(Currency.values()));
+		currencyField.setTextInputAllowed(false);
+		currencyField.setNullSelectionAllowed(false);
+		currencyField.setRequired(true);
+		return currencyField;
+	}
+	
+	private TextArea initDescriptionField() {
+		final TextArea descriptionField = new TextArea();
+		descriptionField.setRows(6);
+		descriptionField.setWidth(600, Unit.PIXELS);
+		descriptionField.setNullRepresentation("");
+		return descriptionField;
+	}
 }

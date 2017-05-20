@@ -14,7 +14,7 @@ import rgeoroceanu.model.Car;
 import rgeoroceanu.model.CarSearchCriteria;
 
 @Component
-public class CarSearchPage extends Page implements SearchListener {
+public class CarSearchPage extends Page {
 	
 	private static final long serialVersionUID = 1L;
 	private final CarSearchContainer searchContainer;
@@ -24,7 +24,7 @@ public class CarSearchPage extends Page implements SearchListener {
 		super();
 		searchContainer = new CarSearchContainer();
 		searchBox = new CarSearchBox();
-		searchBox.setSearchListener(this);
+		searchBox.setSearchListener(searchListener);
 		final HorizontalLayout layout = new HorizontalLayout();
 		layout.addComponent(searchBox);
 		layout.addComponent(searchContainer);
@@ -38,9 +38,12 @@ public class CarSearchPage extends Page implements SearchListener {
 		searchContainer.clear();
 	}
 
-	@Override
-	public void startSearch(CarSearchCriteria searchCriteria) {
-		final List<Car> results = dataService.getAllCarsBySearchCriteria(searchCriteria);
-		searchContainer.addItems(results);
-	}
+	private final SearchListener searchListener = new SearchListener() {
+
+		@Override
+		public void startSearch(CarSearchCriteria searchCriteria) {
+			final List<Car> results = dataService.getAllCarsBySearchCriteria(searchCriteria);
+			searchContainer.addItems(results);
+		}
+	};
 }

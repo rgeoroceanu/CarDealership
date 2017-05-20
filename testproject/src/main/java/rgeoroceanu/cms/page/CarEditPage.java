@@ -1,5 +1,7 @@
 package rgeoroceanu.cms.page;
 
+import java.util.Arrays;
+
 import org.springframework.stereotype.Component;
 
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
@@ -8,14 +10,11 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
 import rgeoroceanu.cms.component.form.CarForm;
-import rgeoroceanu.cms.component.form.Form.DiscardButtonListener;
-import rgeoroceanu.cms.component.form.Form.RemoveButtonListener;
-import rgeoroceanu.cms.component.form.Form.SaveButtonListener;
 import rgeoroceanu.model.Car;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
 
 @Component
-public class CarEditPage extends Page implements SaveButtonListener, RemoveButtonListener, DiscardButtonListener {
+public class CarEditPage extends Page {
 
 	private static final long serialVersionUID = 1L;
 	private final CarForm carForm;
@@ -24,11 +23,14 @@ public class CarEditPage extends Page implements SaveButtonListener, RemoveButto
 	public CarEditPage() {
 		super();
 		carForm = new CarForm();
-		carForm.setSaveButtonListener(this);
-		carForm.setRemoveButtonListener(this);
-		carForm.setDiscardButtonListener(this);
+		carForm.addSaveButtonListener(e -> handleSave());
+		carForm.addRemoveButtonListener(e -> handleRemove());
+		carForm.addDiscardButtonListener(e -> handleDiscard());
 		binder = new BeanFieldGroup<>(Car.class);
 		this.setContent(carForm);
+		this.setContentWidth(850, Unit.PIXELS);
+		this.alignCenterContent();
+		this.setContentBorderless();
 	}
 	
 	@Override
@@ -39,38 +41,6 @@ public class CarEditPage extends Page implements SaveButtonListener, RemoveButto
 		open(car);	
 	}
 
-	@Override
-	public void handleDiscard() {
-		binder.discard();
-	}
-
-	@Override
-	public void handleRemove() {
-		final Car car = binder.getItemDataSource().getBean();
-		if (car != null && car.getId() != null) {
-			try {
-				dataService.removeCar(car.getId());
-				binder.discard();
-			} catch (DataDoesNotExistException e) {
-				Notification.show("Cannot remove element!");
-			}
-		}
-	}
-
-	@Override
-	public void handleSave() {
-		if (!binder.isValid()) {
-			Notification.show("Cannot save data!");
-		}
-		try {
-			binder.commit();
-		} catch (CommitException e) {
-			Notification.show("Cannot save data!");
-		}
-		final Car car = binder.getItemDataSource().getBean();
-		dataService.saveCar(car);
-	}
-	
 	private void checkPermissions() {
 		
 	}
@@ -82,6 +52,40 @@ public class CarEditPage extends Page implements SaveButtonListener, RemoveButto
 		binder.discard();
 		binder.bindMemberFields(carForm);
 		binder.setItemDataSource(car);
+		carForm.getImagesComponent().setImages(Arrays.asList("https://data.motor-talk.de/data/galleries/0/160/2907/69570746/url-3010870319480993900-7706099403658557496.jpg", 
+				"https://img.bmw-syndikat.de/gallery/196/502/943027_bmw-syndikat_bild_high.jpg",
+				"https://img.bmw-syndikat.de/gallery/196/502/943027_bmw-syndikat_bild_high.jpg",
+				"https://img.bmw-syndikat.de/gallery/196/502/943027_bmw-syndikat_bild_high.jpg",
+				"https://img.bmw-syndikat.de/gallery/196/502/943027_bmw-syndikat_bild_high.jpg"));
+	}
+	
+	private void handleDiscard() {
+		binder.discard();
+	}
+
+	private void handleRemove() {
+		final Car car = binder.getItemDataSource().getBean();
+		if (car != null && car.getId() != null) {
+			try {
+				dataService.removeCar(car.getId());
+				binder.discard();
+			} catch (DataDoesNotExistException e) {
+				Notification.show("Cannot remove element!");
+			}
+		}
+	}
+
+	private void handleSave() {
+		if (!binder.isValid()) {
+			Notification.show("Cannot save data!");
+		}
+		try {
+			binder.commit();
+		} catch (CommitException e) {
+			Notification.show("Cannot save data!");
+		}
+		final Car car = binder.getItemDataSource().getBean();
+		dataService.saveCar(car);
 	}
 	
 	private Car extractCarFromParameters(final String parameters) {

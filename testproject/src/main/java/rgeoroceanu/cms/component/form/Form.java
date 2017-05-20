@@ -1,7 +1,6 @@
 package rgeoroceanu.cms.component.form;
 
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
@@ -16,18 +15,6 @@ public abstract class Form extends VerticalLayout implements Localizable {
 	private final Button saveButton;
 	private final Button discardButton;
 	private final Button removeButton;
-	
-	public interface SaveButtonListener {
-		public void handleSave();
-	}
-	
-	public interface RemoveButtonListener {
-		public void handleRemove();
-	}
-	
-	public interface DiscardButtonListener {
-		public void handleDiscard();
-	}
 	
 	public Form() {
 		saveButton = new Button();
@@ -45,19 +32,16 @@ public abstract class Form extends VerticalLayout implements Localizable {
 		this.addComponent(buttonLayout);
 	}
 	
-	public void setSaveButtonListener(final SaveButtonListener saveButtonListener) {
-		saveButton.getListeners(ClickEvent.class).forEach(listener -> saveButton.removeClickListener((ClickListener) listener));
-		saveButton.addClickListener(listener -> saveButtonListener.handleSave());
+	public void addSaveButtonListener(final ClickListener listener) {
+		saveButton.addClickListener(listener);
 	}
 	
-	public void setRemoveButtonListener(final RemoveButtonListener removeButtonListener) {
-		removeButton.getListeners(ClickEvent.class).forEach(listener -> removeButton.removeClickListener((ClickListener) listener));
-		removeButton.addClickListener(listener -> removeButtonListener.handleRemove());
+	public void addRemoveButtonListener(final ClickListener listener) {
+		removeButton.addClickListener(listener);
 	}
 	
-	public void setDiscardButtonListener(final DiscardButtonListener discardButtonListener) {
-		discardButton.getListeners(ClickEvent.class).forEach(listener -> discardButton.removeClickListener((ClickListener) listener));
-		discardButton.addClickListener(listener -> discardButtonListener.handleDiscard());
+	public void addDiscardButtonListener(final ClickListener listener) {
+		discardButton.addClickListener(listener);
 	}
 	
 	public void setActionButtonsEnableState(boolean saveButtonEnabled,

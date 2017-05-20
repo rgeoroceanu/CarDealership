@@ -28,6 +28,25 @@
 	.small-layout > .v-formlayout-spacing > tbody > .v-formlayout-row > .v-formlayout-errorcell {
  		padding-top: 4px; padding-bottom: 4px;
 	}
+	
+	.upload-with-icon {
+    	height: 100%;
+	}
+
+	.upload-with-icon .v-button {
+    	padding: 5px 10px;
+    	display: inline-block;
+    	-moz-border-radius: 100px;
+    	-webkit-border-radius: 100px;
+    	border-radius: 100px;
+    	-moz-box-shadow: 0px 0px 2px #888;
+    	-webkit-box-shadow: 0px 0px 2px #888;
+    	box-shadow: 0px 0px 2px #888;
+	}
+	
+	.layout-padding {
+		padding: 10px;
+	}
 }
 
 

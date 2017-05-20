@@ -1,6 +1,8 @@
 package rgeoroceanu.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
@@ -107,5 +109,17 @@ public class DataServiceImpl implements DataService {
 		final Pageable pageRequest = new PageRequest(0, resultsLimit);
 		final Page<Car> page = carDao.findAll(pageRequest);
 		return page.getContent();
+	}
+
+	@Override
+	public Map<Make, Integer> getCarMakesCount() {
+		final Map<Make, Integer> makesCount = new HashMap<>();
+		final List<Object[]> results = carDao.findMakesCount();
+		for (Object[] result : results) {
+			final Make make = (Make) result[0];
+			final Long count = (Long) result[1];
+			makesCount.put(make, count.intValue());
+		}
+		return makesCount;
 	}
 }

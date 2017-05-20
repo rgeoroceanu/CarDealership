@@ -1,6 +1,9 @@
 package rgeoroceanu.cms.page;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.stereotype.Component;
 
@@ -10,6 +13,7 @@ import com.vaadin.ui.GridLayout;
 import rgeoroceanu.cms.component.info.ImageInfoBox;
 import rgeoroceanu.cms.component.info.StatisticsInfoBox;
 import rgeoroceanu.model.Car;
+import rgeoroceanu.model.type.Make;
 
 @Component
 public class StartPage extends Page {
@@ -30,11 +34,20 @@ public class StartPage extends Page {
 	@Override
 	public void enter(ViewChangeEvent event) {
 		setCarBoxData();
+		setStatisticsData();
 	}
 	
 	private ImageInfoBox initLatestCarBox() {
 		final ImageInfoBox infoBox = new ImageInfoBox();
 		return infoBox;
+	}
+	
+	private void setStatisticsData() {
+		final Map<String, Integer> data = new HashMap<>();
+		for (final Entry<Make, Integer> e : dataService.getCarMakesCount().entrySet()) {
+			data.put(e.getKey().toString(), e.getValue());
+		}
+		statisticsBox.setStatisticsData(data);
 	}
 	
 	private void setCarBoxData() {

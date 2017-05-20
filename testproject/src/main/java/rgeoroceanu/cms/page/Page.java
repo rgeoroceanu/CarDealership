@@ -29,6 +29,7 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 	private final Button logoutButton;
 	private final Button addVehicleButton;
 	private final Button searchButton;
+	private final Button homeButton;
 	private final Button statisticsButton;
 	private final Panel contentPanel;
 	private final Button contactButton;
@@ -45,6 +46,7 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		this.searchButton = initSearchButton();
 		this.statisticsButton = initStatisticsButton();
 		this.contactButton = initContactButton();
+		this.homeButton = initHomeButton();
 		this.helpButton = initHelpButton();
 		this.aboutButton = initAboutButton();
 		contentPanel = new Panel();
@@ -56,6 +58,7 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		HorizontalLayout footerLayout = new HorizontalLayout();
 		headerLayout.addComponent(languageSelect);
 		headerLayout.addComponent(logoutButton);
+		titleButtonsLayout.addComponent(homeButton);
 		titleButtonsLayout.addComponent(statisticsButton);
 		titleButtonsLayout.addComponent(searchButton);
 		titleButtonsLayout.addComponent(addVehicleButton);
@@ -93,10 +96,23 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		contactButton.setCaption(Localizer.getLocalizedString("contact"));
 		helpButton.setCaption(Localizer.getLocalizedString("help"));
 		aboutButton.setCaption(Localizer.getLocalizedString("about"));
+		homeButton.setCaption(Localizer.getLocalizedString("home"));
 	}
 	
 	public void setContent(final Component content) {
 		contentPanel.setContent(content);
+	}
+	
+	protected void alignCenterContent() {
+		this.setComponentAlignment(contentPanel, Alignment.TOP_CENTER);
+	}
+	
+	protected void setContentWidth(int width, Unit unit) {
+		contentPanel.setWidth(width, unit);
+	}
+	
+	protected void setContentBorderless() {
+		contentPanel.addStyleName(ValoTheme.PANEL_BORDERLESS);
 	}
 	
 	private ComboBox initLanguageSelect() {
@@ -141,8 +157,16 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 		Button statisticsButton = new Button();
 		statisticsButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		statisticsButton.setHeight(70, Unit.PIXELS);
-		statisticsButton.addClickListener(e -> App.getCurrent().navigateToStartPage());
+		statisticsButton.addClickListener(e -> App.getCurrent().navigateToStatisticsPage());
 		return statisticsButton;
+	}
+	
+	private Button  initHomeButton() {
+		Button homesButton = new Button();
+		homesButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		homesButton.setHeight(70, Unit.PIXELS);
+		homesButton.addClickListener(e -> App.getCurrent().navigateToStartPage());
+		return homesButton;
 	}
 	
 	private Button initContactButton() {

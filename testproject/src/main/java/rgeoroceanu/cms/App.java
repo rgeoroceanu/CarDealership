@@ -15,6 +15,7 @@ import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.page.CarEditPage;
 import rgeoroceanu.cms.page.CarSearchPage;
 import rgeoroceanu.cms.page.StartPage;
+import rgeoroceanu.cms.page.StatisticsPage;
 
 @SpringUI
 @Theme("cms")
@@ -24,12 +25,15 @@ public class App extends UI implements Localizable {
 	private static final String START_PAGE_NAV_NAME = "start";
 	private static final String CAR_EDIT_PAGE_NAV_NAME = "car";
 	private static final String CAR_SEARCH_PAGE_NAV_NAME = "car_search";
+	private static final String STATISTICS_PAGE_NAV_NAME = "statistics";
 	@Autowired
 	private StartPage startPage;
 	@Autowired
 	private CarEditPage carEditPage;
 	@Autowired
 	private CarSearchPage carSearchPage;
+	@Autowired
+	private StatisticsPage statisticsPage;
 	private Navigator navigator;
 	
 	@Override
@@ -38,6 +42,7 @@ public class App extends UI implements Localizable {
 		navigator.addView(START_PAGE_NAV_NAME, startPage);
 		navigator.addView(CAR_EDIT_PAGE_NAV_NAME, carEditPage);
 		navigator.addView(CAR_SEARCH_PAGE_NAV_NAME, carSearchPage);
+		navigator.addView(STATISTICS_PAGE_NAV_NAME, statisticsPage);
 		navigator.navigateTo(START_PAGE_NAV_NAME);
 		// TODO add error page
         localize();
@@ -52,6 +57,7 @@ public class App extends UI implements Localizable {
 		localizeRecursive(carEditPage);
 		localizeRecursive(carSearchPage);
 		localizeRecursive(startPage);
+		localizeRecursive(statisticsPage);
 	}
 	
 	public void navigateToCarPage(Long carId) {
@@ -69,6 +75,10 @@ public class App extends UI implements Localizable {
 	
 	public void navigateToStartPage() {
 		navigator.navigateTo(START_PAGE_NAV_NAME);
+	}
+	
+	public void navigateToStatisticsPage() {
+		navigator.navigateTo(STATISTICS_PAGE_NAV_NAME);
 	}
 	
 	private void localizeRecursive(HasComponents root) {

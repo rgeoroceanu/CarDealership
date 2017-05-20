@@ -82,8 +82,6 @@ public class CarSearchBox extends CustomComponent implements Localizable {
 		return layout;
 	}
 	
-	
-	
 	private Button initSearchButton() {
 		final Button searchButton = new Button();
 		searchButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
