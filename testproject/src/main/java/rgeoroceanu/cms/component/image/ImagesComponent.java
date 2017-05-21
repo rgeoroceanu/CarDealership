@@ -1,15 +1,20 @@
 package rgeoroceanu.cms.component.image;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 import rgeoroceanu.cms.component.image.ImageUpload.ImageUploadedListener;
 
@@ -19,6 +24,8 @@ public class ImagesComponent extends CustomComponent implements ImageUploadedLis
 	private static final int IMAGE_HEIGHT = 200;
 	private final ImageUpload imageUpload;
 	private final CssLayout imagesLayout;
+	private List<File> uploadedImageFiles = new ArrayList<>();
+	private List<String> removedImageUrls = new ArrayList<>();
 	
 	
 	public ImagesComponent() {
@@ -36,9 +43,19 @@ public class ImagesComponent extends CustomComponent implements ImageUploadedLis
 	@Override
 	public void imageUploaded(File imageFile) {
 		addImageComponent(imageFile);
+		uploadedImageFiles.add(imageFile);
+	}
+	
+	public List<File> getUploadedImageFiles() {
+		return uploadedImageFiles;
+	}
+	
+	public List<String> getRemovedImageUrls() {
+		return removedImageUrls;
 	}
 	
 	private void clear() {
+		uploadedImageFiles.clear();
 		imagesLayout.removeAllComponents();
 		addUploadComponent();
 	}
@@ -54,15 +71,29 @@ public class ImagesComponent extends CustomComponent implements ImageUploadedLis
 	}
 	
 	private void initImageLayout(final Image image) {
-		final VerticalLayout layout = new VerticalLayout();
+		final AbsoluteLayout layout = new AbsoluteLayout();
 		image.setWidth(100, Unit.PERCENTAGE);
 		image.setHeightUndefined();
-		layout.addComponent(image);
-		layout.setComponentAlignment(image, Alignment.MIDDLE_LEFT);
+		layout.addComponent(image, "left: 0%; right: 0%; top: 10%; bottom: 10%;");
+		//layout.setComponentAlignment(image, Alignment.MIDDLE_LEFT);
 		layout.setWidth(IMAGE_WIDTH, Unit.PIXELS);
 		layout.setHeight(IMAGE_HEIGHT, Unit.PIXELS);
 		layout.addStyleName("layout-padding");
+		final Button removeButton = new Button();
+		removeButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
+		removeButton.addStyleName(ValoTheme.BUTTON_SMALL);
+		removeButton.setIcon(FontAwesome.REMOVE);
+		removeButton.setWidth(30, Unit.PIXELS);
+		removeButton.addClickListener(e -> handleRemove(image));
+		layout.addComponent(removeButton, "right: 0px; top: 10%;");
 		imagesLayout.addComponent(layout, imagesLayout.getComponentCount() - 1);
+	}
+	
+	private void handleRemove(final Image image) {
+		final ExternalResource resource = (ExternalResource) image.getSource();
+		final String url = resource.getURL();
+		removedImageUrls.add(url);
+		imagesLayout.removeComponent(image.getParent());
 	}
 	
 	private void addUploadComponent() {

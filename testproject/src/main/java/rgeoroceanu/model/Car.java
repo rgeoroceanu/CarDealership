@@ -55,9 +55,9 @@ public class Car extends Base {
 	@Enumerated(EnumType.STRING)
 	private State state;
 	@Lob
-	private LinkedHashSet<String> lowResImages = new LinkedHashSet<>();
+	private LinkedHashSet<String> previewImages = new LinkedHashSet<>();
 	@Lob
-	private LinkedHashSet<String> highResImages = new LinkedHashSet<>();
+	private LinkedHashSet<String> fullImages = new LinkedHashSet<>();
 	@Basic
 	private boolean sold;
 	@Embedded
@@ -75,4 +75,20 @@ public class Car extends Base {
 	private String shortDescription;
 	@Basic
 	private String description;
+	
+	public void addPreviewImage(final String filename) {
+		previewImages.add(filename);
+	}
+	
+	public void addFullImage(final String filename) {
+		fullImages.add(filename);
+	}
+	
+	public boolean removePreviewImage(final String filename) {
+		return previewImages.remove(filename);
+	}
+	
+	public boolean removeFullImage(final String filename) {
+		return fullImages.remove(filename);
+	}
 }

@@ -3,6 +3,7 @@ package rgeoroceanu.cms.component.info;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
@@ -30,6 +31,10 @@ public abstract class InfoBox extends CustomComponent implements Localizable {
 		panel.setContent(contentLayout);
 		this.setCompositionRoot(panel);
 		
+	}
+	
+	public void addMoreButtonListener(ClickListener listener) {
+		moreButton.addClickListener(listener);
 	}
 	
 	protected void setContent(final Component content) {

@@ -1,6 +1,7 @@
 package rgeoroceanu.cms.page;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import rgeoroceanu.cms.component.search.CarSearchBox.SearchListener;
 import rgeoroceanu.cms.component.search.CarSearchContainer;
 import rgeoroceanu.model.Car;
 import rgeoroceanu.model.CarSearchCriteria;
+import rgeoroceanu.model.CarSearchResult;
 
 @Component
 public class CarSearchPage extends Page {
@@ -43,7 +45,11 @@ public class CarSearchPage extends Page {
 		@Override
 		public void startSearch(CarSearchCriteria searchCriteria) {
 			final List<Car> results = dataService.getAllCarsBySearchCriteria(searchCriteria);
-			searchContainer.addItems(results);
+			searchContainer.addItems(results.stream().map(car -> {
+				final CarSearchResult result = new CarSearchResult(car);
+				result.setImageUrls(imageService.getPreviewImageUrls(car.getId()));
+				return result;
+			}).collect(Collectors.toList()));
 		}
 	};
 }

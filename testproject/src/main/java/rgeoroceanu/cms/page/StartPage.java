@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.GridLayout;
 
+import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.component.info.ImageInfoBox;
 import rgeoroceanu.cms.component.info.StatisticsInfoBox;
 import rgeoroceanu.model.Car;
@@ -24,7 +25,7 @@ public class StartPage extends Page {
 	
 	public StartPage() {
 		final GridLayout layout = initLayout();
-		statisticsBox = new StatisticsInfoBox();
+		statisticsBox = initStatisticsBox();
 		latestCarBox = initLatestCarBox();
 		layout.addComponent(statisticsBox, 0, 0);
 		layout.addComponent(latestCarBox, 1, 0);
@@ -39,7 +40,15 @@ public class StartPage extends Page {
 	
 	private ImageInfoBox initLatestCarBox() {
 		final ImageInfoBox infoBox = new ImageInfoBox();
+		infoBox.addMoreButtonListener(e -> App.getCurrent().navigateToSearchPage());
 		return infoBox;
+	}
+	
+	
+	private StatisticsInfoBox initStatisticsBox() {
+		final StatisticsInfoBox statisticsBox = new StatisticsInfoBox();
+		statisticsBox.addMoreButtonListener(e -> App.getCurrent().navigateToStatisticsPage());
+		return statisticsBox;
 	}
 	
 	private void setStatisticsData() {
@@ -58,7 +67,11 @@ public class StartPage extends Page {
 		} else {
 			latest = null;
 		}
-		final String imageUrl = "https://data.motor-talk.de/data/galleries/0/160/2907/69570746/url-3010870319480993900-7706099403658557496.jpg";
+		String imageUrl = null;
+		if (latest.getPreviewImages().isEmpty() == false) {
+			final String filename = latest.getPreviewImages().iterator().next();
+			imageUrl = imageService.getImageUrl(filename, latest.getId());
+		}
 		String title = "";
 		if (latest != null) {
 			title = latest.getMake() + " " + latest.getModel();

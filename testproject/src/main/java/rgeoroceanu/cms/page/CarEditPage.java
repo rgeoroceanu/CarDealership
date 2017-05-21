@@ -1,17 +1,23 @@
 package rgeoroceanu.cms.page;
 
-import java.util.Arrays;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
+import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.component.form.CarForm;
 import rgeoroceanu.model.Car;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
+import rgeoroceanu.service.exception.ImageDeleteException;
+import rgeoroceanu.service.exception.ImageWriteException;
 
 @Component
 public class CarEditPage extends Page {
@@ -52,27 +58,46 @@ public class CarEditPage extends Page {
 		binder.discard();
 		binder.bindMemberFields(carForm);
 		binder.setItemDataSource(car);
-		carForm.getImagesComponent().setImages(Arrays.asList("https://data.motor-talk.de/data/galleries/0/160/2907/69570746/url-3010870319480993900-7706099403658557496.jpg", 
-				"https://img.bmw-syndikat.de/gallery/196/502/943027_bmw-syndikat_bild_high.jpg",
-				"https://img.bmw-syndikat.de/gallery/196/502/943027_bmw-syndikat_bild_high.jpg",
-				"https://img.bmw-syndikat.de/gallery/196/502/943027_bmw-syndikat_bild_high.jpg",
-				"https://img.bmw-syndikat.de/gallery/196/502/943027_bmw-syndikat_bild_high.jpg"));
+		List<String> imageUrls = new ArrayList<>();
+		if (car.getId() != null) {
+			imageUrls.addAll(imageService.getPreviewImageUrls(car.getId()));
+		} else {
+			carForm.getImagesComponent().setImages(imageUrls);
+		}
 	}
 	
 	private void handleDiscard() {
-		binder.discard();
+		ConfirmDialog.show(this.getUI(), "Discard", "Are you sure you want to discard all changes?", 
+				"Delete", "Cancel", confirmEvent -> {
+					binder.discard();
+				});
 	}
 
 	private void handleRemove() {
-		final Car car = binder.getItemDataSource().getBean();
-		if (car != null && car.getId() != null) {
-			try {
-				dataService.removeCar(car.getId());
-				binder.discard();
-			} catch (DataDoesNotExistException e) {
-				Notification.show("Cannot remove element!");
-			}
-		}
+		ConfirmDialog.show(this.getUI(), "Delete", "Are you sure you want to delete this car?", 
+				"Delete", "Cancel", confirmEvent -> {
+					if (confirmEvent.isConfirmed()) {
+						final Car car = binder.getItemDataSource().getBean();
+						if (car != null && car.getId() != null) {
+							try {
+								// remove entity
+								dataService.removeCar(car.getId());
+
+							} catch (DataDoesNotExistException e) {
+								Notification.show("Cannot remove element!");
+							}
+							binder.discard();
+							
+							// remove images
+							try {
+								imageService.deleteAllImages(car.getId());
+							} catch (ImageDeleteException e) {
+								// do nothing
+							}
+						}
+						App.getCurrent().navigateToStartPage();
+					}
+				});
 	}
 
 	private void handleSave() {
@@ -86,6 +111,26 @@ public class CarEditPage extends Page {
 		}
 		final Car car = binder.getItemDataSource().getBean();
 		dataService.saveCar(car);
+		
+		try {
+			// save images
+			for (final File uploaded : carForm.getImagesComponent().getUploadedImageFiles()) {
+				imageService.saveImages(uploaded, car.getId());
+			}
+		} catch (ImageWriteException e) {
+			Notification.show("Images were not saved!");
+		}
+		
+		try {
+			// remove images
+			for (final String removedUrl : carForm.getImagesComponent().getRemovedImageUrls()) {
+				final String filename = removedUrl.substring(removedUrl.lastIndexOf("/") +1 , removedUrl.length());
+				imageService.deleteImage(filename, car.getId());
+			}
+		} catch (ImageDeleteException e) {
+			Notification.show("Images were not removed!");
+		}
+		App.getCurrent().navigateToStartPage();
 	}
 	
 	private Car extractCarFromParameters(final String parameters) {

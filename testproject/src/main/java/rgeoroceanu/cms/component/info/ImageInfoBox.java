@@ -21,13 +21,17 @@ public class ImageInfoBox extends InfoBox {
 	}
 	
 	public void setImage(final String url) {
-		image.setSource(new ExternalResource(url));
-		image.setWidth(100, Unit.PERCENTAGE);
-		image.setHeightUndefined();
+		if (url != null) {
+			image.setSource(new ExternalResource(url));
+		} else {
+			image.setSource(null);
+		}
 	}
 	
 	private Image initImage() {
 		final Image image = new Image();
+		image.setWidth(100, Unit.PERCENTAGE);
+		image.setHeightUndefined();
 		return image;
 	}
 }

@@ -19,6 +19,7 @@ import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
 import rgeoroceanu.service.DataService;
+import rgeoroceanu.service.ImageService;
 
 public abstract class Page extends VerticalLayout implements Localizable, View {
 	private static final long serialVersionUID = 1L;
@@ -37,6 +38,8 @@ public abstract class Page extends VerticalLayout implements Localizable, View {
 	private final Button aboutButton;
 	@Autowired
 	protected DataService dataService;
+	@Autowired
+	protected ImageService imageService;
 	
 	public Page() {
 		this.addStyleName(ValoTheme.UI_WITH_MENU);
