@@ -13,6 +13,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,7 +91,7 @@ public class ImageServiceImpl implements ImageService {
 		final String folderPath = getCarFolderPath(carId);
 
 		try {
-			Files.deleteIfExists(Paths.get(folderPath));
+			FileUtils.cleanDirectory(Paths.get(folderPath).toFile());
 		} catch (IOException e) {
 			LOG.error("Error deleting image folder " + folderPath + " for car id " + carId);
 			throw new ImageDeleteException("Error deleting image! Reason: " + e.getMessage());

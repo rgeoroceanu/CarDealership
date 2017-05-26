@@ -1,5 +1,7 @@
 package rgeoroceanu.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Embeddable;
 
@@ -10,7 +12,9 @@ import rgeoroceanu.model.type.Currency;
 @Getter
 @Setter
 @Embeddable
-public class Price {
+public class Price implements Serializable {
+	
+	private static final long serialVersionUID = 7154303520716874029L;
 	@Basic
 	private int originalPrice;
 	@Basic

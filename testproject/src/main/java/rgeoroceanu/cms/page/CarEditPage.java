@@ -13,7 +13,7 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
 import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.component.form.CarForm;
+import rgeoroceanu.cms.layout.CarEditLayout;
 import rgeoroceanu.model.Car;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
 import rgeoroceanu.service.exception.ImageDeleteException;
@@ -23,22 +23,22 @@ import rgeoroceanu.service.exception.ImageWriteException;
 public class CarEditPage extends Page {
 
 	private static final long serialVersionUID = 1L;
-	private final CarForm carForm;
+	private final CarEditLayout carEditLayout;
 	private final BeanFieldGroup<Car> binder;
-	
+
 	public CarEditPage() {
 		super();
-		carForm = new CarForm();
-		carForm.addSaveButtonListener(e -> handleSave());
-		carForm.addRemoveButtonListener(e -> handleRemove());
-		carForm.addDiscardButtonListener(e -> handleDiscard());
+		carEditLayout = new CarEditLayout();
+		carEditLayout.addSaveButtonListener(e -> handleSave());
+		carEditLayout.addRemoveButtonListener(e -> handleRemove());
+		carEditLayout.addDiscardButtonListener(e -> handleDiscard());
 		binder = new BeanFieldGroup<>(Car.class);
-		this.setContent(carForm);
+		this.setContent(carEditLayout);
 		this.setContentWidth(850, Unit.PIXELS);
 		this.alignCenterContent();
 		this.setContentBorderless();
 	}
-	
+
 	@Override
 	public void enter(ViewChangeEvent event) {
 		checkPermissions();
@@ -48,56 +48,43 @@ public class CarEditPage extends Page {
 	}
 
 	private void checkPermissions() {
-		
+
 	}
-	
+
 	private void open(Car car) {
 		if (car == null) {
 			car = new Car();
 		}
 		binder.discard();
-		binder.bindMemberFields(carForm);
+		binder.bindMemberFields(carEditLayout);
 		binder.setItemDataSource(car);
 		List<String> imageUrls = new ArrayList<>();
 		if (car.getId() != null) {
 			imageUrls.addAll(imageService.getPreviewImageUrls(car.getId()));
 		} else {
-			carForm.getImagesComponent().setImages(imageUrls);
+			carEditLayout.getImagesComponent().setImages(imageUrls);
 		}
 	}
-	
+
 	private void handleDiscard() {
-		ConfirmDialog.show(this.getUI(), "Discard", "Are you sure you want to discard all changes?", 
-				"Delete", "Cancel", confirmEvent -> {
+		ConfirmDialog.show(this.getUI(), "Discard", 
+				"Are you sure you want to discard all changes?", 
+				"Discard", "Cancel", confirmEvent -> {
 					binder.discard();
 				});
 	}
 
 	private void handleRemove() {
-		ConfirmDialog.show(this.getUI(), "Delete", "Are you sure you want to delete this car?", 
-				"Delete", "Cancel", confirmEvent -> {
-					if (confirmEvent.isConfirmed()) {
-						final Car car = binder.getItemDataSource().getBean();
-						if (car != null && car.getId() != null) {
-							try {
-								// remove entity
-								dataService.removeCar(car.getId());
-
-							} catch (DataDoesNotExistException e) {
-								Notification.show("Cannot remove element!");
-							}
-							binder.discard();
-							
-							// remove images
-							try {
-								imageService.deleteAllImages(car.getId());
-							} catch (ImageDeleteException e) {
-								// do nothing
-							}
+		final Car car = binder.getItemDataSource().getBean();
+		if (car != null && car.getId() != null) {
+			ConfirmDialog.show(this.getUI(), "Delete", 
+					"Are you sure you want to delete this car?", 
+					"Delete", "Cancel", confirmEvent -> {
+						if (confirmEvent.isConfirmed()) {
+							confirmRemove(car);
 						}
-						App.getCurrent().navigateToStartPage();
-					}
-				});
+					});
+		}
 	}
 
 	private void handleSave() {
@@ -111,19 +98,19 @@ public class CarEditPage extends Page {
 		}
 		final Car car = binder.getItemDataSource().getBean();
 		dataService.saveCar(car);
-		
+
 		try {
 			// save images
-			for (final File uploaded : carForm.getImagesComponent().getUploadedImageFiles()) {
+			for (final File uploaded : carEditLayout.getImagesComponent().getUploadedImageFiles()) {
 				imageService.saveImages(uploaded, car.getId());
 			}
 		} catch (ImageWriteException e) {
 			Notification.show("Images were not saved!");
 		}
-		
+
 		try {
 			// remove images
-			for (final String removedUrl : carForm.getImagesComponent().getRemovedImageUrls()) {
+			for (final String removedUrl : carEditLayout.getImagesComponent().getRemovedImageUrls()) {
 				final String filename = removedUrl.substring(removedUrl.lastIndexOf("/") +1 , removedUrl.length());
 				imageService.deleteImage(filename, car.getId());
 			}
@@ -132,18 +119,43 @@ public class CarEditPage extends Page {
 		}
 		App.getCurrent().navigateToStartPage();
 	}
-	
+
+	private void confirmRemove(final Car car) {
+		try {
+			// remove entity
+			dataService.removeCar(car.getId());
+
+		} catch (DataDoesNotExistException e) {
+			Notification.show("Cannot remove element!");
+		}
+		
+		// reinitialize binder
+		binder.discard();
+
+		// remove images
+		try {
+			imageService.deleteAllImages(car.getId());
+		} catch (ImageDeleteException e) {
+			// do nothing
+		}
+		// navigate to home page
+		App.getCurrent().navigateToStartPage();
+	}
+
 	private Car extractCarFromParameters(final String parameters) {
 		Car car = null;
+		
 		if (parameters == null || parameters.isEmpty()) {
 			return car;
 		} 
+		
 		try {
 			final Long carId = Long.valueOf(parameters);
 			car = dataService.getCar(carId);
 		} catch (NumberFormatException | DataDoesNotExistException e) {
 			// do nothing	
 		}
+		
 		return car;
 	}
 }

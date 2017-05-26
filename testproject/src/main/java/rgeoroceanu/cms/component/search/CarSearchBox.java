@@ -5,11 +5,9 @@ import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Layout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
@@ -26,10 +24,6 @@ public class CarSearchBox extends CustomComponent implements Localizable {
 	private final Button searchButton;
 	private final BeanFieldGroup<CarSearchCriteria> binder;
 	
-	public interface SearchListener {
-		public void startSearch(CarSearchCriteria searchOptions);
-	}
-	
 	public CarSearchBox() {
 		searchButton = initSearchButton();
 		searchForm = new CarSearchForm();
@@ -40,16 +34,13 @@ public class CarSearchBox extends CustomComponent implements Localizable {
 		this.setCompositionRoot(wrapPanel);
 	}
 	
-	public void setSearchListener(final SearchListener searchListener) {
-		searchButton.getListeners(ClickEvent.class).forEach(listener -> searchButton.removeClickListener((ClickListener) listener));
-		searchButton.addClickListener(e -> {
-			try {
-				final CarSearchCriteria criteria = getCurrentSearchOptions();
-				searchListener.startSearch(criteria);
-			} catch (InvalidValueException ex) {
-				Notification.show("Invalid search options");
-			}
-		});
+	public void addSearchButtonListener(ClickListener listener) {
+		searchButton.addClickListener(listener);
+	}
+	
+	public CarSearchCriteria getSearchCriteria() throws InvalidValueException {
+		final CarSearchCriteria criteria = getCurrentSearchOptions();
+		return criteria;
 	}
 	
 	private BeanFieldGroup<CarSearchCriteria> initBinder() {

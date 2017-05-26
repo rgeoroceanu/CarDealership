@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.component.form;
+package rgeoroceanu.cms.layout;
 
 import java.util.Arrays;
 
@@ -20,6 +20,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
+import rgeoroceanu.cms.component.form.Form;
 import rgeoroceanu.cms.component.image.ImagesComponent;
 import rgeoroceanu.cms.converter.DateToYearConverter;
 import rgeoroceanu.cms.localization.Localizable;
@@ -33,7 +34,7 @@ import rgeoroceanu.model.type.State;
 import rgeoroceanu.model.type.Transmission;
 
 @Component
-public class CarForm extends Form implements Localizable {
+public class CarEditLayout extends Form implements Localizable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -63,7 +64,7 @@ public class CarForm extends Form implements Localizable {
 	private final Panel featuresPanel;
 	private final Panel descriptionPanel;
 	
-	public CarForm() {
+	public CarEditLayout() {
 		imagesComponent = initImagesComponent();
 		typeField = initTypeField();
 		marqueField = initMarqueField();

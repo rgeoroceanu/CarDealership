@@ -2,8 +2,8 @@ package rgeoroceanu.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
@@ -21,7 +21,6 @@ public class Purchase extends Base {
 	private Car car;
 	@Column
 	private LocalDateTime purchaseDate;
-	@Embedded
-	private Price price;
-
+	@Basic
+	private int salePriceInEuro;
 }

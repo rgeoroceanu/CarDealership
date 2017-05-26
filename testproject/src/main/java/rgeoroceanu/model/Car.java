@@ -1,5 +1,6 @@
 package rgeoroceanu.model;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 
 import javax.persistence.Basic;
@@ -25,8 +26,9 @@ import rgeoroceanu.model.type.Transmission;
 @Setter
 @Entity
 @Table(name="cars" )
-public class Car extends Base {
+public class Car extends Base implements Serializable {
 	
+	private static final long serialVersionUID = 5967703253865043398L;
 	@Column
 	@Enumerated(EnumType.STRING)
 	private Make make;

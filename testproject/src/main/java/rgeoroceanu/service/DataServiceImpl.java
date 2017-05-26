@@ -1,6 +1,9 @@
 package rgeoroceanu.service;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +20,10 @@ import com.google.common.base.Preconditions;
 import rgeoroceanu.model.Car;
 import rgeoroceanu.model.CarSearchCriteria;
 import rgeoroceanu.model.Price;
+import rgeoroceanu.model.Purchase;
 import rgeoroceanu.model.access.CarDao;
 import rgeoroceanu.model.access.CarSearchSpecification;
+import rgeoroceanu.model.access.PurchaseDao;
 import rgeoroceanu.model.type.CarType;
 import rgeoroceanu.model.type.Currency;
 import rgeoroceanu.model.type.Engine;
@@ -32,6 +37,8 @@ public class DataServiceImpl implements DataService {
 	
 	@Autowired
 	private CarDao carDao;
+	@Autowired
+	private PurchaseDao purchaseDao;
 	
 	@PostConstruct
 	public void init() {
@@ -73,6 +80,14 @@ public class DataServiceImpl implements DataService {
 		car2.setPrice(p2);
 		this.saveCar(car1);
 		this.saveCar(car2);
+		final LocalDateTime currentDate = LocalDateTime.now();
+		for (int i = 0; i < 12; i++) {
+			final Purchase p = new Purchase();
+			//p.setCar(car1);
+			p.setCreated(currentDate.minusMonths(i));
+			p.setSalePriceInEuro((i + 1) * 2 * 10000);
+			this.savePurchase(p);
+		}
 	}
 	
 	@Override
@@ -121,5 +136,54 @@ public class DataServiceImpl implements DataService {
 			makesCount.put(make, count.intValue());
 		}
 		return makesCount;
+	}
+
+	@Override
+	public Purchase savePurchase(final Purchase purchase) {
+		Preconditions.checkNotNull(purchase, "Purchase must not be null!");
+		return purchaseDao.saveAndFlush(purchase);
+	}
+
+	@Override
+	public List<Purchase> getAllPurchases(final LocalDateTime start, final LocalDateTime end) {
+		Preconditions.checkNotNull(start, "Start date must not be null!");
+		Preconditions.checkNotNull(end, "end date must not be null!");
+		return purchaseDao.findInDateRange(start, end);
+	}
+
+	@Override
+	public Map<Integer, Integer> getMonthlyPurchasesCount(LocalDateTime start, LocalDateTime end) {
+		Preconditions.checkNotNull(start, "Start date must not be null!");
+		Preconditions.checkNotNull(end, "end date must not be null!");
+		
+		final Map<Integer, Integer> purchasesCount = new LinkedHashMap<>();
+		final List<Object[]> results = purchaseDao.findPurchasesPerMonthCount(start, end);
+		Collections.reverse(results);
+		
+		for (Object[] result : results) {
+			final Integer month = (Integer) result[0];
+			final Long count = (Long) result[1];
+			purchasesCount.put(month, count.intValue());
+		}
+		
+		return purchasesCount;
+	}
+
+	@Override
+	public Map<Integer, Integer> getMonthlyEarnings(LocalDateTime start, LocalDateTime end) {
+		Preconditions.checkNotNull(start, "Start date must not be null!");
+		Preconditions.checkNotNull(end, "end date must not be null!");
+		
+		final Map<Integer, Integer> earningsMap = new LinkedHashMap<>();
+		final List<Object[]> results = purchaseDao.findEarningsPerMonth(start, end);
+		Collections.reverse(results);
+		
+		for (Object[] result : results) {
+			final Integer month = (Integer) result[0];
+			final Long earnings = (Long) result[1];
+			earningsMap.put(month, earnings.intValue());
+		}
+		
+		return earningsMap;
 	}
 }

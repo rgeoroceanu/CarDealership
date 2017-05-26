@@ -36,4 +36,8 @@ public final class Localizer {
 	public static void setLocale(Locale locale) {
 		instance.locale = locale;
 	}
+	
+	public static Locale getCurrentLocale() {
+		return instance.locale;
+	}
 }
