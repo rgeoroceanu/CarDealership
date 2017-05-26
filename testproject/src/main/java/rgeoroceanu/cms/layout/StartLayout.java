@@ -8,20 +8,27 @@ import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.component.info.ImageInfoBox;
 import rgeoroceanu.cms.component.info.StatisticsInfoBox;
 
-public class StartLayout extends GridLayout {
+/**
+ * Layout of the start page containing individual boxes of information.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
+public class StartLayout extends PageLayout {
 	
 	private static final long serialVersionUID = 1L;
 	private final StatisticsInfoBox statisticsBox;
 	private final ImageInfoBox latestCarBox;
 	
 	public StartLayout() {
-		super(3, 2);
+		final GridLayout layout = new GridLayout(3, 2);
 		statisticsBox = initStatisticsBox();
 		latestCarBox = initLatestCarBox();
-		this.addComponent(statisticsBox, 0, 0);
-		this.addComponent(latestCarBox, 1, 0);
-		this.setSpacing(true);
-		this.setMargin(true);
+		layout.addComponent(statisticsBox, 0, 0);
+		layout.addComponent(latestCarBox, 1, 0);
+		layout.setSpacing(true);
+		layout.setMargin(true);
+		this.setContent(layout);
 	}
 	
 	public void addStatistics(final Map<String, Integer> statistics) {

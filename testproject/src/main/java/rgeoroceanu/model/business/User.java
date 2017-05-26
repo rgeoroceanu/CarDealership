@@ -1,4 +1,4 @@
-package rgeoroceanu.model;
+package rgeoroceanu.model.business;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;

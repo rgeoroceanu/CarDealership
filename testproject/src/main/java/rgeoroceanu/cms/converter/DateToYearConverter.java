@@ -7,6 +7,12 @@ import org.joda.time.DateTime;
 
 import com.vaadin.data.util.converter.Converter;
 
+/**
+ * Vaadin data {@link Converter} that converts Date to the year representation.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class DateToYearConverter implements Converter<Date, Integer> {
 
 	private static final long serialVersionUID = 1L;

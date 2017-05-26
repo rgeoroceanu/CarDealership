@@ -17,14 +17,32 @@ import rgeoroceanu.cms.page.CarSearchPage;
 import rgeoroceanu.cms.page.StartPage;
 import rgeoroceanu.cms.page.StatisticsPage;
 
+/**
+ * UI entry point of the CMS.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 @SpringUI
 @Theme("cms")
 @Widgetset("rgeoroceanu.cms.widgetset.AppWidgetSet")
 public class App extends UI implements Localizable {
 	private static final long serialVersionUID = 1L;
+	/**
+	 * View identifier of the start page.
+	 */
 	private static final String START_PAGE_NAV_NAME = "start";
+	/**
+	 * View identifier of the car edit page.
+	 */
 	private static final String CAR_EDIT_PAGE_NAV_NAME = "car";
+	/**
+	 * View identifier of the car search page.
+	 */
 	private static final String CAR_SEARCH_PAGE_NAV_NAME = "car_search";
+	/**
+	 * View identifier of the statistics page.
+	 */
 	private static final String STATISTICS_PAGE_NAV_NAME = "statistics";
 	@Autowired
 	private StartPage startPage;
@@ -48,6 +66,10 @@ public class App extends UI implements Localizable {
         localize();
     }
 	
+	/**
+	 * Get the current App UI instance.
+	 * @return the app UI instance.
+	 */
 	public static App getCurrent() {
 		return (App) UI.getCurrent();
 	}
@@ -60,6 +82,11 @@ public class App extends UI implements Localizable {
 		localizeRecursive(statisticsPage);
 	}
 	
+	/**
+	 * Navigate to the car editing page and fill the form car data belonging to car id.
+	 * @param carId identifier of the car data with which to fill the form data; if null is provided,
+	 * the form is empty.
+	 */
 	public void navigateToCarPage(Long carId) {
 		final StringBuilder path = new StringBuilder(CAR_EDIT_PAGE_NAV_NAME);
 		if (carId != null) {
@@ -69,14 +96,23 @@ public class App extends UI implements Localizable {
 		navigator.navigateTo(path.toString());
 	}
 	
+	/**
+	 * Navigate to the car searching page.
+	 */
 	public void navigateToSearchPage() {
 		navigator.navigateTo(CAR_SEARCH_PAGE_NAV_NAME);
 	}
 	
+	/**
+	 * Navigate to the start searching page.
+	 */
 	public void navigateToStartPage() {
 		navigator.navigateTo(START_PAGE_NAV_NAME);
 	}
 	
+	/**
+	 * Navigate to the statistics page.
+	 */
 	public void navigateToStatisticsPage() {
 		navigator.navigateTo(STATISTICS_PAGE_NAV_NAME);
 	}

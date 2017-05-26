@@ -15,6 +15,12 @@ import rgeoroceanu.cms.localization.Localizer;
 import rgeoroceanu.model.type.Engine;
 import rgeoroceanu.model.type.Make;
 
+/**
+ * Form associated with a {@link CarSearchCriteria} object.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class CarSearchForm extends GridLayout implements Localizable {
 
 	private static final long serialVersionUID = 1L;

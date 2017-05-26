@@ -1,4 +1,4 @@
-package rgeoroceanu.model;
+package rgeoroceanu.model.business;
 
 import java.io.Serializable;
 

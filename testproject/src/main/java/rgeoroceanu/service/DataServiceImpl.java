@@ -17,13 +17,13 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
 
-import rgeoroceanu.model.Car;
-import rgeoroceanu.model.CarSearchCriteria;
-import rgeoroceanu.model.Price;
-import rgeoroceanu.model.Purchase;
 import rgeoroceanu.model.access.CarDao;
 import rgeoroceanu.model.access.CarSearchSpecification;
 import rgeoroceanu.model.access.PurchaseDao;
+import rgeoroceanu.model.business.Car;
+import rgeoroceanu.model.business.Price;
+import rgeoroceanu.model.business.Purchase;
+import rgeoroceanu.model.cms.CarSearchCriteria;
 import rgeoroceanu.model.type.CarType;
 import rgeoroceanu.model.type.Currency;
 import rgeoroceanu.model.type.Engine;

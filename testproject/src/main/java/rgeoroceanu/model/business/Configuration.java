@@ -1,4 +1,4 @@
-package rgeoroceanu.model;
+package rgeoroceanu.model.business;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

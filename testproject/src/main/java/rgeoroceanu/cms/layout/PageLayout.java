@@ -16,6 +16,12 @@ import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
 
+/**
+ * Layout of all pages of this application. It is composed mainly by header, content and footer.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class PageLayout extends VerticalLayout implements Localizable {
 	private static final long serialVersionUID = 1L;
 	private static final Locale ENGLISH_LOCALE = new Locale("en");
@@ -93,18 +99,33 @@ public class PageLayout extends VerticalLayout implements Localizable {
 		homeButton.setCaption(Localizer.getLocalizedString("home"));
 	}
 	
+	/**
+	 * Set the component that is displayed in the content section.
+	 * @param content component to be displayed.
+	 */
 	public void setContent(final Component content) {
 		contentPanel.setContent(content);
 	}
 	
+	/**
+	 * Align content to the center of the page.
+	 */
 	public void alignCenterContent() {
 		this.setComponentAlignment(contentPanel, Alignment.TOP_CENTER);
 	}
 	
+	/**
+	 * Set width of the content section.
+	 * @param width value
+	 * @param unit for the width.
+	 */
 	public void setContentWidth(int width, Unit unit) {
 		contentPanel.setWidth(width, unit);
 	}
 	
+	/**
+	 * Removes border from the content section.
+	 */
 	public void setContentBorderless() {
 		contentPanel.addStyleName(ValoTheme.PANEL_BORDERLESS);
 	}

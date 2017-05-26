@@ -20,6 +20,12 @@ import rgeoroceanu.cms.component.image.ImagePreview;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
 
+/**
+ * Small box containing information about a {@link Car} item.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class CarOverview extends CustomComponent implements Localizable {
 	
 	private static final long serialVersionUID = 1L;
@@ -74,22 +80,47 @@ public class CarOverview extends CustomComponent implements Localizable {
 		this.setCompositionRoot(panel);
 	}
 	
+	/**
+	 * Add click listener for the edit button.
+	 * @param editListener click listener
+	 */
 	public void addEditListener(final ClickListener editListener) {
 		editButton.addClickListener(editListener);
 	}
 	
+	/**
+	 * Set title of the overview box.
+	 * @param title
+	 */
 	public void setTitle(final String title) {
 		this.titleField.setValue(title);
 	}
 	
+	/**
+	 * Set subtitle information.
+	 * @param subtitle 
+	 */
 	public void setSubtitle(final String subtitle) {
 		this.subtitleField.setValue(subtitle);
 	}
 	
+	/**
+	 * Set price data to be displayed.
+	 * @param price
+	 */
 	public void setPrice(final String price) {
 		this.priceField.setValue(price);
 	}
 	
+	/**
+	 * Set other additional details of the car item.
+	 * @param state of the vehicle
+	 * @param registrationDate of the vehicle
+	 * @param engine type of the vehicle
+	 * @param cubicCapacity of the vehicle
+	 * @param transmission type
+	 * @param horsePower value
+	 */
 	public void setDetails(final String state, final String registrationDate, 
 			final String engine, final String cubicCapacity, final String transmission, 
 			final String horsePower) {
@@ -102,6 +133,10 @@ public class CarOverview extends CustomComponent implements Localizable {
 		this.horsePowerField.setValue(horsePower);
 	}
 	
+	/**
+	 * Set image urls that can be viewed.
+	 * @param imageUrls
+	 */
 	public void setImageUrls(final List<String> imageUrls) {
 		final List<Resource> resources = new ArrayList<>();
 		for (final String url : imageUrls) {

@@ -14,6 +14,12 @@ import com.vaadin.ui.Upload;
 import com.vaadin.ui.Upload.StartedEvent;
 import com.vaadin.ui.Upload.SucceededEvent;
 
+/**
+ * Upload component for an image.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class ImageUpload extends CustomComponent {
 
 	private static final long serialVersionUID = 1L;
@@ -31,10 +37,18 @@ public class ImageUpload extends CustomComponent {
 		this.setCompositionRoot(upload);
 	}
 
+	/**
+	 * Set who listens to the upload event.
+	 * @param imageUploaderListener
+	 */
 	public void setImageUploadedListener(final ImageUploadedListener imageUploaderListener) {
 		this.imageUploaderListener = imageUploaderListener;
 	}
 	
+	/**
+	 * Handle successful upload.
+	 * @param event
+	 */
 	public void handleUploadSucceeded(SucceededEvent event) {
 		final BufferedImage bufferedImage;
 		try {
@@ -49,7 +63,13 @@ public class ImageUpload extends CustomComponent {
 		}
 		imageUploaderListener.imageUploaded(file);
 	}
-
+	
+	/**
+	 * Handle receive upload.
+	 * @param filename
+	 * @param mimeType
+	 * @return
+	 */
 	public OutputStream handleReceiveUpload(String filename, String mimeType) {
 		FileOutputStream fos = null;
 		try {

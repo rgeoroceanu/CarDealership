@@ -18,6 +18,12 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import rgeoroceanu.cms.component.image.ImageUpload.ImageUploadedListener;
 
+/**
+ * Component that displays a list of images and provides functionality for uploading more.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class ImagesComponent extends CustomComponent implements ImageUploadedListener {
 	private static final long serialVersionUID = 1L;
 	private static final int IMAGE_WIDTH = 200;
@@ -35,21 +41,36 @@ public class ImagesComponent extends CustomComponent implements ImageUploadedLis
 		this.setCompositionRoot(imagesLayout);
 	}
 	
+	/**
+	 * Set images that are displayed as a list.
+	 * @param imagesUrl
+	 */
 	public void setImages(final List<String> imagesUrl) {
 		clear();
 		imagesUrl.forEach(imageUrl -> addImageComponent(imageUrl));
 	}
 	
+	/**
+	 * Image uploaded event.
+	 */
 	@Override
 	public void imageUploaded(File imageFile) {
 		addImageComponent(imageFile);
 		uploadedImageFiles.add(imageFile);
 	}
 	
+	/**
+	 * Retrieve the current uploaded image files.
+	 * @return uploaded image files.
+	 */
 	public List<File> getUploadedImageFiles() {
 		return uploadedImageFiles;
 	}
 	
+	/**
+	 * Retrieve the current removed image urls.
+	 * @return urls of the images to be removed.
+	 */
 	public List<String> getRemovedImageUrls() {
 		return removedImageUrls;
 	}

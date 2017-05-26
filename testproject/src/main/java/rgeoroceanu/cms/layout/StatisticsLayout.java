@@ -12,7 +12,13 @@ import rgeoroceanu.cms.component.chart.SalesChart;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
 
-public class StatisticsLayout extends VerticalLayout implements Localizable {
+/**
+ * Layout that contains multiple charts with statistics data.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
+public class StatisticsLayout extends PageLayout implements Localizable {
 
 	private static final long serialVersionUID = 1L;
 	private final CarMakesChart makesChart;
@@ -29,11 +35,13 @@ public class StatisticsLayout extends VerticalLayout implements Localizable {
 		makesPanel = new Panel();
 		salesPanel = new Panel();
 		earningsPanel = new Panel();
-		initMainLayout();
+		final VerticalLayout layout = initMainLayout();
+		this.setContent(layout);
 	}
 	
 	@Override
 	public void localize() {
+		super.localize();
 		makesPanel.setCaption(Localizer.getLocalizedString("car_makes"));
 		salesPanel.setCaption(Localizer.getLocalizedString("car_sales"));
 		earningsPanel.setCaption(Localizer.getLocalizedString("car_earnings"));
@@ -44,20 +52,22 @@ public class StatisticsLayout extends VerticalLayout implements Localizable {
 		
 		makesChart.setDistributionData(carMakesData);
 	    salesChart.setSalesData(salesData);
-	    earningsChart.setSalesData(earningsData);
+	    earningsChart.setEarningsData(earningsData);
 	}
 	
-	private void initMainLayout() {
+	private VerticalLayout initMainLayout() {
+		final VerticalLayout layout = new VerticalLayout();
 		makesPanel.setContent(makesChart);
 		salesPanel.setContent(salesChart);
 		earningsPanel.setContent(earningsChart);
-		this.addComponent(makesPanel);
-		this.addComponent(salesPanel);
-		this.addComponent(earningsPanel);
-		this.setSizeFull();
+		layout.addComponent(makesPanel);
+		layout.addComponent(salesPanel);
+		layout.addComponent(earningsPanel);
+		layout.setSizeFull();
 		makesPanel.setSizeFull();
 		salesPanel.setSizeFull();
 		earningsPanel.setSizeFull();
+		return layout;
 	}
 	
 	private CarMakesChart initCarMakesChart() {

@@ -13,6 +13,12 @@ import com.vaadin.ui.themes.ValoTheme;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
 
+/**
+ * Box with a title, content and more button.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public abstract class InfoBox extends CustomComponent implements Localizable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,10 +39,18 @@ public abstract class InfoBox extends CustomComponent implements Localizable {
 		
 	}
 	
+	/**
+	 * Add click listener for the more button.
+	 * @param listener
+	 */
 	public void addMoreButtonListener(ClickListener listener) {
 		moreButton.addClickListener(listener);
 	}
 	
+	/** 
+	 * Set content of the box.
+	 * @param content component
+	 */
 	protected void setContent(final Component content) {
 		contentLayout.removeComponent(moreButton);
 		contentLayout.removeComponent(titleLabel);
@@ -45,6 +59,10 @@ public abstract class InfoBox extends CustomComponent implements Localizable {
 		contentLayout.addComponent(moreButton, BUTTON_POSITION_CSS);
 	}
 	
+	/**
+	 * Set display title
+	 * @param title to be displayed on top.
+	 */
 	public void setTitle(final String title) {
 		titleLabel.setValue("<p style='color:white;background-color: rgba(169,169,169, 0.5'>"
 				+ title + "</p>");

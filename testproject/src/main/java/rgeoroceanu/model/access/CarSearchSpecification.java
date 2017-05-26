@@ -10,9 +10,15 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import rgeoroceanu.model.Car;
-import rgeoroceanu.model.CarSearchCriteria;
+import rgeoroceanu.model.business.Car;
+import rgeoroceanu.model.cms.CarSearchCriteria;
 
+/**
+ * Specification for advanced search of {@link Car} entities.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class CarSearchSpecification implements Specification<Car> {
 
 	private final CarSearchCriteria carSearchCriteria;

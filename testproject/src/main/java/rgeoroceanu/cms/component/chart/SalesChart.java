@@ -19,6 +19,12 @@ import com.vaadin.addon.charts.model.YAxis;
 import com.vaadin.addon.charts.model.ZoomType;
 import com.vaadin.addon.charts.model.style.SolidColor;
 
+/**
+ * Column chart that displays sales for a certain period of time.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class SalesChart extends Chart {
 
 	private static final long serialVersionUID = 1L;
@@ -29,6 +35,10 @@ public class SalesChart extends Chart {
 		initLegend();
 	}	
 	
+	/**
+	 * Set data to be represented by a column chart.
+	 * @param salesMap key represents y axis and value represents x axis.
+	 */
 	public void setSalesData(final LinkedHashMap<String, Integer> salesMap) {
 		final DataSeries series = new DataSeries();
 		series.setName("Sales");

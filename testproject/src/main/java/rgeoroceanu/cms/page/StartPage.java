@@ -10,9 +10,15 @@ import org.springframework.stereotype.Component;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
 import rgeoroceanu.cms.layout.StartLayout;
-import rgeoroceanu.model.Car;
+import rgeoroceanu.model.business.Car;
 import rgeoroceanu.model.type.Make;
 
+/**
+ * Home page of the application. Displays individual boxes of information.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 @Component
 public class StartPage extends Page {
 	
@@ -21,7 +27,7 @@ public class StartPage extends Page {
 	
 	public StartPage() {
 		startLayout = new StartLayout();
-		this.setContent(startLayout);
+		this.setLayout(startLayout);
 	}
 	
 	@Override

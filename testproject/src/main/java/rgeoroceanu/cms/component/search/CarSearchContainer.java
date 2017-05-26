@@ -9,8 +9,15 @@ import com.vaadin.ui.VerticalLayout;
 
 import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.model.CarSearchResult;
+import rgeoroceanu.model.cms.CarSearchResult;
 
+/**
+ * Vertical layout that contains multiple {@link CarOverview} components that represent
+ * search results..
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class CarSearchContainer extends VerticalLayout implements Localizable {
 	
 	private static final long serialVersionUID = 1L;
@@ -28,6 +35,9 @@ public class CarSearchContainer extends VerticalLayout implements Localizable {
 		this.setSpacing(true);
 	}
 	
+	/**
+	 * Clear all contained {@link CarOverview} items.
+	 */
 	public void clear() {
 		resultsMap.clear();
 		this.removeAllComponents();

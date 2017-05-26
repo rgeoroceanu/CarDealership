@@ -10,10 +10,16 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
 import rgeoroceanu.cms.layout.CarSearchLayout;
-import rgeoroceanu.model.Car;
-import rgeoroceanu.model.CarSearchCriteria;
-import rgeoroceanu.model.CarSearchResult;
+import rgeoroceanu.model.business.Car;
+import rgeoroceanu.model.cms.CarSearchCriteria;
+import rgeoroceanu.model.cms.CarSearchResult;
 
+/**
+ * Page that provides search funtionality for {@link Car} entries.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 @Component
 public class CarSearchPage extends Page {
 
@@ -24,7 +30,7 @@ public class CarSearchPage extends Page {
 		super();
 		searchLayout = new CarSearchLayout();
 		searchLayout.addSearchButtonListener( e -> startSearch());
-		this.setContent(searchLayout);
+		this.setLayout(searchLayout);
 	}
 
 	@Override
@@ -32,7 +38,7 @@ public class CarSearchPage extends Page {
 		searchLayout.clear();
 	}
 
-	public void startSearch() {
+	private void startSearch() {
 		final CarSearchCriteria search;
 		try {
 			search = searchLayout.getSearchCriteria();

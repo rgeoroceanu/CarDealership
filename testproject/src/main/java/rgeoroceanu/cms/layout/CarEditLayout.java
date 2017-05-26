@@ -8,6 +8,7 @@ import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.data.validator.IntegerRangeValidator;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.AbstractColorPicker.PopupStyle;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ColorPicker;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
@@ -25,6 +26,7 @@ import rgeoroceanu.cms.component.image.ImagesComponent;
 import rgeoroceanu.cms.converter.DateToYearConverter;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
+import rgeoroceanu.model.business.Car;
 import rgeoroceanu.model.type.CarType;
 import rgeoroceanu.model.type.Currency;
 import rgeoroceanu.model.type.Engine;
@@ -33,8 +35,14 @@ import rgeoroceanu.model.type.Make;
 import rgeoroceanu.model.type.State;
 import rgeoroceanu.model.type.Transmission;
 
+/**
+ * Layout associated with a {@link Car} entity for creating, editing or deleting it.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 @Component
-public class CarEditLayout extends Form implements Localizable {
+public class CarEditLayout extends PageLayout implements Localizable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -63,6 +71,7 @@ public class CarEditLayout extends Form implements Localizable {
 	private final Panel imagesPanel;
 	private final Panel featuresPanel;
 	private final Panel descriptionPanel;
+	private final Form formLayout;
 	
 	public CarEditLayout() {
 		imagesComponent = initImagesComponent();
@@ -87,6 +96,7 @@ public class CarEditLayout extends Form implements Localizable {
 		shortDescriptionField = initDescriptionField();
 		shortDescriptionField.setRows(2);
 		
+		formLayout = new Form();
 		detailsPanel = new Panel();
 		pricingPanel = new Panel();
 		imagesPanel = new Panel();
@@ -95,12 +105,13 @@ public class CarEditLayout extends Form implements Localizable {
 		
 		setupLayout();
 		
-		this.addComponent(imagesPanel);
-		this.addComponent(detailsPanel);
-		this.addComponent(featuresPanel);
-		this.addComponent(pricingPanel);
-		this.addComponent(descriptionPanel);
-		this.setSpacing(true);
+		formLayout.addComponent(imagesPanel);
+		formLayout.addComponent(detailsPanel);
+		formLayout.addComponent(featuresPanel);
+		formLayout.addComponent(pricingPanel);
+		formLayout.addComponent(descriptionPanel);
+		formLayout.setSpacing(true);
+		this.setContent(formLayout);
 	}
 	
 	public ImagesComponent getImagesComponent() {
@@ -131,6 +142,18 @@ public class CarEditLayout extends Form implements Localizable {
 		shortDescriptionField.setCaption(Localizer.getLocalizedString("short_description"));
 		descriptionField.setCaption(Localizer.getLocalizedString("description"));
 		descriptionPanel.setCaption(Localizer.getLocalizedString("description"));
+	}
+	
+	public void addSaveButtonListener(final ClickListener listener) {
+		formLayout.addSaveButtonListener(listener);
+	}
+	
+	public void addRemoveButtonListener(final ClickListener listener) {
+		formLayout.addRemoveButtonListener(listener);
+	}
+	
+	public void addDiscardButtonListener(final ClickListener listener) {
+		formLayout.addDiscardButtonListener(listener);
 	}
 	
 	private void setupLayout() {

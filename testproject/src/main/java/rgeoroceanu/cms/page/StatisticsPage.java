@@ -15,6 +15,12 @@ import rgeoroceanu.cms.layout.StatisticsLayout;
 import rgeoroceanu.cms.localization.Localizer;
 import rgeoroceanu.model.type.Make;
 
+/**
+ * Page that displays certain statistics data.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 @Component
 public class StatisticsPage extends Page {
 	
@@ -23,7 +29,7 @@ public class StatisticsPage extends Page {
 	
 	public StatisticsPage() {
 		statisticsLayout = new StatisticsLayout();
-		this.setContent(statisticsLayout);
+		this.setLayout(statisticsLayout);
 	}
 	
 	@Override

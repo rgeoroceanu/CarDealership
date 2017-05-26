@@ -1,4 +1,4 @@
-package rgeoroceanu.model;
+package rgeoroceanu.model.cms;
 
 import lombok.Getter;
 import lombok.Setter;

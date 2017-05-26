@@ -14,11 +14,17 @@ import com.vaadin.ui.Notification;
 
 import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.layout.CarEditLayout;
-import rgeoroceanu.model.Car;
+import rgeoroceanu.model.business.Car;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
 import rgeoroceanu.service.exception.ImageDeleteException;
 import rgeoroceanu.service.exception.ImageWriteException;
 
+/**
+ * Page used for editing and adding of {@link Car} entities.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 @Component
 public class CarEditPage extends Page {
 
@@ -33,10 +39,10 @@ public class CarEditPage extends Page {
 		carEditLayout.addRemoveButtonListener(e -> handleRemove());
 		carEditLayout.addDiscardButtonListener(e -> handleDiscard());
 		binder = new BeanFieldGroup<>(Car.class);
-		this.setContent(carEditLayout);
-		this.setContentWidth(850, Unit.PIXELS);
-		this.alignCenterContent();
-		this.setContentBorderless();
+		carEditLayout.setContentWidth(850, Unit.PIXELS);
+		carEditLayout.alignCenterContent();
+		carEditLayout.setContentBorderless();
+		this.setLayout(carEditLayout);
 	}
 
 	@Override

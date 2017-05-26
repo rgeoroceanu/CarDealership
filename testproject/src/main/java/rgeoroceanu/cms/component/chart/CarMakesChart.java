@@ -12,15 +12,25 @@ import com.vaadin.addon.charts.model.DataSeries;
 import com.vaadin.addon.charts.model.DataSeriesItem;
 import com.vaadin.addon.charts.model.PlotOptionsPie;
 
+/**
+ * Pie chart that displays per car make current availability.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class CarMakesChart extends Chart {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	public CarMakesChart() {
 		super(ChartType.PIE);
 		initConfiguration();
 	}	
 	
+	/**
+	 * Set data to be displayed in the chart.
+	 * @param carDistributionMap key represents y axis and value represents x axis.
+	 */
 	public void setDistributionData(final Map<String, Integer> carDistributionMap) {
 		final DataSeries series = new DataSeries();
 		for (Entry<String, Integer> e : carDistributionMap.entrySet()) {

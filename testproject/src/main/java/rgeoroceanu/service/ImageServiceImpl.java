@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
 
-import rgeoroceanu.model.Car;
-import rgeoroceanu.model.Configuration;
+import rgeoroceanu.model.business.Car;
+import rgeoroceanu.model.business.Configuration;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
 import rgeoroceanu.service.exception.ImageDeleteException;
 import rgeoroceanu.service.exception.ImageWriteException;

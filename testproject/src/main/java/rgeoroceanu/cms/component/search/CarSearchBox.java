@@ -15,8 +15,14 @@ import com.vaadin.ui.themes.ValoTheme;
 import rgeoroceanu.cms.component.form.CarSearchForm;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.CarSearchCriteria;
+import rgeoroceanu.model.cms.CarSearchCriteria;
 
+/**
+ * Search box that contains multiple search terms and a search button to submit the search.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class CarSearchBox extends CustomComponent implements Localizable {
 	
 	private static final long serialVersionUID = 1L;
@@ -34,10 +40,19 @@ public class CarSearchBox extends CustomComponent implements Localizable {
 		this.setCompositionRoot(wrapPanel);
 	}
 	
+	/**
+	 * Add listener for the search button click.
+	 * @param listener
+	 */
 	public void addSearchButtonListener(ClickListener listener) {
 		searchButton.addClickListener(listener);
 	}
 	
+	/**
+	 * Retrieve the current entered search terms.
+	 * @return search terms as {@link CarSearchCriteria} object.
+	 * @throws InvalidValueException
+	 */
 	public CarSearchCriteria getSearchCriteria() throws InvalidValueException {
 		final CarSearchCriteria criteria = getCurrentSearchOptions();
 		return criteria;

@@ -7,8 +7,14 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import rgeoroceanu.model.Car;
+import rgeoroceanu.model.business.Car;
 
+/**
+ * DAO that provides methods for accessing {@link Car} entities.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 @Repository
 public interface CarDao extends JpaRepository<Car, Long>, JpaSpecificationExecutor<Car> {
 	

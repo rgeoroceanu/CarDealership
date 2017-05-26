@@ -19,6 +19,12 @@ import com.vaadin.addon.charts.model.YAxis;
 import com.vaadin.addon.charts.model.ZoomType;
 import com.vaadin.addon.charts.model.style.SolidColor;
 
+/**
+ * Line chart that displays earnings for a certain period of time.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class EarningsChart extends Chart {
 
 	private static final long serialVersionUID = 1L;
@@ -29,14 +35,18 @@ public class EarningsChart extends Chart {
 		initLegend();
 	}	
 	
-	public void setSalesData(final LinkedHashMap<String, Integer> salesMap) {
+	/**
+	 * Set data to be represented by a line chart.
+	 * @param earningsMap key represents y axis and value represents x axis.
+	 */
+	public void setEarningsData(final LinkedHashMap<String, Integer> earningsMap) {
 		final DataSeries series = new DataSeries();
 		series.setName("Earnings (€)");
 		final PlotOptionsColumn plot = new PlotOptionsColumn();
         plot.setPointPadding(0.2);
         plot.setBorderWidth(0);
 
-		for (Entry<String, Integer> e : salesMap.entrySet()) {
+		for (Entry<String, Integer> e : earningsMap.entrySet()) {
 			final String x = e.getKey();
 			final int y = e.getValue();
 			this.getConfiguration().getxAxis().addCategory(x);

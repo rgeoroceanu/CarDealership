@@ -11,6 +11,13 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.themes.ValoTheme;
 
+/**
+ * Image box that provides next and previous button to scroll through a
+ * list of images.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 public class ImagePreview extends CustomComponent {
 	
 	private static final long serialVersionUID = 1L;
@@ -30,6 +37,10 @@ public class ImagePreview extends CustomComponent {
 		this.setCompositionRoot(layout);
 	}
 	
+	/**
+	 * Set list of image resources that can be displayed.
+	 * @param imageResources of the images that can be displayed in the preview box.
+	 */
 	public void setImageResources(final List<Resource> imageResources) {
 		this.imageResources.clear();
 		this.imageResources.addAll(imageResources);

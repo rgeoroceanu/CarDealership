@@ -1,4 +1,4 @@
-package rgeoroceanu.model;
+package rgeoroceanu.model.business;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +14,12 @@ import javax.persistence.Version;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Base entity with an id, version, created and updated fiels.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
 @Getter
 @Setter
 @MappedSuperclass

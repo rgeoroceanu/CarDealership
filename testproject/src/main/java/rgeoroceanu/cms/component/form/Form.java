@@ -9,7 +9,13 @@ import com.vaadin.ui.themes.ValoTheme;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
 
-public abstract class Form extends VerticalLayout implements Localizable {
+/**
+ * Basic form layout with save, discard and remove buttons.
+ * 
+ * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
+ *
+ */
+public class Form extends VerticalLayout implements Localizable {
 
 	private static final long serialVersionUID = 1L;
 	private final Button saveButton;
