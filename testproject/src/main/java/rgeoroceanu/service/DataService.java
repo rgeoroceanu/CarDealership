@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import rgeoroceanu.model.business.Car;
+import rgeoroceanu.model.business.Dealership;
 import rgeoroceanu.model.business.Purchase;
 import rgeoroceanu.model.business.User;
 import rgeoroceanu.model.cms.CarSearchCriteria;
@@ -127,4 +128,17 @@ public interface DataService {
 	 * @return saved user.
 	 */
 	public User saveUser(final User user);
+	
+	/**
+	 * Retrieve dealership information.
+	 * @return dealership general information
+	 */
+	public Dealership getDealership() throws DataDoesNotExistException;
+	
+	/**
+	 * Update the dealership information.
+	 * @param dealership updated info
+	 * @return the updated dealership.
+	 */
+	public Dealership updateDealership(final Dealership dealership);
 }

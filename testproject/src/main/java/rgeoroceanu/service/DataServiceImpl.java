@@ -1,6 +1,7 @@
 package rgeoroceanu.service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -21,9 +22,11 @@ import com.google.common.base.Preconditions;
 
 import rgeoroceanu.model.access.CarDao;
 import rgeoroceanu.model.access.CarSearchSpecification;
+import rgeoroceanu.model.access.DealershipDao;
 import rgeoroceanu.model.access.PurchaseDao;
 import rgeoroceanu.model.access.UserDao;
 import rgeoroceanu.model.business.Car;
+import rgeoroceanu.model.business.Dealership;
 import rgeoroceanu.model.business.Price;
 import rgeoroceanu.model.business.Purchase;
 import rgeoroceanu.model.business.User;
@@ -32,6 +35,7 @@ import rgeoroceanu.model.type.CarType;
 import rgeoroceanu.model.type.Currency;
 import rgeoroceanu.model.type.Engine;
 import rgeoroceanu.model.type.Make;
+import rgeoroceanu.model.type.Role;
 import rgeoroceanu.model.type.State;
 import rgeoroceanu.model.type.Transmission;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
@@ -46,6 +50,8 @@ public class DataServiceImpl implements DataService {
 	private PurchaseDao purchaseDao;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private DealershipDao dealershipDao;
 	
 	@PostConstruct
 	public void init() {
@@ -95,6 +101,20 @@ public class DataServiceImpl implements DataService {
 			p.setSalePriceInEuro((i + 1) * 2 * 10000);
 			this.savePurchase(p);
 		}
+		final Dealership dealership = new Dealership();
+		dealership.setAddress("Peter-Kreuder Str.17");
+		dealership.setCity("Munich");
+		dealership.setCountry("Germany");
+		dealership.setName("Radu Dealership");
+		dealership.setPhone("+49 17658830284");
+		dealership.setEmail("test@test.com");
+		dealership.setZip("81245");
+		this.updateDealership(dealership);
+		final User user = new User();
+		user.setRoles(Arrays.asList(Role.ADMIN));
+		user.setUsername("rgeoroceanu");
+		user.setPassword("admin");
+		this.saveUser(user);
 	}
 	
 	@Transactional(readOnly = true)
@@ -273,5 +293,26 @@ public class DataServiceImpl implements DataService {
 		Preconditions.checkNotNull(user, "User must not be null!");
 		LOG.info("Save user " + user.toString()); 
 		return userDao.saveAndFlush(user);
+	}
+
+	@Override
+	public Dealership getDealership() throws DataDoesNotExistException {
+		LOG.info("Requested dealership information");		
+		final Dealership dealership = dealershipDao.findOne(1l);	
+		
+		if (dealership == null) {
+			throw new DataDoesNotExistException("Entry not found!");
+		}
+		
+		return dealership;
+	}
+
+	@Override
+	public Dealership updateDealership(Dealership dealership) {
+		Preconditions.checkNotNull(dealership, "Dealership must not be null!");
+		LOG.info("Save dealership " + dealership.toString());
+		// always 1 entry in table
+		dealership.setId(1l);
+		return dealershipDao.saveAndFlush(dealership);
 	}
 }
