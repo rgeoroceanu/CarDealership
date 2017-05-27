@@ -4,6 +4,7 @@ import javax.sql.DataSource;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
@@ -16,6 +17,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import rgeoroceanu.cms.localization.Localizer;
 
@@ -27,7 +29,14 @@ public class TestprojectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TestprojectApplication.class, args);
 	}
-
+	
+	@Bean
+	public ServletRegistrationBean dispatcherRegistration(DispatcherServlet dispatcherServlet) {
+	    ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet);
+	    registration.addUrlMappings("/api/*", "/cms/*");
+	    return registration;
+	}
+	
 	@Bean
 	@Scope("singleton")
 	public Localizer localizer() {
@@ -64,5 +73,10 @@ public class TestprojectApplication {
 		JpaTransactionManager txManager = new JpaTransactionManager();
 		txManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return txManager;
+	}
+	
+	@Bean
+	public String version() {
+		return "0.0.1-SNAPSHOT";
 	}
 }

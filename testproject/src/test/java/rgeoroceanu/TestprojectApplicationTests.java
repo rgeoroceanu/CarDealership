@@ -1,4 +1,4 @@
-package net.rdi;
+package rgeoroceanu;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

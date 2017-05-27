@@ -14,6 +14,7 @@ import com.vaadin.ui.UI;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.page.CarEditPage;
 import rgeoroceanu.cms.page.CarSearchPage;
+import rgeoroceanu.cms.page.ErrorPage;
 import rgeoroceanu.cms.page.StartPage;
 import rgeoroceanu.cms.page.StatisticsPage;
 
@@ -23,7 +24,7 @@ import rgeoroceanu.cms.page.StatisticsPage;
  * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
  *
  */
-@SpringUI
+@SpringUI(path = "cms")
 @Theme("cms")
 @Widgetset("rgeoroceanu.cms.widgetset.AppWidgetSet")
 public class App extends UI implements Localizable {
@@ -44,6 +45,10 @@ public class App extends UI implements Localizable {
 	 * View identifier of the statistics page.
 	 */
 	private static final String STATISTICS_PAGE_NAV_NAME = "statistics";
+	/**
+	 * View identifier of the error page.
+	 */
+	private static final String ERROR_PAGE_NAV_NAME = "error";
 	@Autowired
 	private StartPage startPage;
 	@Autowired
@@ -52,6 +57,8 @@ public class App extends UI implements Localizable {
 	private CarSearchPage carSearchPage;
 	@Autowired
 	private StatisticsPage statisticsPage;
+	@Autowired
+	private ErrorPage errorPage;
 	private Navigator navigator;
 	
 	@Override
@@ -61,8 +68,9 @@ public class App extends UI implements Localizable {
 		navigator.addView(CAR_EDIT_PAGE_NAV_NAME, carEditPage);
 		navigator.addView(CAR_SEARCH_PAGE_NAV_NAME, carSearchPage);
 		navigator.addView(STATISTICS_PAGE_NAV_NAME, statisticsPage);
+		navigator.addView(ERROR_PAGE_NAV_NAME, errorPage);
 		navigator.navigateTo(START_PAGE_NAV_NAME);
-		// TODO add error page
+		navigator.setErrorView(errorPage);
         localize();
     }
 	
@@ -115,6 +123,17 @@ public class App extends UI implements Localizable {
 	 */
 	public void navigateToStatisticsPage() {
 		navigator.navigateTo(STATISTICS_PAGE_NAV_NAME);
+	}
+	
+	/**
+	 * Navigate to error page, optionally changing the error message.
+	 * @param message
+	 */
+	public void navigateToErrorPage(final String message) {
+		if (message != null) {
+			errorPage.setErrorMessage(message);
+		}
+		navigator.navigateTo(ERROR_PAGE_NAV_NAME);
 	}
 	
 	private void localizeRecursive(HasComponents root) {

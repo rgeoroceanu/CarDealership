@@ -6,6 +6,7 @@ import java.util.Map;
 
 import rgeoroceanu.model.business.Car;
 import rgeoroceanu.model.business.Purchase;
+import rgeoroceanu.model.business.User;
 import rgeoroceanu.model.cms.CarSearchCriteria;
 import rgeoroceanu.model.type.Make;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
@@ -97,4 +98,33 @@ public interface DataService {
 	 * @return per month earnings.
 	 */
 	public Map<Integer, Integer> getMonthlyEarnings(final LocalDateTime start, final LocalDateTime end);
+	
+	/**
+	 * Retrieve {@link User} identified by id.
+	 * @param id of the user to retrieve
+	 * @return user entity
+	 * @throws DataDoesNotExistException thrown in case no user with the provided id is found.
+	 */
+	public User getUser(final Long id) throws DataDoesNotExistException;;
+	
+	/**
+	 * Retrieve user by username.
+	 * @param username of the user to retrieve.
+	 * @return user 
+	 * @throws DataDoesNotExistException thrown in case no user with the provided username is found.
+	 */
+	public User getUser(final String username) throws DataDoesNotExistException;;
+	
+	/**
+	 * Retrieve all users.
+	 * @return list of users.
+	 */
+	public List<User> getAllUsers();
+	
+	/**
+	 * Update or create {@link User} entity.
+	 * @param user to be saved.
+	 * @return saved user.
+	 */
+	public User saveUser(final User user);
 }

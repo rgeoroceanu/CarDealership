@@ -12,6 +12,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import com.google.common.base.MoreObjects;
+
 import lombok.Getter;
 import lombok.Setter;
 import rgeoroceanu.model.type.CarType;
@@ -93,4 +95,18 @@ public class Car extends Base implements Serializable {
 	public boolean removeFullImage(final String filename) {
 		return fullImages.remove(filename);
 	}
+
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this).add("super", super.toString()).add("serialVersionUID", serialVersionUID)
+				.add("make", make).add("model", model).add("registrationYear", registrationYear)
+				.add("registrationMonth", registrationMonth).add("kilometers", kilometers).add("engine", engine)
+				.add("cubicCentimeters", cubicCentimeters).add("horsePower", horsePower)
+				.add("transmission", transmission).add("color", color).add("state", state)
+				.add("previewImages", previewImages).add("fullImages", fullImages).add("sold", sold).add("price", price)
+				.add("features", features).add("carType", carType).add("doors", doors).add("seats", seats)
+				.add("shortDescription", shortDescription).add("description", description).toString();
+	}
+	
+	
 }

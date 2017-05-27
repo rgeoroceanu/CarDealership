@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import com.google.common.base.MoreObjects;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,4 +25,12 @@ public class Purchase extends Base {
 	private LocalDateTime purchaseDate;
 	@Basic
 	private int salePriceInEuro;
+	
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this).add("super", super.toString()).add("car", car)
+				.add("purchaseDate", purchaseDate).add("salePriceInEuro", salePriceInEuro).toString();
+	}
+	
+	
 }

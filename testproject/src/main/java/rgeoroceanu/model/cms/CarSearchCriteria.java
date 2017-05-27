@@ -20,4 +20,14 @@ public class CarSearchCriteria {
 	private Integer endCapacity;
 	private Integer startPower;
 	private Integer endPower;
+	
+	@Override
+	public String toString() {
+		return "CarSearchCriteria [make=" + make + ", model=" + model + ", startYear=" + startYear + ", endYear="
+				+ endYear + ", startPrice=" + startPrice + ", endPrice=" + endPrice + ", engine=" + engine
+				+ ", startCapacity=" + startCapacity + ", endCapacity=" + endCapacity + ", startPower=" + startPower
+				+ ", endPower=" + endPower + "]";
+	}
+	
+	
 }
