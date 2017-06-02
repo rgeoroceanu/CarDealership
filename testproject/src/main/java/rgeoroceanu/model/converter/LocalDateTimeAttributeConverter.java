@@ -6,7 +6,10 @@ import java.time.LocalDateTime;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
+import org.springframework.stereotype.Component;
+
 @Converter(autoApply = true)
+@Component
 public class LocalDateTimeAttributeConverter implements AttributeConverter<LocalDateTime, Timestamp> {
 	
     @Override

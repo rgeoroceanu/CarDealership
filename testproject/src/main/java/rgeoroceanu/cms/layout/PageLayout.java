@@ -8,6 +8,8 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
@@ -28,11 +30,16 @@ public class PageLayout extends VerticalLayout implements Localizable {
 	private static final Locale GERMAN_LOCALE = new Locale("de");
 	
 	private final ComboBox languageSelect;
+	private final MenuBar menuBar;
 	private final Button logoutButton;
-	private final Button addVehicleButton;
-	private final Button searchButton;
-	private final Button homeButton;
-	private final Button statisticsButton;
+	private final MenuItem vehiclesItem;
+	private final MenuItem searchItem;
+	private final MenuItem addVehicleItem;
+	private final MenuItem homeItem;
+	private final MenuItem statisticsItem;
+	private final MenuItem managerItem;
+	private final MenuItem usersItem;
+	private final MenuItem generalItem;
 	private final Panel contentPanel;
 	private final Button contactButton;
 	private final Button helpButton;
@@ -42,11 +49,23 @@ public class PageLayout extends VerticalLayout implements Localizable {
 		this.addStyleName(ValoTheme.UI_WITH_MENU);
 		this.languageSelect = initLanguageSelect();
 		this.logoutButton = initLogoutButton();
-		this.addVehicleButton = initAddVehicleButton();
-		this.searchButton = initSearchButton();
-		this.statisticsButton = initStatisticsButton();
+		this.menuBar = new MenuBar();
+		this.homeItem = menuBar.addItem("", null, command -> App.getCurrent().navigateToStartPage());
+		this.homeItem.setStyleName("button");
+		this.menuBar.addStyleName("titlemenubar");
+		this.menuBar.addStyleName(ValoTheme.MENUBAR_BORDERLESS);
+		this.menuBar.setHeight(100, Unit.PERCENTAGE);
+		this.vehiclesItem = menuBar.addItem("", null, null);
+		this.vehiclesItem.setStyleName("button");
+		this.searchItem = this.vehiclesItem.addItem("", command -> App.getCurrent().navigateToSearchPage());
+		this.addVehicleItem = this.vehiclesItem.addItem("", command -> App.getCurrent().navigateToCarPage(null));
+		this.statisticsItem = menuBar.addItem("", null, command -> App.getCurrent().navigateToStatisticsPage());
+		this.statisticsItem.setStyleName("button");
+		this.managerItem = menuBar.addItem("", null, null);
+		this.managerItem.setStyleName("button");
+		this.usersItem = this.managerItem.addItem("", null);
+		this.generalItem = this.managerItem.addItem("", null);
 		this.contactButton = initContactButton();
-		this.homeButton = initHomeButton();
 		this.helpButton = initHelpButton();
 		this.aboutButton = initAboutButton();
 		contentPanel = new Panel();
@@ -58,10 +77,7 @@ public class PageLayout extends VerticalLayout implements Localizable {
 		HorizontalLayout footerLayout = new HorizontalLayout();
 		headerLayout.addComponent(languageSelect);
 		headerLayout.addComponent(logoutButton);
-		titleButtonsLayout.addComponent(homeButton);
-		titleButtonsLayout.addComponent(statisticsButton);
-		titleButtonsLayout.addComponent(searchButton);
-		titleButtonsLayout.addComponent(addVehicleButton);
+		titleButtonsLayout.addComponent(menuBar);
 		titleLayout.addComponent(titleButtonsLayout);
 		footerLayout.addComponent(contactButton);
 		footerLayout.addComponent(helpButton);
@@ -90,13 +106,17 @@ public class PageLayout extends VerticalLayout implements Localizable {
 	public void localize() {
 		// localize
 		logoutButton.setCaption(Localizer.getLocalizedString("logout"));
-		statisticsButton.setCaption(Localizer.getLocalizedString("statistics"));
-		addVehicleButton.setCaption(Localizer.getLocalizedString("addVehicle"));
-		searchButton.setCaption(Localizer.getLocalizedString("search"));
+		statisticsItem.setText(Localizer.getLocalizedString("statistics"));
+		vehiclesItem.setText(Localizer.getLocalizedString("vehicles"));
+		addVehicleItem.setText(Localizer.getLocalizedString("add"));
+		searchItem.setText(Localizer.getLocalizedString("search"));
 		contactButton.setCaption(Localizer.getLocalizedString("contact"));
 		helpButton.setCaption(Localizer.getLocalizedString("help"));
 		aboutButton.setCaption(Localizer.getLocalizedString("about"));
-		homeButton.setCaption(Localizer.getLocalizedString("home"));
+		homeItem.setText(Localizer.getLocalizedString("home"));
+		managerItem.setText(Localizer.getLocalizedString("manage"));
+		usersItem.setText(Localizer.getLocalizedString("users"));
+		generalItem.setText(Localizer.getLocalizedString("general"));
 	}
 	
 	/**
@@ -150,38 +170,6 @@ public class PageLayout extends VerticalLayout implements Localizable {
 		final Button logoutButton = new Button();
 		logoutButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		return logoutButton;
-	}
-	
-	private Button initAddVehicleButton() {
-		final Button addVehicleButton = new Button();
-		addVehicleButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		addVehicleButton.setHeight(70, Unit.PIXELS);
-		addVehicleButton.addClickListener(e -> App.getCurrent().navigateToCarPage(null));
-		return addVehicleButton;
-	}
-	
-	private Button initSearchButton() {
-		final Button searchButton = new Button();
-		searchButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		searchButton.setHeight(70, Unit.PIXELS);
-		searchButton.addClickListener(e -> App.getCurrent().navigateToSearchPage());
-		return searchButton;
-	}
-	
-	private Button  initStatisticsButton() {
-		Button statisticsButton = new Button();
-		statisticsButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		statisticsButton.setHeight(70, Unit.PIXELS);
-		statisticsButton.addClickListener(e -> App.getCurrent().navigateToStatisticsPage());
-		return statisticsButton;
-	}
-	
-	private Button  initHomeButton() {
-		Button homesButton = new Button();
-		homesButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
-		homesButton.setHeight(70, Unit.PIXELS);
-		homesButton.addClickListener(e -> App.getCurrent().navigateToStartPage());
-		return homesButton;
 	}
 	
 	private Button initContactButton() {

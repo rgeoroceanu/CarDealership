@@ -4,7 +4,9 @@ import javax.sql.DataSource;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
@@ -24,10 +26,21 @@ import rgeoroceanu.cms.localization.Localizer;
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableTransactionManagement
-public class TestprojectApplication {
+public class TestprojectApplication extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(TestprojectApplication.class);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(TestprojectApplication.class, args);
+	}
+	
+	@Bean
+	public DispatcherServlet dispatcherServlet() {
+		DispatcherServlet dispatcherServlet = new DispatcherServlet();
+	    return dispatcherServlet;
 	}
 	
 	@Bean
@@ -63,7 +76,7 @@ public class TestprojectApplication {
 		vendorAdapter.setGenerateDdl(true);
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("rgeoroceanu.model");
+		factory.setPackagesToScan("rgeoroceanu.model.business", "rgeoroceanu.model.converter");
 		factory.setDataSource(dataSource());
 		return factory;
 	}

@@ -15,8 +15,10 @@ import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.page.CarEditPage;
 import rgeoroceanu.cms.page.CarSearchPage;
 import rgeoroceanu.cms.page.ErrorPage;
+import rgeoroceanu.cms.page.ManagerPage;
 import rgeoroceanu.cms.page.StartPage;
 import rgeoroceanu.cms.page.StatisticsPage;
+import rgeoroceanu.cms.page.UserEditPage;
 
 /**
  * UI entry point of the CMS.
@@ -49,6 +51,14 @@ public class App extends UI implements Localizable {
 	 * View identifier of the error page.
 	 */
 	private static final String ERROR_PAGE_NAV_NAME = "error";
+	/**
+	 * View identifier of the manager page.
+	 */
+	private static final String MANAGER_PAGE_NAV_NAME = "manager";
+	/**
+	 * View identifier of the manager page.
+	 */
+	private static final String USER_EDIT_PAGE_NAV_NAME = "user";
 	@Autowired
 	private StartPage startPage;
 	@Autowired
@@ -59,6 +69,10 @@ public class App extends UI implements Localizable {
 	private StatisticsPage statisticsPage;
 	@Autowired
 	private ErrorPage errorPage;
+	@Autowired
+	private ManagerPage managerPage;
+	@Autowired
+	private UserEditPage userEditPage;
 	private Navigator navigator;
 	
 	@Override
@@ -69,6 +83,8 @@ public class App extends UI implements Localizable {
 		navigator.addView(CAR_SEARCH_PAGE_NAV_NAME, carSearchPage);
 		navigator.addView(STATISTICS_PAGE_NAV_NAME, statisticsPage);
 		navigator.addView(ERROR_PAGE_NAV_NAME, errorPage);
+		navigator.addView(MANAGER_PAGE_NAV_NAME, managerPage);
+		navigator.addView(USER_EDIT_PAGE_NAV_NAME, userEditPage);
 		navigator.navigateTo(START_PAGE_NAV_NAME);
 		navigator.setErrorView(errorPage);
         localize();
@@ -88,6 +104,8 @@ public class App extends UI implements Localizable {
 		localizeRecursive(carSearchPage);
 		localizeRecursive(startPage);
 		localizeRecursive(statisticsPage);
+		localizeRecursive(managerPage);
+		localizeRecursive(userEditPage);
 	}
 	
 	/**
@@ -134,6 +152,27 @@ public class App extends UI implements Localizable {
 			errorPage.setErrorMessage(message);
 		}
 		navigator.navigateTo(ERROR_PAGE_NAV_NAME);
+	}
+	
+	/**
+	 * Navigate to the statistics page.
+	 */
+	public void navigateToManagerPage() {
+		navigator.navigateTo(MANAGER_PAGE_NAV_NAME);
+	}
+	
+	/**
+	 * Navigate to the user editing page and fill the form user data belonging to user id.
+	 * @param userId identifier of the user data with which to fill the form data; if null is provided,
+	 * the form is empty.
+	 */
+	public void navigateToUserPage(Long userId) {
+		final StringBuilder path = new StringBuilder(USER_EDIT_PAGE_NAV_NAME);
+		if (userId != null) {
+			path.append("/");
+			path.append(String.valueOf(userId));
+		}
+		navigator.navigateTo(path.toString());
 	}
 	
 	private void localizeRecursive(HasComponents root) {

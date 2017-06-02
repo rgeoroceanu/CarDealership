@@ -12874,3 +12874,31 @@ div.v-layout.v-horizontal.v-widget {
 .cms .layout-padding {
 	padding: 10px;
 }
+
+.cms .titlemenubar .v-menubar {
+	height: 100%;
+	border: 0px;
+	background: #96be5a;
+	line-height: 70px;
+}
+
+.cms .titlemenubar .v-menubar-menuitem-button {
+	height: 70px;
+	line-height: 70px;
+	color: #f4f6f1;
+	border-radius: 6px;
+	border: 2px solid #69853f;
+	background: #96be5a;
+	padding: 0 19px;
+	font-weight: bold;
+	min-width: 81px;
+	margin: -1px;
+}
+
+.cms .titlemenubar .v-menubar-menuitem:first-child {
+	border-left-width: 2px;
+}
+
+.cms .titlemenubar .v-menubar-menuitem:last-child {
+	border-right-width: 2px;
+}

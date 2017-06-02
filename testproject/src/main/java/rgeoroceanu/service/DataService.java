@@ -130,6 +130,13 @@ public interface DataService {
 	public User saveUser(final User user);
 	
 	/**
+	 * Remove the user entity associated with the provided id.
+	 * @param userId of the user to delete.
+	 * @throws DataDoesNotExistException thrown in case no user with the provided id exists.
+	 */
+	public void removeUser(final Long userId) throws DataDoesNotExistException;
+	
+	/**
 	 * Retrieve dealership information.
 	 * @return dealership general information
 	 */
@@ -140,5 +147,5 @@ public interface DataService {
 	 * @param dealership updated info
 	 * @return the updated dealership.
 	 */
-	public Dealership updateDealership(final Dealership dealership);
+	public Dealership saveDealership(final Dealership dealership);
 }

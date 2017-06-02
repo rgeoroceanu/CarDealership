@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,9 +110,9 @@ public class DataServiceImpl implements DataService {
 		dealership.setPhone("+49 17658830284");
 		dealership.setEmail("test@test.com");
 		dealership.setZip("81245");
-		this.updateDealership(dealership);
+		this.saveDealership(dealership);
 		final User user = new User();
-		user.setRoles(Arrays.asList(Role.ADMIN));
+		user.setRoles(new HashSet<>(Arrays.asList(Role.ADMIN)));
 		user.setUsername("rgeoroceanu");
 		user.setPassword("admin");
 		this.saveUser(user);
@@ -295,24 +296,33 @@ public class DataServiceImpl implements DataService {
 		return userDao.saveAndFlush(user);
 	}
 
+	@Transactional
+	@Override
+	public void removeUser(Long id) throws DataDoesNotExistException {
+		Preconditions.checkNotNull(id, "Id must not be null!");
+		LOG.info("Remove user with id" + id); 
+		if (userDao.findOne(id) == null) {
+			throw new DataDoesNotExistException("Entry not found!");
+		}
+		userDao.delete(id);
+	}
+	
 	@Override
 	public Dealership getDealership() throws DataDoesNotExistException {
 		LOG.info("Requested dealership information");		
-		final Dealership dealership = dealershipDao.findOne(1l);	
+		final List<Dealership> dealerships = dealershipDao.findAll();
 		
-		if (dealership == null) {
+		if (dealerships.isEmpty()) {
 			throw new DataDoesNotExistException("Entry not found!");
 		}
 		
-		return dealership;
+		return dealerships.get(0);
 	}
 
 	@Override
-	public Dealership updateDealership(Dealership dealership) {
+	public Dealership saveDealership(Dealership dealership) {
 		Preconditions.checkNotNull(dealership, "Dealership must not be null!");
 		LOG.info("Save dealership " + dealership.toString());
-		// always 1 entry in table
-		dealership.setId(1l);
 		return dealershipDao.saveAndFlush(dealership);
 	}
 }

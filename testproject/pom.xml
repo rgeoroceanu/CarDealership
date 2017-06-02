@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.2.RELEASE</version>
+		<version>1.5.3.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -23,6 +23,23 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<properties>
+				<websrv.hostname>localhost:8080</websrv.hostname>
+				<websrv.imagePath>/var/www/app/cars</websrv.imagePath>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<websrv.hostname>localhost:8080</websrv.hostname>
+				<websrv.imagePath>/var/www/app/cars</websrv.imagePath>
+			</properties>
+		</profile>
+	</profiles>
 
 	<repositories>
 		<repository>
@@ -49,26 +66,28 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jersey</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-spring-boot-starter</artifactId>
-			<version>1.1.1</version>
+			<version>1.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+            	<exclusion>
+                	<groupId>org.springframework.boot</groupId>
+                	<artifactId>spring-boot-starter-tomcat</artifactId>
+            	</exclusion>
+        	</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
+ 		<dependency>
+ 			<groupId>org.springframework.boot</groupId> 
+ 			<artifactId>spring-boot-starter-tomcat</artifactId>
+ 			<scope>provided</scope>
+ 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -77,6 +96,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<exclusions>
+            	<exclusion>
+                	<groupId>org.apache.tomcat</groupId>
+                	<artifactId>tomcat-jdbc</artifactId>
+            	</exclusion>
+        	</exclusions>
 		</dependency>
 
 		<!-- Util -->

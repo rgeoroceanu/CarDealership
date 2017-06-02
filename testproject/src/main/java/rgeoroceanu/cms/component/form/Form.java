@@ -53,9 +53,9 @@ public class Form extends VerticalLayout implements Localizable {
 	public void setActionButtonsEnableState(boolean saveButtonEnabled,
 			boolean discardButtonEnabled, boolean removeButtonEnabled) {
 		
-		saveButton.setEnabled(saveButtonEnabled);
-		discardButton.setEnabled(saveButtonEnabled);
-		removeButton.setEnabled(saveButtonEnabled);
+		saveButton.setVisible(saveButtonEnabled);
+		discardButton.setVisible(discardButtonEnabled);
+		removeButton.setVisible(removeButtonEnabled);
 	}
 
 	@Override
