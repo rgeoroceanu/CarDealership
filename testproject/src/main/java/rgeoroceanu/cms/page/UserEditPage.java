@@ -34,9 +34,9 @@ public class UserEditPage extends Page {
 		userEditLayout.addRemoveButtonListener(e -> handleRemove());
 		userEditLayout.addDiscardButtonListener(e -> handleDiscard());
 		binder = new BeanFieldGroup<>(User.class);
-//		userEditLayout.setContentWidth(850, Unit.PIXELS);
-//		userEditLayout.alignCenterContent();
-//		userEditLayout.setContentBorderless();
+		userEditLayout.setContentWidth(850, Unit.PIXELS);
+		userEditLayout.alignCenterContent();
+		userEditLayout.setContentBorderless();
 		this.setLayout(userEditLayout);
 	}
 

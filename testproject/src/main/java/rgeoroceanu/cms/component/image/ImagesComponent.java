@@ -77,26 +77,26 @@ public class ImagesComponent extends CustomComponent implements ImageUploadedLis
 	
 	private void clear() {
 		uploadedImageFiles.clear();
+		removedImageUrls.clear();
 		imagesLayout.removeAllComponents();
 		addUploadComponent();
 	}
 	
 	private void addImageComponent(final File file) {
 		final Image image = new Image(null, new FileResource(file));
-		initImageLayout(image);
+		addImageToLayout(image);
 	}
 	
 	private void addImageComponent(final String imageUrl) {
 		final Image image = new Image(null, new ExternalResource(imageUrl));
-		initImageLayout(image);
+		addImageToLayout(image);
 	}
 	
-	private void initImageLayout(final Image image) {
+	private void addImageToLayout(final Image image) {
 		final AbsoluteLayout layout = new AbsoluteLayout();
 		image.setWidth(100, Unit.PERCENTAGE);
 		image.setHeightUndefined();
 		layout.addComponent(image, "left: 0%; right: 0%; top: 10%; bottom: 10%;");
-		//layout.setComponentAlignment(image, Alignment.MIDDLE_LEFT);
 		layout.setWidth(IMAGE_WIDTH, Unit.PIXELS);
 		layout.setHeight(IMAGE_HEIGHT, Unit.PIXELS);
 		layout.addStyleName("layout-padding");

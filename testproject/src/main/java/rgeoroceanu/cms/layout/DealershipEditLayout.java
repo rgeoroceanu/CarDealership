@@ -11,7 +11,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
 
 import rgeoroceanu.cms.component.form.Form;
 import rgeoroceanu.cms.localization.Localizable;
@@ -25,7 +24,7 @@ import rgeoroceanu.model.business.Dealership;
  *
  */
 @Component
-public class DealershipEditLayout extends VerticalLayout implements Localizable {
+public class DealershipEditLayout extends PageLayout implements Localizable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -69,11 +68,12 @@ public class DealershipEditLayout extends VerticalLayout implements Localizable 
 		setupLayout();
 		
 		layout.addComponent(panel);
-		this.addComponent(layout);
+		this.setContent(layout);
 	}
 	
 	@Override
 	public void localize() {
+		super.localize();
 		nameField.setCaption(Localizer.getLocalizedString("name"));
 		cityField.setCaption(Localizer.getLocalizedString("city"));
 		addressField.setCaption(Localizer.getLocalizedString("address"));

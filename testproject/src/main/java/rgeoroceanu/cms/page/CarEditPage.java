@@ -67,9 +67,8 @@ public class CarEditPage extends Page {
 		List<String> imageUrls = new ArrayList<>();
 		if (car.getId() != null) {
 			imageUrls.addAll(imageService.getPreviewImageUrls(car.getId()));
-		} else {
-			carEditLayout.getImagesComponent().setImages(imageUrls);
-		}
+		} 
+		carEditLayout.getImagesComponent().setImages(imageUrls);
 	}
 
 	private void handleDiscard() {

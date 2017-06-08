@@ -63,8 +63,8 @@ public class PageLayout extends VerticalLayout implements Localizable {
 		this.statisticsItem.setStyleName("button");
 		this.managerItem = menuBar.addItem("", null, null);
 		this.managerItem.setStyleName("button");
-		this.usersItem = this.managerItem.addItem("", null);
-		this.generalItem = this.managerItem.addItem("", null);
+		this.usersItem = this.managerItem.addItem("", command -> App.getCurrent().navigateToUsersPage());
+		this.generalItem = this.managerItem.addItem("", command -> App.getCurrent().navigateToDealershipEditPage());
 		this.contactButton = initContactButton();
 		this.helpButton = initHelpButton();
 		this.aboutButton = initAboutButton();
@@ -93,12 +93,12 @@ public class PageLayout extends VerticalLayout implements Localizable {
 		titleLayout.setComponentAlignment(titleButtonsLayout, Alignment.TOP_RIGHT);
 		
 		// sizing
-		//contentPanel.setWidth(100, Unit.PERCENTAGE);
 		headerLayout.setWidth(100, Unit.PERCENTAGE);
 		headerLayout.setHeight(70, Unit.PIXELS);
 		titleLayout.setWidth(100, Unit.PERCENTAGE);
 		titleLayout.setHeight(70, Unit.PIXELS);
 		footerLayout.setHeight(70, Unit.PIXELS);
+		this.setComponentAlignment(footerLayout, Alignment.BOTTOM_CENTER);
 		this.setWidth(100, Unit.PERCENTAGE);
 	}
 	
@@ -169,6 +169,7 @@ public class PageLayout extends VerticalLayout implements Localizable {
 	private Button initLogoutButton() {
 		final Button logoutButton = new Button();
 		logoutButton.addStyleName(ValoTheme.BUTTON_PRIMARY);
+		logoutButton.addClickListener(e -> App.getCurrent().logout());
 		return logoutButton;
 	}
 	

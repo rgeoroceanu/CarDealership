@@ -1,9 +1,8 @@
 package rgeoroceanu;
 
-import javax.sql.DataSource;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
@@ -12,12 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -26,6 +19,7 @@ import rgeoroceanu.cms.localization.Localizer;
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableTransactionManagement
+@EntityScan({"rgeoroceanu.model.business", "rgeoroceanu.model.converter"})
 public class TestprojectApplication extends SpringBootServletInitializer {
 
 	@Override
@@ -62,30 +56,6 @@ public class TestprojectApplication extends SpringBootServletInitializer {
 		ret.setBasename("classpath:localization/loca");
 		ret.setDefaultEncoding("UTF-8");
 		return ret;
-	}
-
-	@Bean
-	public DataSource dataSource() {
-		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		return builder.setType(EmbeddedDatabaseType.HSQL).build();
-	}
-
-	@Bean
-	public LocalContainerEntityManagerFactoryBean  entityManagerFactory() {
-		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setGenerateDdl(true);
-		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("rgeoroceanu.model.business", "rgeoroceanu.model.converter");
-		factory.setDataSource(dataSource());
-		return factory;
-	}
-
-	@Bean
-	public PlatformTransactionManager transactionManager() {
-		JpaTransactionManager txManager = new JpaTransactionManager();
-		txManager.setEntityManagerFactory(entityManagerFactory().getObject());
-		return txManager;
 	}
 	
 	@Bean

@@ -2,14 +2,16 @@ package rgeoroceanu.model.business;
 
 import java.io.Serializable;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Lob;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 
 import com.google.common.base.MoreObjects;
@@ -58,16 +60,16 @@ public class Car extends Base implements Serializable {
 	@Column
 	@Enumerated(EnumType.STRING)
 	private State state;
-	@Lob
-	private LinkedHashSet<String> previewImages = new LinkedHashSet<>();
-	@Lob
-	private LinkedHashSet<String> fullImages = new LinkedHashSet<>();
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<String> previewImages = new LinkedHashSet<>();
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<String> fullImages = new LinkedHashSet<>();
 	@Basic
 	private boolean sold;
 	@Embedded
 	private Price price = new Price();
-	@Lob
-	private LinkedHashSet<Feature> features = new LinkedHashSet<>();
+	@ElementCollection(fetch = FetchType.EAGER)
+	private Set<Feature> features = new LinkedHashSet<>();
 	@Column
 	@Enumerated(EnumType.STRING)
 	private CarType carType;

@@ -26,7 +26,7 @@ import lombok.Setter;
 public class Base {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Version
 	private int version;

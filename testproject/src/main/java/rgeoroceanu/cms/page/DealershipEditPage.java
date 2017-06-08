@@ -1,20 +1,15 @@
 package rgeoroceanu.cms.page;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
-import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.layout.ManagerLayout;
+import rgeoroceanu.cms.layout.DealershipEditLayout;
 import rgeoroceanu.model.business.Dealership;
-import rgeoroceanu.model.business.User;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
 
 /**
@@ -24,24 +19,22 @@ import rgeoroceanu.service.exception.DataDoesNotExistException;
  *
  */
 @Component
-public class ManagerPage extends Page {
+public class DealershipEditPage extends Page {
 
 	private static final long serialVersionUID = 1L;
-	private final ManagerLayout managerLayout;
+	private final DealershipEditLayout dealershipLayout;
 	private final BeanFieldGroup<Dealership> dealershipBinder;
-	private final BeanItemContainer<User> usersContainer;
 
-	public ManagerPage() {
+	public DealershipEditPage() {
 		super();
-		managerLayout = new ManagerLayout();
+		dealershipLayout = new DealershipEditLayout();
 		dealershipBinder = new BeanFieldGroup<>(Dealership.class);
-		usersContainer = new BeanItemContainer<>(User.class);
-		managerLayout.setUsersContainer(usersContainer);
-		managerLayout.setVisibleColumns(new Object[] {"username", "roles"});
-		managerLayout.addSaveDealershipButtonListener(e -> handleSave());
-		managerLayout.addDiscardDealershipButtonListener(e -> handleDiscard());
-		managerLayout.addUserClickListener(e -> App.getCurrent().navigateToUserPage(((User) e.getItemId()).getId()));
-		this.setLayout(managerLayout);
+		dealershipLayout.addSaveButtonListener(e -> handleSave());
+		dealershipLayout.addDiscardButtonListener(e -> handleDiscard());
+		dealershipLayout.setContentWidth(850, Unit.PIXELS);
+		dealershipLayout.alignCenterContent();
+		dealershipLayout.setContentBorderless();
+		this.setLayout(dealershipLayout);
 	}
 
 	@Override
@@ -62,12 +55,8 @@ public class ManagerPage extends Page {
 			dealership = new Dealership();
 		}
 		dealershipBinder.discard();
-		dealershipBinder.bindMemberFields(managerLayout.getDealershipEditLayout());
+		dealershipBinder.bindMemberFields(dealershipLayout);
 		dealershipBinder.setItemDataSource(dealership);
-		final List<User> users = dataService.getAllUsers();
-		usersContainer.removeAllItems();
-		usersContainer.addAll(users);
-		
 	}
 
 	private void handleDiscard() {

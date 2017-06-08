@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Component;
@@ -14,11 +15,12 @@ import com.vaadin.ui.UI;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.page.CarEditPage;
 import rgeoroceanu.cms.page.CarSearchPage;
+import rgeoroceanu.cms.page.DealershipEditPage;
 import rgeoroceanu.cms.page.ErrorPage;
-import rgeoroceanu.cms.page.ManagerPage;
 import rgeoroceanu.cms.page.StartPage;
 import rgeoroceanu.cms.page.StatisticsPage;
 import rgeoroceanu.cms.page.UserEditPage;
+import rgeoroceanu.cms.page.UsersPage;
 
 /**
  * UI entry point of the CMS.
@@ -52,13 +54,18 @@ public class App extends UI implements Localizable {
 	 */
 	private static final String ERROR_PAGE_NAV_NAME = "error";
 	/**
-	 * View identifier of the manager page.
+	 * View identifier of the users page.
 	 */
-	private static final String MANAGER_PAGE_NAV_NAME = "manager";
+	private static final String USERS_PAGE_NAV_NAME = "users";
 	/**
-	 * View identifier of the manager page.
+	 * View identifier of the user edit page.
 	 */
 	private static final String USER_EDIT_PAGE_NAV_NAME = "user";
+	/**
+	 * View identifier of the user edit page.
+	 */
+	private static final String DEALERSHIP_EDIT_PAGE_NAV_NAME = "dealership";
+	private static final String LOGOUT_URL = "../logout";
 	@Autowired
 	private StartPage startPage;
 	@Autowired
@@ -70,7 +77,9 @@ public class App extends UI implements Localizable {
 	@Autowired
 	private ErrorPage errorPage;
 	@Autowired
-	private ManagerPage managerPage;
+	private UsersPage usersPage;
+	@Autowired
+	private DealershipEditPage dealershipEditPage;
 	@Autowired
 	private UserEditPage userEditPage;
 	private Navigator navigator;
@@ -83,8 +92,9 @@ public class App extends UI implements Localizable {
 		navigator.addView(CAR_SEARCH_PAGE_NAV_NAME, carSearchPage);
 		navigator.addView(STATISTICS_PAGE_NAV_NAME, statisticsPage);
 		navigator.addView(ERROR_PAGE_NAV_NAME, errorPage);
-		navigator.addView(MANAGER_PAGE_NAV_NAME, managerPage);
+		navigator.addView(USERS_PAGE_NAV_NAME, usersPage);
 		navigator.addView(USER_EDIT_PAGE_NAV_NAME, userEditPage);
+		navigator.addView(DEALERSHIP_EDIT_PAGE_NAV_NAME, dealershipEditPage);
 		navigator.navigateTo(START_PAGE_NAV_NAME);
 		navigator.setErrorView(errorPage);
         localize();
@@ -104,8 +114,9 @@ public class App extends UI implements Localizable {
 		localizeRecursive(carSearchPage);
 		localizeRecursive(startPage);
 		localizeRecursive(statisticsPage);
-		localizeRecursive(managerPage);
+		localizeRecursive(usersPage);
 		localizeRecursive(userEditPage);
+		localizeRecursive(dealershipEditPage);
 	}
 	
 	/**
@@ -155,10 +166,17 @@ public class App extends UI implements Localizable {
 	}
 	
 	/**
-	 * Navigate to the statistics page.
+	 * Navigate to the users page.
 	 */
-	public void navigateToManagerPage() {
-		navigator.navigateTo(MANAGER_PAGE_NAV_NAME);
+	public void navigateToUsersPage() {
+		navigator.navigateTo(USERS_PAGE_NAV_NAME);
+	}
+	
+	/**
+	 * Navigate to the dealership edit page.
+	 */
+	public void navigateToDealershipEditPage() {
+		navigator.navigateTo(DEALERSHIP_EDIT_PAGE_NAV_NAME);
 	}
 	
 	/**
@@ -173,6 +191,13 @@ public class App extends UI implements Localizable {
 			path.append(String.valueOf(userId));
 		}
 		navigator.navigateTo(path.toString());
+	}
+	
+	/**
+	 * Logout from application.
+	 */
+	public void logout() {
+		Page.getCurrent().open(LOGOUT_URL, null);
 	}
 	
 	private void localizeRecursive(HasComponents root) {
