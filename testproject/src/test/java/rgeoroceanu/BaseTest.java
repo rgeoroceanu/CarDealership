@@ -85,7 +85,7 @@ public abstract class BaseTest {
 		user.setRoles(new HashSet<>(Arrays.asList(Role.ADMIN)));
 		user.setUsername("rgeoroceanu");
 		user.setPassword("admin");
-		dataService.saveUser(user);
+		dataService.saveUser(user, true);
 	}
 	
 	private void addDealership() {

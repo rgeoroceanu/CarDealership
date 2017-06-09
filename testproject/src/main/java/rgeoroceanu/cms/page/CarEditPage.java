@@ -95,11 +95,13 @@ public class CarEditPage extends Page {
 	private void handleSave() {
 		if (!binder.isValid()) {
 			Notification.show("Cannot save data!");
+			return;
 		}
 		try {
 			binder.commit();
 		} catch (CommitException e) {
 			Notification.show("Cannot save data!");
+			return;
 		}
 		final Car car = binder.getItemDataSource().getBean();
 		dataService.saveCar(car);

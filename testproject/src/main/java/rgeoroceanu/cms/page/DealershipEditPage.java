@@ -70,11 +70,13 @@ public class DealershipEditPage extends Page {
 	private void handleSave() {
 		if (!dealershipBinder.isValid()) {
 			Notification.show("Cannot save data!");
+			return;
 		}
 		try {
 			dealershipBinder.commit();
 		} catch (CommitException e) {
 			Notification.show("Cannot save data!");
+			return;
 		}
 		final Dealership dealership = dealershipBinder.getItemDataSource().getBean();
 		dataService.saveDealership(dealership);

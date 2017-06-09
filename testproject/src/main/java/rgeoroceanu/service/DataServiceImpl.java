@@ -218,10 +218,14 @@ public class DataServiceImpl implements DataService {
 	
 	@Transactional
 	@Override
-	public User saveUser(User user) {
+	public User saveUser(User user, boolean encodePassword) {
 		Preconditions.checkNotNull(user, "User must not be null!");
-		LOG.info("Save user " + user.toString()); 
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		LOG.info("Save user " + user.toString());
+		
+		if (encodePassword) {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+		}
+		
 		return userDao.saveAndFlush(user);
 	}
 

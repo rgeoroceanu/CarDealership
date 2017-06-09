@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.stereotype.Component;
 
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.data.fieldgroup.PropertyId;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.FormLayout;
@@ -84,11 +85,24 @@ public class UserEditLayout extends PageLayout implements Localizable {
 		final TextField field = new TextField();
 		field.setNullRepresentation("");
 		field.setWidth(400, Unit.PIXELS);
+		field.addValidator(value -> {
+			final String password = (String) value;
+			if (password.length() < 7) {
+				throw new InvalidValueException("Username length must be at least 6 characters");
+			}
+		});
 		return field;
 	}
 	
 	private PasswordField initPasswordField() {
 		final PasswordField field = new PasswordField();
+		field.setRequired(true);
+		field.addValidator(value -> {
+			final String password = (String) value;
+			if (password.length() < 7) {
+				throw new InvalidValueException("Password length must be at least 6 characters");
+			}
+		});
 		field.setWidth(400, Unit.PIXELS);
 		return field;
 	}

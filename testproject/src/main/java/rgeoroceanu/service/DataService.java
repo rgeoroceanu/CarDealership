@@ -125,9 +125,10 @@ public interface DataService {
 	/**
 	 * Update or create {@link User} entity.
 	 * @param user to be saved.
+	 * @param encodePassword true if the password should be encoded.
 	 * @return saved user.
 	 */
-	public User saveUser(final User user);
+	public User saveUser(final User user, boolean encodePassword);
 	
 	/**
 	 * Remove the user entity associated with the provided id.

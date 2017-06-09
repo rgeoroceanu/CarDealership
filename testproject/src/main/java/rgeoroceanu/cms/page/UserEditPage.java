@@ -83,17 +83,26 @@ public class UserEditPage extends Page {
 	}
 
 	private void handleSave() {
+		final User previous = binder.getItemDataSource().getBean();
+		final String previousPassword = previous.getPassword();
 		if (!binder.isValid()) {
 			Notification.show("Cannot save data!");
+			return;
 		}
 		try {
 			binder.commit();
 		} catch (CommitException e) {
 			Notification.show("Cannot save data!");
+			return;
 		}
+		
+		boolean encodePassword = false;
 		final User user = binder.getItemDataSource().getBean();
-		dataService.saveUser(user);
-
+		if (previousPassword == null || previousPassword.equals(user.getPassword()) == false) {
+			encodePassword = true;
+		} 
+		
+		dataService.saveUser(user, encodePassword);
 		App.getCurrent().navigateToStartPage();
 	}
 
