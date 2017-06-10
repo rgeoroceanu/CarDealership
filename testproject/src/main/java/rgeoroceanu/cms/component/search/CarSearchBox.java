@@ -1,8 +1,6 @@
 package rgeoroceanu.cms.component.search;
 
-import com.vaadin.data.Validator.InvalidValueException;
-import com.vaadin.data.fieldgroup.BeanFieldGroup;
-import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.data.Binder;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
@@ -28,7 +26,7 @@ public class CarSearchBox extends CustomComponent implements Localizable {
 	private static final long serialVersionUID = 1L;
 	private final CarSearchForm searchForm;
 	private final Button searchButton;
-	private final BeanFieldGroup<CarSearchCriteria> binder;
+	private final Binder<CarSearchCriteria> binder;
 	
 	public CarSearchBox() {
 		searchButton = initSearchButton();
@@ -53,28 +51,28 @@ public class CarSearchBox extends CustomComponent implements Localizable {
 	 * @return search terms as {@link CarSearchCriteria} object.
 	 * @throws InvalidValueException
 	 */
-	public CarSearchCriteria getSearchCriteria() throws InvalidValueException {
+	public CarSearchCriteria getSearchCriteria() {
 		final CarSearchCriteria criteria = getCurrentSearchOptions();
 		return criteria;
 	}
 	
-	private BeanFieldGroup<CarSearchCriteria> initBinder() {
-		BeanFieldGroup<CarSearchCriteria> binder = new BeanFieldGroup<>(CarSearchCriteria.class);
-		binder.bindMemberFields(searchForm);
-		binder.setItemDataSource(new CarSearchCriteria());
+	public boolean isValidSearch() {
+		return binder.isValid();
+	}
+	
+	private Binder<CarSearchCriteria> initBinder() {
+		Binder<CarSearchCriteria> binder = new Binder<>(CarSearchCriteria.class);
+		binder.bindInstanceFields(searchForm);
+		binder.setBean(new CarSearchCriteria());
 		return binder;
 	}
 	
-	private CarSearchCriteria getCurrentSearchOptions() throws InvalidValueException {
+	private CarSearchCriteria getCurrentSearchOptions() {
 		if (binder.isValid() == false) {
-			throw new InvalidValueException("Invalid search options!");
+			return null;
 		}
-		try {
-			binder.commit();
-		} catch (CommitException e) {
-			throw new InvalidValueException("Invalid search options!");
-		}
-		final CarSearchCriteria options = binder.getItemDataSource().getBean();
+		binder.writeBeanIfValid(binder.getBean());
+		final CarSearchCriteria options = binder.getBean();
 		return options;
 	}
 	

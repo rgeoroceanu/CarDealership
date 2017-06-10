@@ -1,5 +1,6 @@
 package rgeoroceanu;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -48,8 +49,7 @@ public abstract class BaseTest {
 		car1.setShortDescription("Test desc 1");
 		car1.setDoors(2);
 		car1.setEngine(Engine.PETROL);
-		car1.setRegistrationMonth(11);
-		car1.setRegistrationYear(2014);
+		car1.setRegistrationDate(LocalDate.of(2013, 11, 1));
 		car1.setState(State.OLD);
 		car1.setHorsePower(100);
 		car1.setTransmission(Transmission.MANUAL);
@@ -66,8 +66,7 @@ public abstract class BaseTest {
 		car2.setShortDescription("Test desc 2");
 		car2.setDoors(4);
 		car2.setEngine(Engine.PETROL);
-		car2.setRegistrationMonth(05);
-		car2.setRegistrationYear(2014);
+		car2.setRegistrationDate(LocalDate.of(2014, 5, 1));
 		car2.setState(State.OLD);
 		car2.setHorsePower(100);
 		car2.setTransmission(Transmission.MANUAL);

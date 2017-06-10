@@ -2,7 +2,6 @@ package rgeoroceanu.cms.layout;
 
 import java.util.List;
 
-import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 
@@ -37,10 +36,9 @@ public class CarSearchLayout extends PageLayout {
 	
 	/**
 	 * Retrieve the current entered search information.
-	 * @return current search data.
-	 * @throws InvalidValueException thrown in case search terms are invalid.
+	 * @return current search data, or null in case the search is not valid.
 	 */
-	public CarSearchCriteria getSearchCriteria() throws InvalidValueException {
+	public CarSearchCriteria getSearchCriteria() {
 		return searchBox.getSearchCriteria();
 	}
 	

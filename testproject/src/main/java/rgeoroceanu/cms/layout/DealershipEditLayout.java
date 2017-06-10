@@ -1,10 +1,8 @@
 package rgeoroceanu.cms.layout;
 
-import javax.persistence.Basic;
-
 import org.springframework.stereotype.Component;
 
-import com.vaadin.data.fieldgroup.PropertyId;
+import com.vaadin.annotations.PropertyId;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -27,22 +25,6 @@ import rgeoroceanu.model.business.Dealership;
 public class DealershipEditLayout extends PageLayout implements Localizable {
 
 	private static final long serialVersionUID = 1L;
-	
-	@Basic
-	private String name;
-	@Basic
-	private String address;
-	@Basic
-	private String city;
-	@Basic
-	private String country;
-	@Basic
-	private String zip;
-	@Basic
-	private String phone;
-	@Basic
-	private String email;
-	
 	private final @PropertyId("name") TextField nameField;
 	private final @PropertyId("address") TextField addressField;
 	private final @PropertyId("city") TextField cityField;
@@ -115,7 +97,6 @@ public class DealershipEditLayout extends PageLayout implements Localizable {
 	
 	private TextField initTextField() {
 		final TextField field = new TextField();
-		field.setNullRepresentation("");
 		return field;
 	}
 }

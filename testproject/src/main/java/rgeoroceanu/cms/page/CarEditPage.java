@@ -7,12 +7,14 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.vaadin.dialogs.ConfirmDialog;
 
-import com.vaadin.data.fieldgroup.BeanFieldGroup;
-import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
+import com.vaadin.data.Binder;
+import com.vaadin.data.ValidationException;
+import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
 import rgeoroceanu.cms.App;
+import rgeoroceanu.cms.converter.ColorToCodeConverter;
 import rgeoroceanu.cms.layout.CarEditLayout;
 import rgeoroceanu.model.business.Car;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
@@ -30,7 +32,7 @@ public class CarEditPage extends Page {
 
 	private static final long serialVersionUID = 1L;
 	private final CarEditLayout carEditLayout;
-	private final BeanFieldGroup<Car> binder;
+	private final Binder<Car> binder;
 
 	public CarEditPage() {
 		super();
@@ -38,8 +40,9 @@ public class CarEditPage extends Page {
 		carEditLayout.addSaveButtonListener(e -> handleSave());
 		carEditLayout.addRemoveButtonListener(e -> handleRemove());
 		carEditLayout.addDiscardButtonListener(e -> handleDiscard());
-		binder = new BeanFieldGroup<>(Car.class);
-		carEditLayout.setContentWidth(850, Unit.PIXELS);
+		binder = new Binder<>(Car.class);
+		bindFields();
+		carEditLayout.setContentWidth(950, Unit.PIXELS);
 		carEditLayout.alignCenterContent();
 		carEditLayout.setContentBorderless();
 		this.setLayout(carEditLayout);
@@ -57,13 +60,39 @@ public class CarEditPage extends Page {
 
 	}
 
+	private void bindFields() {
+		binder.forField(carEditLayout.getMarqueField())
+			.asRequired("Please provide car make!");
+		binder.forField(carEditLayout.getModelField())
+			.asRequired("Please provide car model!");
+		binder.forField(carEditLayout.getRegistrationDateField())
+			.asRequired("Please provide registration date!");
+		binder.forField(carEditLayout.getKilometersField())
+			.withConverter(new StringToIntegerConverter("Number required"))
+			.bind(Car::getKilometers, Car::setKilometers);
+		binder.forField(carEditLayout.getHorsePowerField())
+			.withConverter(new StringToIntegerConverter("Number required"))
+			.bind(Car::getHorsePower, Car::setHorsePower);
+		binder.forField(carEditLayout.getCubicCapacityField())
+			.withConverter(new StringToIntegerConverter("Number required"))
+			.bind(Car::getCubicCentimeters, Car::setCubicCentimeters);
+		binder.forField(carEditLayout.getOriginalPriceField())
+			.withConverter(new StringToIntegerConverter("Number required"))
+			.bind(Car::getOriginalPrice, Car::setOriginalPrice);
+		binder.forField(carEditLayout.getDiscountedPriceField())
+			.withConverter(new StringToIntegerConverter("Number required"))
+			.bind(Car::getDiscountedPrice, Car::setDiscountedPrice);
+		binder.forField(carEditLayout.getColorField())
+			.withConverter(new ColorToCodeConverter())
+			.bind(Car::getColor, Car::setColor);
+		binder.bindInstanceFields(carEditLayout);
+	}
+
 	private void open(Car car) {
 		if (car == null) {
 			car = new Car();
 		}
-		binder.discard();
-		binder.bindMemberFields(carEditLayout);
-		binder.setItemDataSource(car);
+		binder.setBean(car);
 		List<String> imageUrls = new ArrayList<>();
 		if (car.getId() != null) {
 			imageUrls.addAll(imageService.getPreviewImageUrls(car.getId()));
@@ -75,12 +104,12 @@ public class CarEditPage extends Page {
 		ConfirmDialog.show(this.getUI(), "Discard", 
 				"Are you sure you want to discard all changes?", 
 				"Discard", "Cancel", confirmEvent -> {
-					binder.discard();
+					binder.readBean(binder.getBean());
 				});
 	}
 
 	private void handleRemove() {
-		final Car car = binder.getItemDataSource().getBean();
+		final Car car = binder.getBean();
 		if (car != null && car.getId() != null) {
 			ConfirmDialog.show(this.getUI(), "Delete", 
 					"Are you sure you want to delete this car?", 
@@ -93,17 +122,13 @@ public class CarEditPage extends Page {
 	}
 
 	private void handleSave() {
-		if (!binder.isValid()) {
-			Notification.show("Cannot save data!");
-			return;
-		}
 		try {
-			binder.commit();
-		} catch (CommitException e) {
+			binder.writeBean(binder.getBean());
+		} catch (ValidationException e) {
 			Notification.show("Cannot save data!");
 			return;
 		}
-		final Car car = binder.getItemDataSource().getBean();
+		final Car car = binder.getBean();
 		dataService.saveCar(car);
 
 		try {
@@ -135,9 +160,9 @@ public class CarEditPage extends Page {
 		} catch (DataDoesNotExistException e) {
 			Notification.show("Cannot remove element!");
 		}
-		
+
 		// reinitialize binder
-		binder.discard();
+		binder.readBean(binder.getBean());
 
 		// remove images
 		try {
@@ -147,22 +172,23 @@ public class CarEditPage extends Page {
 		}
 		// navigate to home page
 		App.getCurrent().navigateToStartPage();
+		Notification.show("Saved");
 	}
 
 	private Car extractCarFromParameters(final String parameters) {
 		Car car = null;
-		
+
 		if (parameters == null || parameters.isEmpty()) {
 			return car;
 		} 
-		
+
 		try {
 			final Long carId = Long.valueOf(parameters);
 			car = dataService.getCar(carId);
 		} catch (NumberFormatException | DataDoesNotExistException e) {
 			// do nothing	
 		}
-		
+
 		return car;
 	}
 }

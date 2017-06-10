@@ -19,6 +19,7 @@ import com.vaadin.ui.themes.ValoTheme;
 import rgeoroceanu.cms.component.image.ImagePreview;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
+import rgeoroceanu.model.business.Car;
 
 /**
  * Small box containing information about a {@link Car} item.

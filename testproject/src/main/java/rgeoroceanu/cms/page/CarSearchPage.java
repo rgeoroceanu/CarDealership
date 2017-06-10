@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
@@ -39,10 +38,8 @@ public class CarSearchPage extends Page {
 	}
 
 	private void startSearch() {
-		final CarSearchCriteria search;
-		try {
-			search = searchLayout.getSearchCriteria();
-		} catch (final InvalidValueException e) {
+		final CarSearchCriteria search = searchLayout.getSearchCriteria();
+		if (search == null) {
 			Notification.show("Invalid search options!");
 			return;
 		}

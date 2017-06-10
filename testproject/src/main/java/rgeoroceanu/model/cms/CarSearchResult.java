@@ -27,7 +27,10 @@ public class CarSearchResult {
 		final String title = car.getMake() + " " + car.getModel();
 		final String subtitle = car.getShortDescription();
 		final String state = car.getState() != null ? car.getState().toString() : "";
-		final String date = car.getRegistrationMonth() + "/" + car.getRegistrationYear();
+		String date = "";
+		if (car.getRegistrationDate() != null) {
+			date = car.getRegistrationDate().getMonth() + "/" + car.getRegistrationDate().getYear();	
+		}
 		final String engine = car.getEngine().toString();
 		final String capacity = String.valueOf(car.getCubicCentimeters());
 		final String transmission = car.getTransmission().toString();

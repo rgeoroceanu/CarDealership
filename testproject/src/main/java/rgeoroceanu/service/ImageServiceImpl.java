@@ -55,7 +55,15 @@ public class ImageServiceImpl implements ImageService {
 		final String fullFilename = generateFilename();
 		final File previewDestinationFile = new File(carImagesFolderPath + "/" + previewFilename);
 		final File fullDestinationFile = new File(carImagesFolderPath + "/" + fullFilename);
+		final File fullDestinationFolder = fullDestinationFile.getParentFile();
+		if (fullDestinationFolder.exists() == false) {
+			fullDestinationFolder.mkdirs();
+		}
 		
+		final File previewDestinationFolder = previewDestinationFile.getParentFile();
+		if (previewDestinationFolder.exists() == false) {
+			previewDestinationFolder.mkdirs();
+		}
 		
 		try {
 			// write full image

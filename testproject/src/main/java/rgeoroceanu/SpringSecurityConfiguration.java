@@ -65,6 +65,7 @@ public class SpringSecurityConfiguration {
 			web.ignoring().antMatchers("/*.css"); 
 			web.ignoring().antMatchers("/*.js"); 
 			web.ignoring().antMatchers("/VAADIN/**");
+			web.ignoring().antMatchers("/**");
 		}
 	}
 	

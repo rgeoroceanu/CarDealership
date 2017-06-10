@@ -3,7 +3,7 @@ package rgeoroceanu.cms.component.image;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vaadin.server.FontAwesome;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Resource;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
@@ -74,7 +74,8 @@ public class ImagePreview extends CustomComponent {
 	private Button initLeftButton() {
 		final Button button = new Button();
 		button.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
-		button.setIcon(FontAwesome.ANGLE_LEFT);
+		button.setIcon(VaadinIcons.CHEVRON_CIRCLE_LEFT_O);
+		button.addStyleName(ValoTheme.BUTTON_BORDERLESS);
 		button.addClickListener(e -> {
 			decrementIndex();
 			displayImage(currentIndex);
@@ -85,7 +86,8 @@ public class ImagePreview extends CustomComponent {
 	private Button initRightButton() {
 		final Button button = new Button();
 		button.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
-		button.setIcon(FontAwesome.ANGLE_RIGHT);
+		button.setIcon(VaadinIcons.CHEVRON_CIRCLE_RIGHT_O);
+		button.addStyleName(ValoTheme.BUTTON_BORDERLESS);
 		button.addClickListener(e -> {
 			incrementIndex();
 			displayImage(currentIndex);

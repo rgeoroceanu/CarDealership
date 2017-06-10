@@ -96,7 +96,7 @@ public class ImageUpload extends CustomComponent {
 		upload.setReceiver((filename, mimeType) -> handleReceiveUpload(filename, mimeType));
 		upload.addStartedListener(e -> handleUploadStarted(e));
 		upload.addSucceededListener(e -> handleUploadSucceeded(e));
-		upload.setImmediate(true);
+		upload.setImmediateMode(true);
 		upload.addStyleName("upload-with-icon");
 		upload.setButtonCaption("+");
 		return upload;

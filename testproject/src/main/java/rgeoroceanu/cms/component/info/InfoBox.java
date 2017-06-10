@@ -1,6 +1,6 @@
 package rgeoroceanu.cms.component.info;
 
-import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
@@ -86,6 +86,7 @@ public abstract class InfoBox extends CustomComponent implements Localizable {
 	private Label initTitleLabel() {
 		final Label label = new Label();
 		label.setContentMode(ContentMode.HTML);
+		label.setWidth(100, Unit.PERCENTAGE);
 		return label;
 	}
 	

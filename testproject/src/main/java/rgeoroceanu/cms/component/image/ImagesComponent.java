@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -103,7 +103,7 @@ public class ImagesComponent extends CustomComponent implements ImageUploadedLis
 		final Button removeButton = new Button();
 		removeButton.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
 		removeButton.addStyleName(ValoTheme.BUTTON_SMALL);
-		removeButton.setIcon(FontAwesome.REMOVE);
+		removeButton.setIcon(VaadinIcons.TRASH);
 		removeButton.setWidth(30, Unit.PIXELS);
 		removeButton.addClickListener(e -> handleRemove(image));
 		layout.addComponent(removeButton, "right: 0px; top: 10%;");

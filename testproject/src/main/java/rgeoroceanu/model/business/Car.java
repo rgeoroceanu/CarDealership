@@ -1,6 +1,7 @@
 package rgeoroceanu.model.business;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ import com.google.common.base.MoreObjects;
 import lombok.Getter;
 import lombok.Setter;
 import rgeoroceanu.model.type.CarType;
-import rgeoroceanu.model.type.Color;
+import rgeoroceanu.model.type.Currency;
 import rgeoroceanu.model.type.Engine;
 import rgeoroceanu.model.type.Feature;
 import rgeoroceanu.model.type.Make;
@@ -39,9 +40,7 @@ public class Car extends Base implements Serializable {
 	@Basic
 	private String model;
 	@Basic
-	private int registrationYear;
-	@Basic
-	private int registrationMonth;
+	private LocalDate registrationDate;
 	@Basic
 	private int kilometers;
 	@Column
@@ -54,9 +53,8 @@ public class Car extends Base implements Serializable {
 	@Column
 	@Enumerated(EnumType.STRING)
 	private Transmission transmission;
-	@Column
-	@Enumerated(EnumType.STRING)
-	private Color color;
+	@Basic
+	private String color;
 	@Column
 	@Enumerated(EnumType.STRING)
 	private State state;
@@ -82,6 +80,30 @@ public class Car extends Base implements Serializable {
 	@Basic
 	private String description;
 	
+	public Currency getCurrency() {
+		return price.getCurrency();
+	}
+	
+	public void setCurrency(Currency currency) {
+		price.setCurrency(currency);
+	}
+	
+	public int getOriginalPrice() {
+		return price.getOriginalPrice();
+	}
+	
+	public int getDiscountedPrice() {
+		return price.getDiscountedPrice();
+	}
+	
+	public void setOriginalPrice(int originalPrice) {
+		price.setOriginalPrice(originalPrice);
+	}
+	
+	public void setDiscountedPrice(int discountedPrice) {
+		price.setDiscountedPrice(discountedPrice);
+	}
+	
 	public void addPreviewImage(final String filename) {
 		previewImages.add(filename);
 	}
@@ -101,8 +123,8 @@ public class Car extends Base implements Serializable {
 	@Override
 	public String toString() {
 		return MoreObjects.toStringHelper(this).add("super", super.toString()).add("serialVersionUID", serialVersionUID)
-				.add("make", make).add("model", model).add("registrationYear", registrationYear)
-				.add("registrationMonth", registrationMonth).add("kilometers", kilometers).add("engine", engine)
+				.add("make", make).add("model", model).add("registrationDate", registrationDate)
+				.add("registrationDate", registrationDate).add("kilometers", kilometers).add("engine", engine)
 				.add("cubicCentimeters", cubicCentimeters).add("horsePower", horsePower)
 				.add("transmission", transmission).add("color", color).add("state", state)
 				.add("previewImages", previewImages).add("fullImages", fullImages).add("sold", sold).add("price", price)

@@ -29,7 +29,7 @@ public class PageLayout extends VerticalLayout implements Localizable {
 	private static final Locale ENGLISH_LOCALE = new Locale("en");
 	private static final Locale GERMAN_LOCALE = new Locale("de");
 	
-	private final ComboBox languageSelect;
+	private final ComboBox<Locale> languageSelect;
 	private final MenuBar menuBar;
 	private final Button logoutButton;
 	private final MenuItem vehiclesItem;
@@ -100,6 +100,7 @@ public class PageLayout extends VerticalLayout implements Localizable {
 		footerLayout.setHeight(70, Unit.PIXELS);
 		this.setComponentAlignment(footerLayout, Alignment.BOTTOM_CENTER);
 		this.setWidth(100, Unit.PERCENTAGE);
+		this.setMargin(false);
 	}
 	
 	@Override
@@ -150,17 +151,23 @@ public class PageLayout extends VerticalLayout implements Localizable {
 		contentPanel.addStyleName(ValoTheme.PANEL_BORDERLESS);
 	}
 	
-	private ComboBox initLanguageSelect() {
-		final ComboBox languageSelect = new ComboBox();
+	private ComboBox<Locale> initLanguageSelect() {
+		final ComboBox<Locale> languageSelect = new ComboBox<Locale>();
 		languageSelect.addStyleName(ValoTheme.COMBOBOX_BORDERLESS);
 		languageSelect.addStyleName(ValoTheme.COMBOBOX_TINY);
 		languageSelect.addStyleName(ValoTheme.LINK_SMALL);
-		languageSelect.addItems(Arrays.asList(ENGLISH_LOCALE, GERMAN_LOCALE));
-		languageSelect.setItemCaption(ENGLISH_LOCALE, "English");
-		languageSelect.setItemCaption(GERMAN_LOCALE, "Deutsch");
+		languageSelect.setItems(Arrays.asList(ENGLISH_LOCALE, GERMAN_LOCALE));
+		languageSelect.setItemCaptionGenerator(locale -> {
+			if (ENGLISH_LOCALE.equals(locale)) {
+				return "English";
+			} else if (GERMAN_LOCALE.equals(locale)) {
+				return "Deutsch";
+			}
+			return "";
+		});
 		languageSelect.setTextInputAllowed(false);
-		languageSelect.setNullSelectionAllowed(false);
-		languageSelect.addValueChangeListener(e -> changeLocale((Locale) e.getProperty().getValue()));
+		languageSelect.setEmptySelectionAllowed(false);
+		languageSelect.addValueChangeListener(e -> changeLocale(e.getValue()));
 		languageSelect.setValue(ENGLISH_LOCALE);
 		languageSelect.setWidth(7, Unit.EM);
 		return languageSelect;

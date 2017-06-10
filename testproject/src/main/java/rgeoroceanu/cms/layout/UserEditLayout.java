@@ -4,8 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.stereotype.Component;
 
-import com.vaadin.data.Validator.InvalidValueException;
-import com.vaadin.data.fieldgroup.PropertyId;
+import com.vaadin.annotations.PropertyId;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.ListSelect;
@@ -13,6 +12,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 
+import lombok.Getter;
 import rgeoroceanu.cms.component.form.Form;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
@@ -25,6 +25,7 @@ import rgeoroceanu.model.type.Role;
  * @author Radu Georoceanu <rgeoroceanu@yahoo.com>
  *
  */
+@Getter
 @Component
 public class UserEditLayout extends PageLayout implements Localizable {
 
@@ -32,7 +33,7 @@ public class UserEditLayout extends PageLayout implements Localizable {
 	
 	private final @PropertyId("username") TextField usernameField;
 	private final @PropertyId("password") PasswordField passwordField;
-	private final @PropertyId("roles") ListSelect rolesField;
+	private final @PropertyId("roles") ListSelect<Role> rolesField;
 	private final Panel panel;
 	private final Form layout;
 	
@@ -83,34 +84,20 @@ public class UserEditLayout extends PageLayout implements Localizable {
 	
 	private TextField initUsernameField() {
 		final TextField field = new TextField();
-		field.setNullRepresentation("");
 		field.setWidth(400, Unit.PIXELS);
-		field.addValidator(value -> {
-			final String password = (String) value;
-			if (password.length() < 7) {
-				throw new InvalidValueException("Username length must be at least 6 characters");
-			}
-		});
 		return field;
 	}
 	
 	private PasswordField initPasswordField() {
 		final PasswordField field = new PasswordField();
-		field.setRequired(true);
-		field.addValidator(value -> {
-			final String password = (String) value;
-			if (password.length() < 7) {
-				throw new InvalidValueException("Password length must be at least 6 characters");
-			}
-		});
+		field.setRequiredIndicatorVisible(true);
 		field.setWidth(400, Unit.PIXELS);
 		return field;
 	}
 	
-	private ListSelect initRolesField() {
-		final ListSelect field = new ListSelect();
-		field.setMultiSelect(true);
-		field.addItems(Arrays.asList(Role.values()));
+	private ListSelect<Role> initRolesField() {
+		final ListSelect<Role> field = new ListSelect<Role>();
+		field.setItems(Arrays.asList(Role.values()));
 		field.setWidth(400, Unit.PIXELS);
 		return field;
 	}

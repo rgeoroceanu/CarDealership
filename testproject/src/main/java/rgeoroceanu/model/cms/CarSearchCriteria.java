@@ -1,5 +1,7 @@
 package rgeoroceanu.model.cms;
 
+import java.time.LocalDate;
+
 import lombok.Getter;
 import lombok.Setter;
 import rgeoroceanu.model.type.Engine;
@@ -11,8 +13,8 @@ public class CarSearchCriteria {
 	
 	private Make make;
 	private String model; 
-	private Integer startYear; 
-	private Integer endYear;
+	private LocalDate startYear; 
+	private LocalDate endYear;
 	private Integer startPrice; 
 	private Integer endPrice;
 	private Engine engine;

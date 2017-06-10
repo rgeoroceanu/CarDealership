@@ -37,7 +37,7 @@ public class CarSearchSpecification implements Specification<Car> {
 			predicates.add(builder.and(builder.equal(car.get("make"), carSearchCriteria.getMake())));
 		}
 		if (carSearchCriteria.getModel() != null) {
-			predicates.add(builder.and(builder.equal(car.get("model"), carSearchCriteria.getModel())));
+			predicates.add(builder.and(builder.like(car.get("model"), "%" + carSearchCriteria.getModel().toLowerCase() + "%")));
 		}
 		if (carSearchCriteria.getEngine() != null) {
 			predicates.add(builder.and(builder.equal(car.get("engine"), carSearchCriteria.getEngine())));
@@ -46,10 +46,10 @@ public class CarSearchSpecification implements Specification<Car> {
 			predicates.add(builder.and(builder.equal(car.get("engine"), carSearchCriteria.getEngine())));
 		}
 		if (carSearchCriteria.getStartYear() != null) {
-			predicates.add(builder.and(builder.greaterThanOrEqualTo(car.get("registrationYear"), carSearchCriteria.getStartYear())));
+			predicates.add(builder.and(builder.greaterThanOrEqualTo(car.get("registrationDate"), carSearchCriteria.getStartYear())));
 		}
 		if (carSearchCriteria.getEndYear() != null) {
-			predicates.add(builder.and(builder.lessThanOrEqualTo(car.get("registrationYear"), carSearchCriteria.getEndYear())));
+			predicates.add(builder.and(builder.lessThanOrEqualTo(car.get("registrationDate"), carSearchCriteria.getEndYear())));
 		}
 		if (carSearchCriteria.getStartPower() != null) {
 			predicates.add(builder.and(builder.greaterThanOrEqualTo(car.get("horsePower"), carSearchCriteria.getStartPower())));
@@ -64,10 +64,10 @@ public class CarSearchSpecification implements Specification<Car> {
 			predicates.add(builder.and(builder.lessThanOrEqualTo(car.get("cubicCentimeters"), carSearchCriteria.getEndCapacity())));
 		}
 		if (carSearchCriteria.getStartPrice() != null) {
-			predicates.add(builder.and(builder.greaterThanOrEqualTo(car.get("price").get("discountedPrice"), carSearchCriteria.getStartPrice())));
+			predicates.add(builder.and(builder.greaterThanOrEqualTo(car.get("discountedPrice"), carSearchCriteria.getStartPrice())));
 		}
 		if (carSearchCriteria.getEndPrice() != null) {
-			predicates.add(builder.and(builder.lessThanOrEqualTo(car.get("price").get("discountedPrice"), carSearchCriteria.getEndPrice())));
+			predicates.add(builder.and(builder.lessThanOrEqualTo(car.get("discountedPrice"), carSearchCriteria.getEndPrice())));
 		}
 		Predicate[] predicatesArray = new Predicate[predicates.size()];
 		return builder.and(predicates.toArray(predicatesArray));

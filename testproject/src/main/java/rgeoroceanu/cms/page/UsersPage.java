@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
 import rgeoroceanu.cms.App;
@@ -22,16 +21,13 @@ public class UsersPage extends Page {
 
 	private static final long serialVersionUID = 1L;
 	private final UsersLayout usersLayout;
-	private final BeanItemContainer<User> usersContainer;
 
 	public UsersPage() {
 		super();
 		usersLayout = new UsersLayout();
-		usersContainer = new BeanItemContainer<>(User.class);
-		usersLayout.setUsersContainer(usersContainer);
-		usersLayout.setVisibleColumns(new Object[] {"username", "roles"});
-		usersLayout.addUserClickListener(e -> App.getCurrent().navigateToUserPage(((User) e.getItemId()).getId()));
-		usersLayout.setContentWidth(850, Unit.PIXELS);
+		usersLayout.setVisibleColumns("username", "roles");
+		usersLayout.addUserClickListener(e -> App.getCurrent().navigateToUserPage(e.getItem().getId()));
+		usersLayout.setContentWidth(950, Unit.PIXELS);
 		usersLayout.alignCenterContent();
 		usersLayout.setContentBorderless();
 		this.setLayout(usersLayout);
@@ -49,8 +45,7 @@ public class UsersPage extends Page {
 	
 	private void open() {
 		final List<User> users = dataService.getAllUsers();
-		usersContainer.removeAllItems();
-		usersContainer.addAll(users);
+		usersLayout.setUsers(users);
 		
 	}
 }

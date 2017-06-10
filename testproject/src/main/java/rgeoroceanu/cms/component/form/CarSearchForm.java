@@ -2,16 +2,16 @@ package rgeoroceanu.cms.component.form;
 
 import java.util.Arrays;
 
-import com.vaadin.data.fieldgroup.PropertyId;
-import com.vaadin.shared.ui.datefield.Resolution;
+import com.vaadin.annotations.PropertyId;
+import com.vaadin.shared.ui.datefield.DateResolution;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.TextField;
 
-import rgeoroceanu.cms.converter.DateToYearConverter;
 import rgeoroceanu.cms.localization.Localizable;
 import rgeoroceanu.cms.localization.Localizer;
+import rgeoroceanu.model.cms.CarSearchCriteria;
 import rgeoroceanu.model.type.Engine;
 import rgeoroceanu.model.type.Make;
 
@@ -24,17 +24,17 @@ import rgeoroceanu.model.type.Make;
 public class CarSearchForm extends GridLayout implements Localizable {
 
 	private static final long serialVersionUID = 1L;
-	private final @PropertyId("make") ComboBox makeField;
+	private final @PropertyId("make") ComboBox<Make> makeField;
 	private final @PropertyId("model") TextField modelField;
 	private final @PropertyId("startYear") DateField startYearField;
 	private final @PropertyId("endYear") DateField endYearField;
-	private final @PropertyId("startPrice") ComboBox startPriceField;
-	private final @PropertyId("endPrice") ComboBox endPriceField;
-	private final @PropertyId("engine") ComboBox engineField;
-	private final @PropertyId("startCapacity") ComboBox startCapacityField;
-	private final @PropertyId("endCapacity") ComboBox endCapacityField;
-	private final @PropertyId("startPower") ComboBox startPowerField;
-	private final @PropertyId("endPower") ComboBox endPowerField;
+	private final @PropertyId("startPrice") ComboBox<Integer> startPriceField;
+	private final @PropertyId("endPrice") ComboBox<Integer> endPriceField;
+	private final @PropertyId("engine") ComboBox<Engine> engineField;
+	private final @PropertyId("startCapacity") ComboBox<Integer> startCapacityField;
+	private final @PropertyId("endCapacity") ComboBox<Integer> endCapacityField;
+	private final @PropertyId("startPower") ComboBox<Integer> startPowerField;
+	private final @PropertyId("endPower") ComboBox<Integer> endPowerField;
 	
 	public CarSearchForm() {
 		makeField = initMakeField();
@@ -68,55 +68,53 @@ public class CarSearchForm extends GridLayout implements Localizable {
 		this.setSpacing(true);
 	}
 	
-	private ComboBox initMakeField() {
-		final ComboBox makeField = new ComboBox();
+	private ComboBox<Make> initMakeField() {
+		final ComboBox<Make> makeField = new ComboBox<Make>();
 		makeField.setTextInputAllowed(false);
-		makeField.addItems(Arrays.asList(Make.values()));
+		makeField.setItems(Arrays.asList(Make.values()));
 		makeField.setWidth(110, Unit.PIXELS);
 		return makeField;
 	}
 	
-	private ComboBox initPriceField() {
-		final ComboBox priceField = new ComboBox();
-		priceField.addItems(Arrays.asList(500, 1000, 2500, 5000, 10000, 50000));
+	private ComboBox<Integer> initPriceField() {
+		final ComboBox<Integer> priceField = new ComboBox<>();
+		priceField.setItems(Arrays.asList(500, 1000, 2500, 5000, 10000, 50000));
 		priceField.setWidth(110, Unit.PIXELS);
 		return priceField;
 	}
 	
-	private ComboBox initEngineField() {
-		final ComboBox engineField = new ComboBox();
+	private ComboBox<Engine> initEngineField() {
+		final ComboBox<Engine> engineField = new ComboBox<>();
 		engineField.setTextInputAllowed(false);
-		engineField.addItems(Arrays.asList(Engine.values()));
+		engineField.setItems(Arrays.asList(Engine.values()));
 		engineField.setWidth(110, Unit.PIXELS);
 		return engineField;
 	}
 
-	private ComboBox initCapacityField() {
-		final ComboBox capacityField = new ComboBox();
-		capacityField.addItems(Arrays.asList(500, 1000, 2000, 3000, 4000, 5000));
+	private ComboBox<Integer> initCapacityField() {
+		final ComboBox<Integer> capacityField = new ComboBox<>();
+		capacityField.setItems(Arrays.asList(500, 1000, 2000, 3000, 4000, 5000));
 		capacityField.setWidth(110, Unit.PIXELS);
 		return capacityField;
 	}
 	
-	private ComboBox initPowerField() {
-		final ComboBox powerField = new ComboBox();
-		powerField.addItems(Arrays.asList(50, 75, 100, 150, 200, 300));
+	private ComboBox<Integer> initPowerField() {
+		final ComboBox<Integer> powerField = new ComboBox<Integer>();
+		powerField.setItems(Arrays.asList(50, 75, 100, 150, 200, 300));
 		powerField.setWidth(110, Unit.PIXELS);
 		return powerField;
 	}
 	
 	private TextField initModelField() {
 		final TextField modelField = new TextField();
-		modelField.setNullRepresentation("");
 		modelField.setWidth(110, Unit.PIXELS);
 		return modelField;
 	}
 	
 	private DateField initYearField() {
 		final DateField yearField = new DateField();
-		yearField.setResolution(Resolution.YEAR);
+		yearField.setResolution(DateResolution.YEAR);
 		yearField.setWidth(110, Unit.PIXELS);
-		yearField.setConverter(new DateToYearConverter());
 		return yearField;
 	}
 
