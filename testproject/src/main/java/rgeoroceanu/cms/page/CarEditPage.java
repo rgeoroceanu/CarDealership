@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Binder;
-import com.vaadin.data.ValidationException;
 import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
@@ -104,7 +103,13 @@ public class CarEditPage extends Page {
 		ConfirmDialog.show(this.getUI(), "Discard", 
 				"Are you sure you want to discard all changes?", 
 				"Discard", "Cancel", confirmEvent -> {
-					binder.readBean(binder.getBean());
+					Car original;
+					try {
+						original = dataService.getCar(binder.getBean().getId());
+					} catch (DataDoesNotExistException e) {
+						original = new Car();
+					}
+					binder.readBean(original);	
 				});
 	}
 
@@ -122,9 +127,7 @@ public class CarEditPage extends Page {
 	}
 
 	private void handleSave() {
-		try {
-			binder.writeBean(binder.getBean());
-		} catch (ValidationException e) {
+		if (binder.isValid() == false) {
 			Notification.show("Cannot save data!");
 			return;
 		}

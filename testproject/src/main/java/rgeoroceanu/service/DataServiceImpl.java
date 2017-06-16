@@ -220,7 +220,7 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public User saveUser(User user, boolean encodePassword) {
 		Preconditions.checkNotNull(user, "User must not be null!");
-		LOG.info("Save user " + user.toString());
+		LOG.info("Save user " + user.getUsername());
 		
 		if (encodePassword) {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));

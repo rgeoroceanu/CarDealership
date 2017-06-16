@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Binder;
-import com.vaadin.data.ValidationException;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
@@ -48,7 +47,7 @@ public class DealershipEditPage extends Page {
 	private void checkPermissions() {
 
 	}
-	
+
 	private void open() {
 		Dealership dealership;
 		try {
@@ -63,14 +62,18 @@ public class DealershipEditPage extends Page {
 		ConfirmDialog.show(this.getUI(), "Discard", 
 				"Are you sure you want to discard all changes?", 
 				"Discard", "Cancel", confirmEvent -> {
-					dealershipBinder.readBean(dealershipBinder.getBean());
+					Dealership original;
+					try {
+						original = dataService.getDealership();
+					} catch (DataDoesNotExistException e) {
+						original = new Dealership();
+					}
+					dealershipBinder.readBean(original);	
 				});
 	}
 
 	private void handleSave() {
-		try {
-			dealershipBinder.writeBean(dealershipBinder.getBean());
-		} catch (ValidationException e) {
+		if (dealershipBinder.isValid() == false) {
 			Notification.show("Cannot save data!");
 			return;
 		}

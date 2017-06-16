@@ -28,12 +28,15 @@ public class SpringSecurityConfiguration {
 		protected void configure(HttpSecurity http) throws Exception {
 			http
 			.antMatcher("/api/**")
+			.csrf().disable()
             .authorizeRequests()
             .antMatchers("/api/**").hasAuthority("API")
             .and()
             .httpBasic()
-            .realmName("API");
+            .realmName("API"); 
 		}
+		
+		
 	}
 	
 	@Configuration
@@ -45,8 +48,8 @@ public class SpringSecurityConfiguration {
 			.csrf()
 			.requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/login.html"))
 			.and()
-			.authorizeRequests() 
-			.anyRequest().hasAuthority("CMS")
+			.authorizeRequests()
+			.antMatchers("/cms**").hasAuthority("CMS")
 			.and()
 			.formLogin()
 			.usernameParameter("username")
@@ -56,7 +59,8 @@ public class SpringSecurityConfiguration {
 			.loginPage("/login.html")
 			.and()
 			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/login.html").deleteCookies("JSESSIONID")
+			.logoutSuccessUrl("/login.html")
+			.deleteCookies("JSESSIONID")
 			.invalidateHttpSession(true); 
 		}
 		
@@ -65,7 +69,10 @@ public class SpringSecurityConfiguration {
 			web.ignoring().antMatchers("/*.css"); 
 			web.ignoring().antMatchers("/*.js"); 
 			web.ignoring().antMatchers("/VAADIN/**");
-			web.ignoring().antMatchers("/**");
+			web.ignoring().antMatchers("/api/v2/api-docs");
+			web.ignoring().antMatchers("/api/swagger-resources/**");
+			web.ignoring().antMatchers("/api/swagger-ui.html");
+			web.ignoring().antMatchers("/api/webjars/**");
 		}
 	}
 	

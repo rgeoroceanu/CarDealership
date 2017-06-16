@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Binder;
-import com.vaadin.data.ValidationException;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
@@ -76,7 +75,13 @@ public class UserEditPage extends Page {
 		ConfirmDialog.show(this.getUI(), "Discard", 
 				"Are you sure you want to discard all changes?", 
 				"Discard", "Cancel", confirmEvent -> {
-					binder.readBean(binder.getBean());
+					User original;
+					try {
+						original = dataService.getUser(binder.getBean().getId());
+					} catch (DataDoesNotExistException e) {
+						original = new User();
+					}
+					binder.readBean(original);	
 				});
 	}
 
@@ -94,15 +99,18 @@ public class UserEditPage extends Page {
 	}
 
 	private void handleSave() {
-		final User previous = binder.getBean();
-		final String previousPassword = previous.getPassword();
-		try {
-			binder.writeBean(binder.getBean());
-		} catch (ValidationException e) {
+		if (binder.isValid() == false) {
 			Notification.show("Cannot save data!");
 			return;
+		} 
+		String previousPassword = null;
+		final Long userId = binder.getBean().getId();
+		try {
+			previousPassword = dataService.getUser(userId).getPassword();
+		} catch (NullPointerException | DataDoesNotExistException e) {
+			previousPassword = null;
 		}
-		
+				
 		boolean encodePassword = false;
 		final User user = binder.getBean();
 		if (previousPassword == null || previousPassword.equals(user.getPassword()) == false) {
