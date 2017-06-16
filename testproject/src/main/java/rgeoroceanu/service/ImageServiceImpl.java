@@ -186,6 +186,11 @@ public class ImageServiceImpl implements ImageService {
 		Preconditions.checkArgument(imageWidth > 0, "Image width must be greated than 0!");
 		
 		final BufferedImage sourceImage = ImageIO.read(sourceImageFile); 
+		
+		if (sourceImage == null ) {
+			throw new IOException("Cannot read image from file!");
+		}
+		
 		final BufferedImage resizedImage = resizeImage(sourceImage, imageWidth);
 		
 		ImageIO.write(resizedImage, "JPEG", destinationFile);

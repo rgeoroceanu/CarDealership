@@ -19,7 +19,7 @@ public class SpringSecurityConfiguration {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@Configuration
 	@Order(1)
 	public static class ApiWebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -29,19 +29,19 @@ public class SpringSecurityConfiguration {
 			http
 			.antMatcher("/api/**")
 			.csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/api/**").hasAuthority("API")
-            .and()
-            .httpBasic()
-            .realmName("API"); 
+			.authorizeRequests()
+			.antMatchers("/api/**").hasAuthority("API")
+			.and()
+			.httpBasic()
+			.realmName("API"); 
 		}
-		
-		
+
+
 	}
-	
+
 	@Configuration
 	public static class CmsWebSecurityConfig extends WebSecurityConfigurerAdapter {
-		
+
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http
@@ -63,7 +63,7 @@ public class SpringSecurityConfiguration {
 			.deleteCookies("JSESSIONID")
 			.invalidateHttpSession(true); 
 		}
-		
+
 		@Override 
 		public void configure(WebSecurity web) throws Exception { 
 			web.ignoring().antMatchers("/*.css"); 
@@ -75,7 +75,7 @@ public class SpringSecurityConfiguration {
 			web.ignoring().antMatchers("/api/webjars/**");
 		}
 	}
-	
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth

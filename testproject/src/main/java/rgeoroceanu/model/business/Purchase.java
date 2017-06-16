@@ -20,6 +20,7 @@ import lombok.Setter;
 public class Purchase extends Base {
 	
 	@Lob
+	@Column(length = 2500, nullable = false)
 	private Car car;
 	@Column
 	private LocalDateTime purchaseDate;

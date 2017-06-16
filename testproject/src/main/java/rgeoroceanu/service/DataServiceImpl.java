@@ -241,6 +241,7 @@ public class DataServiceImpl implements DataService {
 	}
 	
 	@Override
+	@Transactional
 	public Dealership getDealership() throws DataDoesNotExistException {
 		LOG.info("Requested dealership information");		
 		final List<Dealership> dealerships = dealershipDao.findAll();
@@ -253,9 +254,19 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
+	@Transactional
 	public Dealership saveDealership(Dealership dealership) {
 		Preconditions.checkNotNull(dealership, "Dealership must not be null!");
 		LOG.info("Save dealership " + dealership.toString());
+		Dealership savedDealership;
+		try {
+			savedDealership = this.getDealership();
+		} catch (DataDoesNotExistException e) {
+			savedDealership = null;
+		}
+		if (savedDealership != null) {
+			dealership.setId(savedDealership.getId());
+		}
 		return dealershipDao.saveAndFlush(dealership);
 	}
 }

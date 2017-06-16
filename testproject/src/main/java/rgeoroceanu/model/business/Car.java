@@ -34,6 +34,7 @@ import rgeoroceanu.model.type.Transmission;
 public class Car extends Base implements Serializable {
 	
 	private static final long serialVersionUID = 5967703253865043398L;
+	
 	@Column
 	@Enumerated(EnumType.STRING)
 	private Make make;
