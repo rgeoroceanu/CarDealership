@@ -5,6 +5,7 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Binder;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Notification;
 
 import rgeoroceanu.cms.App;
@@ -20,6 +21,7 @@ import rgeoroceanu.service.exception.DataDoesNotExistException;
  *
  */
 @Component
+@UIScope
 public class DealershipEditPage extends Page {
 
 	private static final long serialVersionUID = 1L;

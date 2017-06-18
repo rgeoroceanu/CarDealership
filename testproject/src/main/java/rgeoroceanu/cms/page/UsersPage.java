@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.UIScope;
 
 import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.layout.UsersLayout;
@@ -17,6 +18,7 @@ import rgeoroceanu.model.business.User;
  *
  */
 @Component
+@UIScope
 public class UsersPage extends Page {
 
 	private static final long serialVersionUID = 1L;

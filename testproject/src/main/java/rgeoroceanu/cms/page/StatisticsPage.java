@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import org.springframework.stereotype.Component;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.UIScope;
 
 import rgeoroceanu.cms.layout.StatisticsLayout;
 import rgeoroceanu.cms.localization.Localizer;
@@ -22,6 +23,7 @@ import rgeoroceanu.model.type.Make;
  *
  */
 @Component
+@UIScope
 public class StatisticsPage extends Page {
 	
 	private static final long serialVersionUID = 1L;
