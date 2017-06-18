@@ -55,9 +55,15 @@ public class StatisticsPage extends Page {
 		for (int i = currentMonth - 11; i <= currentMonth; i++) {
 			final int monthValue = i > 0 ? i : 12 + i; 
 			final int year = i > 0 ? currentYear : currentYear - 1; 
-			final Integer salesValue = unorderedSales.get(monthValue);
-			final Integer earningsValue = unorderedEarnings.get(monthValue);
+			Integer salesValue = unorderedSales.get(monthValue);
+			Integer earningsValue = unorderedEarnings.get(monthValue);
 			final String month = months[monthValue - 1] + " " + year;
+			if (salesValue == null) {
+				salesValue = 0;
+			}
+			if (earningsValue == null) {
+				earningsValue = 0;
+			}
 			salesData.put(month, salesValue);
 			earningsData.put(month, earningsValue);
 		}

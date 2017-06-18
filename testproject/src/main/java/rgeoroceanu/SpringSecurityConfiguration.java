@@ -73,7 +73,6 @@ public class SpringSecurityConfiguration {
 			web.ignoring().antMatchers("/api/swagger-resources/**");
 			web.ignoring().antMatchers("/api/swagger-ui.html");
 			web.ignoring().antMatchers("/api/webjars/**");
-			web.ignoring().antMatchers("/**");
 		}
 	}
 
