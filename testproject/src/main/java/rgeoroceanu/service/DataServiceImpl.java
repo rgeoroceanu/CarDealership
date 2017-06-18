@@ -148,7 +148,6 @@ public class DataServiceImpl implements DataService {
 		
 		final Map<Integer, Integer> purchasesCount = new LinkedHashMap<>();
 		final List<Object[]> results = purchaseDao.findPurchasesPerMonthCount(start, end);
-		Collections.reverse(results);
 		
 		for (Object[] result : results) {
 			final Integer month = (Integer) result[0];
@@ -168,7 +167,6 @@ public class DataServiceImpl implements DataService {
 		
 		final Map<Integer, Integer> earningsMap = new LinkedHashMap<>();
 		final List<Object[]> results = purchaseDao.findEarningsPerMonth(start, end);
-		Collections.reverse(results);
 		
 		for (Object[] result : results) {
 			final Integer month = (Integer) result[0];

@@ -193,6 +193,10 @@ public class ImageServiceImpl implements ImageService {
 		
 		final BufferedImage resizedImage = resizeImage(sourceImage, imageWidth);
 		
+		if (resizedImage == null ) {
+			throw new IOException("Cannot resize image from file!");
+		}
+		
 		ImageIO.write(resizedImage, "JPEG", destinationFile);
 	}
 	

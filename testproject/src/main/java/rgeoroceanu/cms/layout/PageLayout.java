@@ -3,11 +3,13 @@ package rgeoroceanu.cms.layout;
 import java.util.Arrays;
 import java.util.Locale;
 
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Panel;
@@ -26,6 +28,9 @@ import rgeoroceanu.cms.localization.Localizer;
  */
 public class PageLayout extends VerticalLayout implements Localizable {
 	private static final long serialVersionUID = 1L;
+	private static final String TITLE = "Car Dealership";
+	private static final String TITLE_STYLE = "'line-height:70px;margin-left:15px;margin-top:0px;"
+			+ "margin-bottom:0px;background-color:rgba(0,0,0,0);color:white;font-size:35px'";
 	private static final Locale ENGLISH_LOCALE = new Locale("en");
 	private static final Locale GERMAN_LOCALE = new Locale("de");
 	
@@ -44,9 +49,11 @@ public class PageLayout extends VerticalLayout implements Localizable {
 	private final Button contactButton;
 	private final Button helpButton;
 	private final Button aboutButton;
+	private Label titleLabel;
 	
 	public PageLayout() {
 		this.addStyleName(ValoTheme.UI_WITH_MENU);
+		this.titleLabel = initTitleLabel();
 		this.languageSelect = initLanguageSelect();
 		this.logoutButton = initLogoutButton();
 		this.menuBar = new MenuBar();
@@ -78,6 +85,7 @@ public class PageLayout extends VerticalLayout implements Localizable {
 		headerLayout.addComponent(languageSelect);
 		headerLayout.addComponent(logoutButton);
 		titleButtonsLayout.addComponent(menuBar);
+		titleLayout.addComponent(titleLabel);
 		titleLayout.addComponent(titleButtonsLayout);
 		footerLayout.addComponent(contactButton);
 		footerLayout.addComponent(helpButton);
@@ -149,6 +157,14 @@ public class PageLayout extends VerticalLayout implements Localizable {
 	 */
 	public void setContentBorderless() {
 		contentPanel.addStyleName(ValoTheme.PANEL_BORDERLESS);
+	}
+	
+	private Label initTitleLabel() {
+		final Label label = new Label();
+		label.setContentMode(ContentMode.HTML);
+		label.setValue("<p style=" + TITLE_STYLE + ">" + TITLE + "</p>");
+		label.setHeight(100, Unit.PERCENTAGE);
+		return label;
 	}
 	
 	private ComboBox<Locale> initLanguageSelect() {

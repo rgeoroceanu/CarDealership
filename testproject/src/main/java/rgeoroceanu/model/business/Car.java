@@ -2,6 +2,7 @@ package rgeoroceanu.model.business;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -80,6 +81,14 @@ public class Car extends Base implements Serializable {
 	private String shortDescription;
 	@Basic
 	private String description;
+	
+	public Purchase createPurchase() {
+		final Purchase purchase = new Purchase();
+		purchase.setCar(this);
+		purchase.setSalePriceInEuro(this.getDiscountedPrice());
+		purchase.setCreated(LocalDateTime.now());
+		return purchase;
+	}
 	
 	public Currency getCurrency() {
 		return price.getCurrency();

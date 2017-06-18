@@ -45,16 +45,21 @@ public class StatisticsPage extends Page {
 		
 		final LocalDateTime currentDate = LocalDateTime.now();
 		final LinkedHashMap<String, Integer> salesData = new LinkedHashMap<>();
-		final String[] months = new DateFormatSymbols(Localizer.getCurrentLocale()).getMonths();
-		for (final Entry<Integer, Integer> e : dataService.getMonthlyPurchasesCount(currentDate.minusMonths(12), currentDate).entrySet()) {
-			final String month = months[e.getKey() - 1];
-			salesData.put(month, e.getValue());
-		}
-	    
 		final LinkedHashMap<String, Integer> earningsData = new LinkedHashMap<>();
-		for (final Entry<Integer, Integer> e : dataService.getMonthlyEarnings(currentDate.minusMonths(12), currentDate).entrySet()) {
-			final String month = months[e.getKey() - 1];
-			earningsData.put(month, e.getValue());
+		final String[] months = new DateFormatSymbols(Localizer.getCurrentLocale()).getMonths();
+		final int currentMonth = currentDate.getMonthValue();
+		final int currentYear = currentDate.getYear();
+		final Map<Integer, Integer> unorderedSales = dataService.getMonthlyPurchasesCount(currentDate.minusMonths(12), currentDate);
+		final Map<Integer, Integer> unorderedEarnings = dataService.getMonthlyEarnings(currentDate.minusMonths(12), currentDate);
+		
+		for (int i = currentMonth - 11; i <= currentMonth; i++) {
+			final int monthValue = i > 0 ? i : 12 + i; 
+			final int year = i > 0 ? currentYear : currentYear - 1; 
+			final Integer salesValue = unorderedSales.get(monthValue);
+			final Integer earningsValue = unorderedEarnings.get(monthValue);
+			final String month = months[monthValue - 1] + " " + year;
+			salesData.put(month, salesValue);
+			earningsData.put(month, earningsValue);
 		}
 	  
 		statisticsLayout.setStatisticsData(carMakesData, salesData, earningsData);

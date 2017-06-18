@@ -4,6 +4,8 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.google.common.base.MoreObjects;
 
 import lombok.Getter;
@@ -16,6 +18,7 @@ import lombok.Setter;
 public class Dealership extends Base {
 	
 	@Basic
+	@NotEmpty
 	private String name;
 	@Basic
 	private String address;

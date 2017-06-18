@@ -50,6 +50,12 @@ public class Form extends VerticalLayout implements Localizable {
 		discardButton.addClickListener(listener);
 	}
 	
+	public void addActionButton(final Button button) {
+		button.addStyleName(ValoTheme.BUTTON_LINK);
+		final HorizontalLayout buttonsLayout = (HorizontalLayout) this.getComponent(0);
+		buttonsLayout.addComponent(button);
+	}
+	
 	public void setActionButtonsEnableState(boolean saveButtonEnabled,
 			boolean discardButtonEnabled, boolean removeButtonEnabled) {
 		

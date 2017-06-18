@@ -1,5 +1,6 @@
 package rgeoroceanu.cms.layout;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.stereotype.Component;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.vaadin.annotations.PropertyId;
 import com.vaadin.shared.ui.datefield.DateResolution;
 import com.vaadin.ui.AbstractColorPicker.PopupStyle;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CheckBoxGroup;
 import com.vaadin.ui.ColorPicker;
@@ -19,6 +21,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.themes.ValoTheme;
 
 import lombok.Getter;
 import rgeoroceanu.cms.component.form.Form;
@@ -66,6 +69,7 @@ public class CarEditLayout extends PageLayout implements Localizable {
 	private final @PropertyId("features") CheckBoxGroup<Feature> featuresField;
 	private final @PropertyId("shortDescription") TextArea shortDescriptionField;
 	private final @PropertyId("description") TextArea descriptionField;
+	private final Button soldButton;
 	private final Panel detailsPanel;
 	private final Panel pricingPanel;
 	private final Panel imagesPanel;
@@ -95,6 +99,7 @@ public class CarEditLayout extends PageLayout implements Localizable {
 		descriptionField = initDescriptionField();
 		shortDescriptionField = initDescriptionField();
 		shortDescriptionField.setRows(2);
+		soldButton = initSoldButton();
 		
 		formLayout = new Form();
 		detailsPanel = new Panel();
@@ -108,8 +113,9 @@ public class CarEditLayout extends PageLayout implements Localizable {
 		formLayout.addComponent(imagesPanel);
 		formLayout.addComponent(detailsPanel);
 		formLayout.addComponent(featuresPanel);
-		formLayout.addComponent(pricingPanel);
 		formLayout.addComponent(descriptionPanel);
+		formLayout.addComponent(pricingPanel);
+		formLayout.addActionButton(soldButton);
 		formLayout.setSpacing(true);
 		this.setContent(formLayout);
 	}
@@ -144,6 +150,7 @@ public class CarEditLayout extends PageLayout implements Localizable {
 		descriptionField.setCaption(Localizer.getLocalizedString("description"));
 		descriptionPanel.setCaption(Localizer.getLocalizedString("description"));
 		horsePowerField.setCaption(Localizer.getLocalizedString("horse_power"));
+		soldButton.setCaption(Localizer.getLocalizedString("sold"));
 	}
 	
 	public void addSaveButtonListener(final ClickListener listener) {
@@ -156,6 +163,18 @@ public class CarEditLayout extends PageLayout implements Localizable {
 	
 	public void addDiscardButtonListener(final ClickListener listener) {
 		formLayout.addDiscardButtonListener(listener);
+	}
+	
+	public void addSoldButtonListener(final ClickListener listener) {
+		soldButton.addClickListener(listener);
+	}
+	
+	public void setActionButtonsEnableState(boolean saveButtonEnabled,
+			boolean discardButtonEnabled, boolean removeButtonEnabled,
+			boolean soldButtonEnabled) {
+		
+		formLayout.setActionButtonsEnableState(saveButtonEnabled, discardButtonEnabled, removeButtonEnabled);
+		soldButton.setVisible(soldButtonEnabled);
 	}
 	
 	private void setupLayout() {
@@ -248,7 +267,7 @@ public class CarEditLayout extends PageLayout implements Localizable {
 	private CheckBoxGroup<Feature> initFeaturesField() {
 		final CheckBoxGroup<Feature> featuresField = new CheckBoxGroup<Feature>();
 		featuresField.addStyleName("multicol");
-		featuresField.setItems(Arrays.asList(Feature.values()));
+		featuresField.setItems(new ArrayList<>(Feature.forCar()));
 		featuresField.setWidth(907, Unit.PIXELS);
 		return featuresField;
 	}
@@ -339,5 +358,11 @@ public class CarEditLayout extends PageLayout implements Localizable {
 		descriptionField.setRows(6);
 		descriptionField.setWidth(600, Unit.PIXELS);
 		return descriptionField;
+	}
+	
+	private Button initSoldButton() {
+		final Button soldButton = new Button();
+		soldButton.addStyleName(ValoTheme.BUTTON_LINK);
+		return soldButton;
 	}
 }

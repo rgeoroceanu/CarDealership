@@ -30,6 +30,7 @@ public class UsersPage extends Page {
 		usersLayout.setContentWidth(950, Unit.PIXELS);
 		usersLayout.alignCenterContent();
 		usersLayout.setContentBorderless();
+		usersLayout.addAddButtonListener(click -> App.getCurrent().navigateToUserPage(null));
 		this.setLayout(usersLayout);
 	}
 

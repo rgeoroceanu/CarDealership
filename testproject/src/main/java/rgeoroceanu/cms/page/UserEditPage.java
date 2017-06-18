@@ -9,6 +9,7 @@ import com.vaadin.ui.Notification;
 
 import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.layout.UserEditLayout;
+import rgeoroceanu.cms.localization.Localizer;
 import rgeoroceanu.model.business.Car;
 import rgeoroceanu.model.business.User;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
@@ -54,10 +55,12 @@ public class UserEditPage extends Page {
 	
 	private void bindFields() {
 		binder.forField(userEditLayout.getUsernameField())
+			.asRequired("Please provide username!")
 			.withValidator(username -> username != null && username.length() > 6, 
 					"Username must be longer then 6 characters")
 			.bind("username");
 		binder.forField(userEditLayout.getPasswordField())
+			.asRequired("Please provide password!")
 			.withValidator(password -> password != null && password.length() > 6, 
 					"Password must be longer then 6 characters")
 			.bind("password");
@@ -72,25 +75,25 @@ public class UserEditPage extends Page {
 	}
 
 	private void handleDiscard() {
-		ConfirmDialog.show(this.getUI(), "Discard", 
-				"Are you sure you want to discard all changes?", 
-				"Discard", "Cancel", confirmEvent -> {
-					User original;
-					try {
-						original = dataService.getUser(binder.getBean().getId());
-					} catch (DataDoesNotExistException e) {
-						original = new User();
+		ConfirmDialog.show(this.getUI(), 
+				Localizer.getLocalizedString("discard"), 
+				Localizer.getLocalizedString("confirm_discard_message"), 
+				Localizer.getLocalizedString("discard"), 
+				Localizer.getLocalizedString("cancel"), confirmEvent -> {
+					if (confirmEvent.isConfirmed()) {
+						confirmDiscard();
 					}
-					binder.readBean(original);	
 				});
 	}
 
 	private void handleRemove() {
 		final User user = binder.getBean();
 		if (user != null && user.getId() != null) {
-			ConfirmDialog.show(this.getUI(), "Delete", 
-					"Are you sure you want to delete this car?", 
-					"Delete", "Cancel", confirmEvent -> {
+			ConfirmDialog.show(this.getUI(), 
+					Localizer.getLocalizedString("delete"), 
+					Localizer.getLocalizedString("confirm_remove_message"), 
+					Localizer.getLocalizedString("delete"), 
+					Localizer.getLocalizedString("cancel"), confirmEvent -> {
 						if (confirmEvent.isConfirmed()) {
 							confirmRemove(user);
 						}
@@ -100,7 +103,7 @@ public class UserEditPage extends Page {
 
 	private void handleSave() {
 		if (binder.isValid() == false) {
-			Notification.show("Cannot save data!");
+			Notification.show(Localizer.getLocalizedString("error_save_data"));
 			return;
 		} 
 		String previousPassword = null;
@@ -119,6 +122,7 @@ public class UserEditPage extends Page {
 		
 		dataService.saveUser(user, encodePassword);
 		App.getCurrent().navigateToStartPage();
+		Notification.show(Localizer.getLocalizedString("saved"));
 	}
 
 	private void confirmRemove(final User user) {
@@ -127,7 +131,7 @@ public class UserEditPage extends Page {
 			dataService.removeUser(user.getId());
 
 		} catch (DataDoesNotExistException e) {
-			Notification.show("Cannot remove element!");
+			Notification.show(Localizer.getLocalizedString("error_remove_element"));
 		}
 		
 		// reinitialize binder
@@ -151,5 +155,15 @@ public class UserEditPage extends Page {
 		}
 		
 		return user;
+	}
+	
+	private void confirmDiscard() {
+		User original;
+		try {
+			original = dataService.getUser(binder.getBean().getId());
+		} catch (DataDoesNotExistException e) {
+			original = new User();
+		}
+		binder.readBean(original);	
 	}
 }

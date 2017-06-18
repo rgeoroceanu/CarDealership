@@ -9,6 +9,7 @@ import com.vaadin.ui.Notification;
 
 import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.layout.DealershipEditLayout;
+import rgeoroceanu.cms.localization.Localizer;
 import rgeoroceanu.model.business.Dealership;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
 
@@ -59,28 +60,36 @@ public class DealershipEditPage extends Page {
 	}
 
 	private void handleDiscard() {
-		ConfirmDialog.show(this.getUI(), "Discard", 
-				"Are you sure you want to discard all changes?", 
-				"Discard", "Cancel", confirmEvent -> {
-					Dealership original;
-					try {
-						original = dataService.getDealership();
-					} catch (DataDoesNotExistException e) {
-						original = new Dealership();
+		ConfirmDialog.show(this.getUI(), 
+				Localizer.getLocalizedString("discard"), 
+				Localizer.getLocalizedString("confirm_discard_message"), 
+				Localizer.getLocalizedString("discard"), 
+				Localizer.getLocalizedString("cancel"), confirmEvent -> {
+					if (confirmEvent.isConfirmed()) {
+						confirmDiscard();
 					}
-					dealershipBinder.readBean(original);	
 				});
 	}
 
 	private void handleSave() {
 		if (dealershipBinder.isValid() == false) {
-			Notification.show("Cannot save data!");
+			Notification.show(Localizer.getLocalizedString("error_save_data"));
 			return;
 		}
 		final Dealership dealership = dealershipBinder.getBean();
 		dataService.saveDealership(dealership);
-		Notification.show("Saved!");
+		Notification.show(Localizer.getLocalizedString("saved"));
 		App.getCurrent().navigateToStartPage();
 	}
 
+	private void confirmDiscard() {
+		Dealership original;
+		try {
+			original = dataService.getDealership();
+		} catch (DataDoesNotExistException e) {
+			original = new Dealership();
+		}
+		dealershipBinder.readBean(original);
+	}
+	
 }

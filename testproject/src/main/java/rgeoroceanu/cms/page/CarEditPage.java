@@ -15,7 +15,9 @@ import com.vaadin.ui.Notification;
 import rgeoroceanu.cms.App;
 import rgeoroceanu.cms.converter.ColorToCodeConverter;
 import rgeoroceanu.cms.layout.CarEditLayout;
+import rgeoroceanu.cms.localization.Localizer;
 import rgeoroceanu.model.business.Car;
+import rgeoroceanu.model.business.Purchase;
 import rgeoroceanu.service.exception.DataDoesNotExistException;
 import rgeoroceanu.service.exception.ImageDeleteException;
 import rgeoroceanu.service.exception.ImageWriteException;
@@ -39,6 +41,7 @@ public class CarEditPage extends Page {
 		carEditLayout.addSaveButtonListener(e -> handleSave());
 		carEditLayout.addRemoveButtonListener(e -> handleRemove());
 		carEditLayout.addDiscardButtonListener(e -> handleDiscard());
+		carEditLayout.addSoldButtonListener(e -> handleSold());
 		binder = new Binder<>(Car.class);
 		bindFields();
 		carEditLayout.setContentWidth(950, Unit.PIXELS);
@@ -61,11 +64,14 @@ public class CarEditPage extends Page {
 
 	private void bindFields() {
 		binder.forField(carEditLayout.getMarqueField())
-			.asRequired("Please provide car make!");
+			.asRequired("Please provide car make!")
+			.bind(Car::getMake, Car::setMake);
 		binder.forField(carEditLayout.getModelField())
-			.asRequired("Please provide car model!");
+			.asRequired("Please provide car model!")
+			.bind(Car::getModel, Car::setModel);;
 		binder.forField(carEditLayout.getRegistrationDateField())
-			.asRequired("Please provide registration date!");
+			.asRequired("Please provide registration date!")
+			.bind(Car::getRegistrationDate, Car::setRegistrationDate);;
 		binder.forField(carEditLayout.getKilometersField())
 			.withConverter(new StringToIntegerConverter("Number required"))
 			.bind(Car::getKilometers, Car::setKilometers);
@@ -95,30 +101,33 @@ public class CarEditPage extends Page {
 		List<String> imageUrls = new ArrayList<>();
 		if (car.getId() != null) {
 			imageUrls.addAll(imageService.getPreviewImageUrls(car.getId()));
-		} 
+			carEditLayout.setActionButtonsEnableState(true, true, true, true);
+		} else  {
+			carEditLayout.setActionButtonsEnableState(true, true, false, false);
+		}
 		carEditLayout.getImagesComponent().setImages(imageUrls);
 	}
 
 	private void handleDiscard() {
-		ConfirmDialog.show(this.getUI(), "Discard", 
-				"Are you sure you want to discard all changes?", 
-				"Discard", "Cancel", confirmEvent -> {
-					Car original;
-					try {
-						original = dataService.getCar(binder.getBean().getId());
-					} catch (DataDoesNotExistException e) {
-						original = new Car();
+		ConfirmDialog.show(this.getUI(), 
+				Localizer.getLocalizedString("discard"), 
+				Localizer.getLocalizedString("confirm_discard_message"), 
+				Localizer.getLocalizedString("discard"), 
+				Localizer.getLocalizedString("cancel"), confirmEvent -> {
+					if (confirmEvent.isConfirmed()) {
+						confirmDiscard();
 					}
-					binder.readBean(original);	
 				});
 	}
 
 	private void handleRemove() {
 		final Car car = binder.getBean();
 		if (car != null && car.getId() != null) {
-			ConfirmDialog.show(this.getUI(), "Delete", 
-					"Are you sure you want to delete this car?", 
-					"Delete", "Cancel", confirmEvent -> {
+			ConfirmDialog.show(this.getUI(), 
+					Localizer.getLocalizedString("delete"), 
+					Localizer.getLocalizedString("confirm_remove_message"), 
+					Localizer.getLocalizedString("delete"), 
+					Localizer.getLocalizedString("cancel"), confirmEvent -> {
 						if (confirmEvent.isConfirmed()) {
 							confirmRemove(car);
 						}
@@ -128,7 +137,7 @@ public class CarEditPage extends Page {
 
 	private void handleSave() {
 		if (binder.isValid() == false) {
-			Notification.show("Cannot save data!");
+			Notification.show(Localizer.getLocalizedString("error_save_data"));
 			return;
 		}
 		final Car car = binder.getBean();
@@ -140,7 +149,7 @@ public class CarEditPage extends Page {
 				imageService.saveImages(uploaded, car.getId());
 			}
 		} catch (ImageWriteException e) {
-			Notification.show("Images were not saved!");
+			Notification.show(Localizer.getLocalizedString("error_save_images"));
 		}
 
 		try {
@@ -150,7 +159,7 @@ public class CarEditPage extends Page {
 				imageService.deleteImage(filename, car.getId());
 			}
 		} catch (ImageDeleteException e) {
-			Notification.show("Images were not removed!");
+			Notification.show(Localizer.getLocalizedString("error_remove_images"));
 		}
 		App.getCurrent().navigateToStartPage();
 	}
@@ -161,7 +170,7 @@ public class CarEditPage extends Page {
 			dataService.removeCar(car.getId());
 
 		} catch (DataDoesNotExistException e) {
-			Notification.show("Cannot remove element!");
+			Notification.show(Localizer.getLocalizedString("error_remove_element"));
 		}
 
 		// reinitialize binder
@@ -175,7 +184,7 @@ public class CarEditPage extends Page {
 		}
 		// navigate to home page
 		App.getCurrent().navigateToStartPage();
-		Notification.show("Saved");
+		Notification.show(Localizer.getLocalizedString("saved"));
 	}
 
 	private Car extractCarFromParameters(final String parameters) {
@@ -193,5 +202,41 @@ public class CarEditPage extends Page {
 		}
 
 		return car;
+	}
+	
+	private void handleSold() {
+		ConfirmDialog.show(this.getUI(), 
+				Localizer.getLocalizedString("confirm_sold_title"), 
+				Localizer.getLocalizedString("confirm_sold_message"), 
+				Localizer.getLocalizedString("sold"), 
+				Localizer.getLocalizedString("cancel"), confirmEvent -> {
+					if (confirmEvent.isConfirmed()) {
+						confirmSold();
+					}
+				});
+	}
+	
+	private void confirmDiscard() {
+		Car original;
+		try {
+			original = dataService.getCar(binder.getBean().getId());
+		} catch (DataDoesNotExistException e) {
+			original = new Car();
+		}
+		binder.readBean(original);	
+	}
+	
+	private void confirmSold() {
+		final Car car = binder.getBean();
+		if (car.getId() == null) {
+			return;
+		}
+		final Purchase purchase = car.createPurchase();
+		dataService.savePurchase(purchase);
+		try {
+			dataService.removeCar(car.getId());
+		} catch (DataDoesNotExistException e) {
+			// checked before
+		}
 	}
 }

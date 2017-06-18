@@ -6,9 +6,11 @@ import java.util.List;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Resource;
 import com.vaadin.ui.AbsoluteLayout;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Image;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
@@ -57,13 +59,19 @@ public class ImagePreview extends CustomComponent {
 	private Image initImage() {
 		final Image image = new Image();
 		image.setWidth(IMAGE_WIDTH, Unit.PIXELS);
-		image.setHeight(IMAGE_HEIGHT, Unit.PIXELS);
+		image.setHeightUndefined();
 		return image;
 	}
 	
 	private AbsoluteLayout initLayout() {
+		final VerticalLayout imageLayout = new VerticalLayout();
+		imageLayout.addComponent(image);
+		imageLayout.setMargin(false);
+		imageLayout.setWidth(IMAGE_WIDTH, Unit.PIXELS);
+		imageLayout.setHeight(IMAGE_HEIGHT, Unit.PIXELS);
+		imageLayout.setComponentAlignment(image, Alignment.MIDDLE_CENTER);
 		final AbsoluteLayout layout = new AbsoluteLayout();
-		layout.addComponent(image, "top:0px;left:0px");
+		layout.addComponent(imageLayout, "top:0px;left:0px");
 		layout.addComponent(leftButton, "top:100px;left:0px");
 		layout.addComponent(rightButton, "top:100px;right:0px");
 		layout.setWidth(IMAGE_WIDTH, Unit.PIXELS);
