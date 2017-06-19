@@ -1,8 +1,8 @@
-package rgeoroceanu.cms.component.info;
+package rgeoroceanu.cardealership.cms.component.info;
 
 import java.util.Map;
 
-import rgeoroceanu.cms.component.chart.CarMakesChart;
+import rgeoroceanu.cardealership.cms.component.chart.CarMakesChart;
 
 /**
  * {@link InfoBox} that displays a statistics pie chart.

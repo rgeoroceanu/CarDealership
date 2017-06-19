@@ -1,4 +1,4 @@
-package rgeoroceanu.api;
+package rgeoroceanu.cardealership.api;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Base64Utils;
 
-import rgeoroceanu.BaseTest;
+import rgeoroceanu.cardealership.BaseTest;
 
 /**
  * Test Spring Data Rest API endpoints.

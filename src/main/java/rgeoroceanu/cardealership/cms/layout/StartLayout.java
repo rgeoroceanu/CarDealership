@@ -1,12 +1,12 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cardealership.cms.layout;
 
 import java.util.Map;
 
 import com.vaadin.ui.GridLayout;
 
-import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.component.info.ImageInfoBox;
-import rgeoroceanu.cms.component.info.StatisticsInfoBox;
+import rgeoroceanu.cardealership.cms.App;
+import rgeoroceanu.cardealership.cms.component.info.ImageInfoBox;
+import rgeoroceanu.cardealership.cms.component.info.StatisticsInfoBox;
 
 /**
  * Layout of the start page containing individual boxes of information.

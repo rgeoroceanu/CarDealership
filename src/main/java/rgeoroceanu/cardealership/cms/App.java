@@ -1,4 +1,4 @@
-package rgeoroceanu.cms;
+package rgeoroceanu.cardealership.cms;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,16 +18,16 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.HasComponents;
 import com.vaadin.ui.UI;
 
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.page.CarEditPage;
-import rgeoroceanu.cms.page.CarSearchPage;
-import rgeoroceanu.cms.page.DealershipEditPage;
-import rgeoroceanu.cms.page.ErrorPage;
-import rgeoroceanu.cms.page.StartPage;
-import rgeoroceanu.cms.page.StatisticsPage;
-import rgeoroceanu.cms.page.UserEditPage;
-import rgeoroceanu.cms.page.UsersPage;
-import rgeoroceanu.model.type.Role;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.cms.page.CarEditPage;
+import rgeoroceanu.cardealership.cms.page.CarSearchPage;
+import rgeoroceanu.cardealership.cms.page.DealershipEditPage;
+import rgeoroceanu.cardealership.cms.page.ErrorPage;
+import rgeoroceanu.cardealership.cms.page.StartPage;
+import rgeoroceanu.cardealership.cms.page.StatisticsPage;
+import rgeoroceanu.cardealership.cms.page.UserEditPage;
+import rgeoroceanu.cardealership.cms.page.UsersPage;
+import rgeoroceanu.cardealership.model.type.Role;
 
 /**
  * UI entry point of the CMS.

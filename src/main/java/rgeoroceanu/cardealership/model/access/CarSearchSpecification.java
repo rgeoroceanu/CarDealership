@@ -1,4 +1,4 @@
-package rgeoroceanu.model.access;
+package rgeoroceanu.cardealership.model.access;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,8 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.cms.CarSearchCriteria;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.cms.CarSearchCriteria;
 
 /**
  * Specification for advanced search of {@link Car} entities.

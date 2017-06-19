@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.component.image;
+package rgeoroceanu.cardealership.cms.component.image;
 
 import java.util.ArrayList;
 import java.util.List;

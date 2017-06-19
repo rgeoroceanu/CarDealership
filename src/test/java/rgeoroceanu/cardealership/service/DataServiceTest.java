@@ -1,4 +1,4 @@
-package rgeoroceanu.service;
+package rgeoroceanu.cardealership.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,19 +16,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import rgeoroceanu.BaseTest;
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.business.Dealership;
-import rgeoroceanu.model.business.Purchase;
-import rgeoroceanu.model.business.User;
-import rgeoroceanu.model.cms.CarSearchCriteria;
-import rgeoroceanu.model.type.CarType;
-import rgeoroceanu.model.type.Engine;
-import rgeoroceanu.model.type.Make;
-import rgeoroceanu.model.type.Role;
-import rgeoroceanu.model.type.State;
-import rgeoroceanu.model.type.Transmission;
-import rgeoroceanu.service.exception.DataDoesNotExistException;
+import rgeoroceanu.cardealership.BaseTest;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.business.Dealership;
+import rgeoroceanu.cardealership.model.business.Purchase;
+import rgeoroceanu.cardealership.model.business.User;
+import rgeoroceanu.cardealership.model.cms.CarSearchCriteria;
+import rgeoroceanu.cardealership.model.type.CarType;
+import rgeoroceanu.cardealership.model.type.Engine;
+import rgeoroceanu.cardealership.model.type.Make;
+import rgeoroceanu.cardealership.model.type.Role;
+import rgeoroceanu.cardealership.model.type.State;
+import rgeoroceanu.cardealership.model.type.Transmission;
+import rgeoroceanu.cardealership.service.DataService;
+import rgeoroceanu.cardealership.service.exception.DataDoesNotExistException;
 
 /**
  * Test data service.

@@ -1,4 +1,4 @@
-package rgeoroceanu.model.business;
+package rgeoroceanu.cardealership.model.business;
 
 import javax.persistence.Basic;
 import javax.persistence.Entity;

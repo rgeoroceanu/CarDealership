@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.component.form;
+package rgeoroceanu.cardealership.cms.component.form;
 
 import java.util.Arrays;
 
@@ -9,11 +9,11 @@ import com.vaadin.ui.DateField;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.TextField;
 
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.cms.CarSearchCriteria;
-import rgeoroceanu.model.type.Engine;
-import rgeoroceanu.model.type.Make;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
+import rgeoroceanu.cardealership.model.cms.CarSearchCriteria;
+import rgeoroceanu.cardealership.model.type.Engine;
+import rgeoroceanu.cardealership.model.type.Make;
 
 /**
  * Form associated with a {@link CarSearchCriteria} object.

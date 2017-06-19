@@ -1,19 +1,20 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cardealership.cms.layout;
 
 import org.springframework.stereotype.Component;
 
 import com.vaadin.annotations.PropertyId;
 import com.vaadin.ui.Button.ClickListener;
+
+import rgeoroceanu.cardealership.cms.component.form.Form;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
+import rgeoroceanu.cardealership.model.business.Dealership;
+
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
-
-import rgeoroceanu.cms.component.form.Form;
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.business.Dealership;
 
 /**
  * Layout associated with a {@link Dealership} entity for creating, editing or deleting it.

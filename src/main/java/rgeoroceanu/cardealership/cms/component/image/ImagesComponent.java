@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.component.image;
+package rgeoroceanu.cardealership.cms.component.image;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import com.vaadin.ui.Image;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import rgeoroceanu.cms.component.image.ImageUpload.ImageUploadedListener;
+import rgeoroceanu.cardealership.cms.component.image.ImageUpload.ImageUploadedListener;
 
 /**
  * Component that displays a list of images and provides functionality for uploading more.

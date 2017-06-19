@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.component.search;
+package rgeoroceanu.cardealership.cms.component.search;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,9 +7,9 @@ import java.util.Map;
 import com.google.common.base.Preconditions;
 import com.vaadin.ui.VerticalLayout;
 
-import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.model.cms.CarSearchResult;
+import rgeoroceanu.cardealership.cms.App;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.model.cms.CarSearchResult;
 
 /**
  * Vertical layout that contains multiple {@link CarOverview} components that represent

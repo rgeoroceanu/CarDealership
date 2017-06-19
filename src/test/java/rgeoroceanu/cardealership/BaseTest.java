@@ -1,4 +1,4 @@
-package rgeoroceanu;
+package rgeoroceanu.cardealership;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -14,20 +14,20 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.business.Dealership;
-import rgeoroceanu.model.business.Price;
-import rgeoroceanu.model.business.Purchase;
-import rgeoroceanu.model.business.User;
-import rgeoroceanu.model.type.CarType;
-import rgeoroceanu.model.type.Currency;
-import rgeoroceanu.model.type.Engine;
-import rgeoroceanu.model.type.Make;
-import rgeoroceanu.model.type.Role;
-import rgeoroceanu.model.type.State;
-import rgeoroceanu.model.type.Transmission;
-import rgeoroceanu.service.DataService;
-import rgeoroceanu.service.exception.DataDoesNotExistException;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.business.Dealership;
+import rgeoroceanu.cardealership.model.business.Price;
+import rgeoroceanu.cardealership.model.business.Purchase;
+import rgeoroceanu.cardealership.model.business.User;
+import rgeoroceanu.cardealership.model.type.CarType;
+import rgeoroceanu.cardealership.model.type.Currency;
+import rgeoroceanu.cardealership.model.type.Engine;
+import rgeoroceanu.cardealership.model.type.Make;
+import rgeoroceanu.cardealership.model.type.Role;
+import rgeoroceanu.cardealership.model.type.State;
+import rgeoroceanu.cardealership.model.type.Transmission;
+import rgeoroceanu.cardealership.service.DataService;
+import rgeoroceanu.cardealership.service.exception.DataDoesNotExistException;
 
 /**
  * Base test class that has a default configuration and initializes the in-memory database.

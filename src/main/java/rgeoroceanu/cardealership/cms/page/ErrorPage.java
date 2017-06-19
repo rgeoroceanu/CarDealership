@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.page;
+package rgeoroceanu.cardealership.cms.page;
 
 import org.springframework.stereotype.Component;
 

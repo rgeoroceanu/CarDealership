@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cardealership.cms.layout;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -6,11 +6,11 @@ import java.util.Map;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
-import rgeoroceanu.cms.component.chart.CarMakesChart;
-import rgeoroceanu.cms.component.chart.EarningsChart;
-import rgeoroceanu.cms.component.chart.SalesChart;
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.localization.Localizer;
+import rgeoroceanu.cardealership.cms.component.chart.CarMakesChart;
+import rgeoroceanu.cardealership.cms.component.chart.EarningsChart;
+import rgeoroceanu.cardealership.cms.component.chart.SalesChart;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
 
 /**
  * Layout that contains multiple charts with statistics data.

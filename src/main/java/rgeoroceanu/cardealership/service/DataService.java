@@ -1,16 +1,16 @@
-package rgeoroceanu.service;
+package rgeoroceanu.cardealership.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.business.Dealership;
-import rgeoroceanu.model.business.Purchase;
-import rgeoroceanu.model.business.User;
-import rgeoroceanu.model.cms.CarSearchCriteria;
-import rgeoroceanu.model.type.Make;
-import rgeoroceanu.service.exception.DataDoesNotExistException;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.business.Dealership;
+import rgeoroceanu.cardealership.model.business.Purchase;
+import rgeoroceanu.cardealership.model.business.User;
+import rgeoroceanu.cardealership.model.cms.CarSearchCriteria;
+import rgeoroceanu.cardealership.model.type.Make;
+import rgeoroceanu.cardealership.service.exception.DataDoesNotExistException;
 
 /**
  * Service that is used as a bridge between the DAO layer and the business logic of the application.

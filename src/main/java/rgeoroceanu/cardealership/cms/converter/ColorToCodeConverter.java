@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.converter;
+package rgeoroceanu.cardealership.cms.converter;
 
 import com.vaadin.data.Converter;
 import com.vaadin.data.Result;

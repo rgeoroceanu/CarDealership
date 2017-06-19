@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.page;
+package rgeoroceanu.cardealership.cms.page;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,15 +14,15 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Notification;
 
-import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.converter.ColorToCodeConverter;
-import rgeoroceanu.cms.layout.CarEditLayout;
-import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.business.Purchase;
-import rgeoroceanu.service.exception.DataDoesNotExistException;
-import rgeoroceanu.service.exception.ImageDeleteException;
-import rgeoroceanu.service.exception.ImageWriteException;
+import rgeoroceanu.cardealership.cms.App;
+import rgeoroceanu.cardealership.cms.converter.ColorToCodeConverter;
+import rgeoroceanu.cardealership.cms.layout.CarEditLayout;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.business.Purchase;
+import rgeoroceanu.cardealership.service.exception.DataDoesNotExistException;
+import rgeoroceanu.cardealership.service.exception.ImageDeleteException;
+import rgeoroceanu.cardealership.service.exception.ImageWriteException;
 
 /**
  * Page used for editing and adding of {@link Car} entities.

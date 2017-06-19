@@ -1,4 +1,4 @@
-package rgeoroceanu.service;
+package rgeoroceanu.cardealership.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,12 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 
-import rgeoroceanu.BaseTest;
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.business.Configuration;
-import rgeoroceanu.service.exception.DataDoesNotExistException;
-import rgeoroceanu.service.exception.ImageDeleteException;
-import rgeoroceanu.service.exception.ImageWriteException;
+import rgeoroceanu.cardealership.BaseTest;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.business.Configuration;
+import rgeoroceanu.cardealership.service.DataService;
+import rgeoroceanu.cardealership.service.ImageService;
+import rgeoroceanu.cardealership.service.exception.DataDoesNotExistException;
+import rgeoroceanu.cardealership.service.exception.ImageDeleteException;
+import rgeoroceanu.cardealership.service.exception.ImageWriteException;
 
 /**
  * Test image service.

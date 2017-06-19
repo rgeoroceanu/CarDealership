@@ -1,4 +1,4 @@
-package rgeoroceanu.model.access;
+package rgeoroceanu.cardealership.model.access;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
-import rgeoroceanu.model.business.Car;
+import rgeoroceanu.cardealership.model.business.Car;
 
 /**
  * DAO that provides methods for accessing {@link Car} entities.

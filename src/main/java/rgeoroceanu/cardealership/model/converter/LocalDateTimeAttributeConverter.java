@@ -1,4 +1,4 @@
-package rgeoroceanu.model.converter;
+package rgeoroceanu.cardealership.model.converter;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

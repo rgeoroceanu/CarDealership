@@ -1,4 +1,4 @@
-package rgeoroceanu.service;
+package rgeoroceanu.cardealership.service;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,9 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import rgeoroceanu.model.business.User;
-import rgeoroceanu.model.type.Role;
-import rgeoroceanu.service.exception.DataDoesNotExistException;
+import rgeoroceanu.cardealership.model.business.User;
+import rgeoroceanu.cardealership.model.type.Role;
+import rgeoroceanu.cardealership.service.exception.DataDoesNotExistException;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.page;
+package rgeoroceanu.cardealership.cms.page;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
@@ -13,9 +13,9 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 
-import rgeoroceanu.cms.layout.StatisticsLayout;
-import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.type.Make;
+import rgeoroceanu.cardealership.cms.layout.StatisticsLayout;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
+import rgeoroceanu.cardealership.model.type.Make;
 
 /**
  * Page that displays certain statistics data.

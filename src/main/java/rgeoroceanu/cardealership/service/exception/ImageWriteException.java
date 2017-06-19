@@ -1,4 +1,4 @@
-package rgeoroceanu.service.exception;
+package rgeoroceanu.cardealership.service.exception;
 
 /**
  * Exception used to handle an image write error.

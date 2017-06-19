@@ -1,4 +1,4 @@
-package rgeoroceanu.service;
+package rgeoroceanu.cardealership.service;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -17,18 +17,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
 
-import rgeoroceanu.model.access.CarDao;
-import rgeoroceanu.model.access.CarSearchSpecification;
-import rgeoroceanu.model.access.DealershipDao;
-import rgeoroceanu.model.access.PurchaseDao;
-import rgeoroceanu.model.access.UserDao;
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.business.Dealership;
-import rgeoroceanu.model.business.Purchase;
-import rgeoroceanu.model.business.User;
-import rgeoroceanu.model.cms.CarSearchCriteria;
-import rgeoroceanu.model.type.Make;
-import rgeoroceanu.service.exception.DataDoesNotExistException;
+import rgeoroceanu.cardealership.model.access.CarDao;
+import rgeoroceanu.cardealership.model.access.CarSearchSpecification;
+import rgeoroceanu.cardealership.model.access.DealershipDao;
+import rgeoroceanu.cardealership.model.access.PurchaseDao;
+import rgeoroceanu.cardealership.model.access.UserDao;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.business.Dealership;
+import rgeoroceanu.cardealership.model.business.Purchase;
+import rgeoroceanu.cardealership.model.business.User;
+import rgeoroceanu.cardealership.model.cms.CarSearchCriteria;
+import rgeoroceanu.cardealership.model.type.Make;
+import rgeoroceanu.cardealership.service.exception.DataDoesNotExistException;
 
 @Service
 public class DataServiceImpl implements DataService {

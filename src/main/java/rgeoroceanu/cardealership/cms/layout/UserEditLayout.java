@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cardealership.cms.layout;
 
 import java.util.Arrays;
 
@@ -13,11 +13,11 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 
 import lombok.Getter;
-import rgeoroceanu.cms.component.form.Form;
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.business.User;
-import rgeoroceanu.model.type.Role;
+import rgeoroceanu.cardealership.cms.component.form.Form;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
+import rgeoroceanu.cardealership.model.business.User;
+import rgeoroceanu.cardealership.model.type.Role;
 
 /**
  * Layout associated with a {@link User} entity for creating, editing or deleting it.

@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.component.search;
+package rgeoroceanu.cardealership.cms.component.search;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +16,10 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import rgeoroceanu.cms.component.image.ImagePreview;
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.business.Car;
+import rgeoroceanu.cardealership.cms.component.image.ImagePreview;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
+import rgeoroceanu.cardealership.model.business.Car;
 
 /**
  * Small box containing information about a {@link Car} item.

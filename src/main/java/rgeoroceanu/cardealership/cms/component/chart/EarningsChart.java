@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.component.chart;
+package rgeoroceanu.cardealership.cms.component.chart;
 
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;

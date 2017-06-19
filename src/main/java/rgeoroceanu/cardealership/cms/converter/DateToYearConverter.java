@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.converter;
+package rgeoroceanu.cardealership.cms.converter;
 
 import java.util.Date;
 

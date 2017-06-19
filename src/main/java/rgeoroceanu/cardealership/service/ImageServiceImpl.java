@@ -1,4 +1,4 @@
-package rgeoroceanu.service;
+package rgeoroceanu.cardealership.service;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -20,11 +20,11 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
 
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.business.Configuration;
-import rgeoroceanu.service.exception.DataDoesNotExistException;
-import rgeoroceanu.service.exception.ImageDeleteException;
-import rgeoroceanu.service.exception.ImageWriteException;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.business.Configuration;
+import rgeoroceanu.cardealership.service.exception.DataDoesNotExistException;
+import rgeoroceanu.cardealership.service.exception.ImageDeleteException;
+import rgeoroceanu.cardealership.service.exception.ImageWriteException;
 
 @Service
 public class ImageServiceImpl implements ImageService {

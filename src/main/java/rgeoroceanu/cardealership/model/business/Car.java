@@ -1,4 +1,4 @@
-package rgeoroceanu.model.business;
+package rgeoroceanu.cardealership.model.business;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,13 +20,13 @@ import com.google.common.base.MoreObjects;
 
 import lombok.Getter;
 import lombok.Setter;
-import rgeoroceanu.model.type.CarType;
-import rgeoroceanu.model.type.Currency;
-import rgeoroceanu.model.type.Engine;
-import rgeoroceanu.model.type.Feature;
-import rgeoroceanu.model.type.Make;
-import rgeoroceanu.model.type.State;
-import rgeoroceanu.model.type.Transmission;
+import rgeoroceanu.cardealership.model.type.CarType;
+import rgeoroceanu.cardealership.model.type.Currency;
+import rgeoroceanu.cardealership.model.type.Engine;
+import rgeoroceanu.cardealership.model.type.Feature;
+import rgeoroceanu.cardealership.model.type.Make;
+import rgeoroceanu.cardealership.model.type.State;
+import rgeoroceanu.cardealership.model.type.Transmission;
 
 @Getter
 @Setter

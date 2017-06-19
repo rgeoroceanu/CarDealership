@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.component.info;
+package rgeoroceanu.cardealership.cms.component.info;
 
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Alignment;

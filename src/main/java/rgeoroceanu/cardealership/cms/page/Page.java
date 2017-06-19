@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.page;
+package rgeoroceanu.cardealership.cms.page;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -7,10 +7,10 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.CustomComponent;
 
-import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.layout.PageLayout;
-import rgeoroceanu.service.DataService;
-import rgeoroceanu.service.ImageService;
+import rgeoroceanu.cardealership.cms.App;
+import rgeoroceanu.cardealership.cms.layout.PageLayout;
+import rgeoroceanu.cardealership.service.DataService;
+import rgeoroceanu.cardealership.service.ImageService;
 
 /**
  * Abstract class that acts as the presenter of individual view pages. Connects Vaadin layout and components code

@@ -1,14 +1,15 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cardealership.cms.layout;
 
 import java.util.List;
 
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.HorizontalLayout;
 
-import rgeoroceanu.cms.component.search.CarSearchBox;
-import rgeoroceanu.cms.component.search.CarSearchContainer;
-import rgeoroceanu.model.cms.CarSearchCriteria;
-import rgeoroceanu.model.cms.CarSearchResult;
+import rgeoroceanu.cardealership.cms.component.search.CarSearchBox;
+import rgeoroceanu.cardealership.cms.component.search.CarSearchContainer;
+import rgeoroceanu.cardealership.model.cms.CarSearchCriteria;
+import rgeoroceanu.cardealership.model.cms.CarSearchResult;
+
+import com.vaadin.ui.HorizontalLayout;
 
 /**
  * Layout that contains a search box on the left and upon a search, filled on the

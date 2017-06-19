@@ -1,4 +1,4 @@
-package rgeoroceanu.model.business;
+package rgeoroceanu.cardealership.model.business;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,7 @@ import com.google.common.base.MoreObjects;
 
 import lombok.Getter;
 import lombok.Setter;
-import rgeoroceanu.model.type.Role;
+import rgeoroceanu.cardealership.model.type.Role;
 
 @Getter
 @Setter

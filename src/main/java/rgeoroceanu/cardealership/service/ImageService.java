@@ -1,10 +1,10 @@
-package rgeoroceanu.service;
+package rgeoroceanu.cardealership.service;
 
 import java.io.File;
 import java.util.List;
 
-import rgeoroceanu.service.exception.ImageDeleteException;
-import rgeoroceanu.service.exception.ImageWriteException;
+import rgeoroceanu.cardealership.service.exception.ImageDeleteException;
+import rgeoroceanu.cardealership.service.exception.ImageWriteException;
 
 /**
  * Service that handles {@link Car} image operations.

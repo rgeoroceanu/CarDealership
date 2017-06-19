@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.page;
+package rgeoroceanu.cardealership.cms.page;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,9 +11,9 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 
-import rgeoroceanu.cms.layout.StartLayout;
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.type.Make;
+import rgeoroceanu.cardealership.cms.layout.StartLayout;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.type.Make;
 
 /**
  * Home page of the application. Displays individual boxes of information.

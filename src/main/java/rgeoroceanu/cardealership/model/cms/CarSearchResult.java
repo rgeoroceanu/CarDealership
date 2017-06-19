@@ -1,11 +1,11 @@
-package rgeoroceanu.model.cms;
+package rgeoroceanu.cardealership.model.cms;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
-import rgeoroceanu.model.business.Car;
+import rgeoroceanu.cardealership.model.business.Car;
 
 @Getter
 @Setter

@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.localization;
+package rgeoroceanu.cardealership.cms.localization;
 
 /**
  * Interface that are used by Vaadin components in order to localize them.

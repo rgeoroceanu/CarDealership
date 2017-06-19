@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cardealership.cms.layout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,18 +24,18 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
 
 import lombok.Getter;
-import rgeoroceanu.cms.component.form.Form;
-import rgeoroceanu.cms.component.image.ImagesComponent;
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.type.CarType;
-import rgeoroceanu.model.type.Currency;
-import rgeoroceanu.model.type.Engine;
-import rgeoroceanu.model.type.Feature;
-import rgeoroceanu.model.type.Make;
-import rgeoroceanu.model.type.State;
-import rgeoroceanu.model.type.Transmission;
+import rgeoroceanu.cardealership.cms.component.form.Form;
+import rgeoroceanu.cardealership.cms.component.image.ImagesComponent;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.type.CarType;
+import rgeoroceanu.cardealership.model.type.Currency;
+import rgeoroceanu.cardealership.model.type.Engine;
+import rgeoroceanu.cardealership.model.type.Feature;
+import rgeoroceanu.cardealership.model.type.Make;
+import rgeoroceanu.cardealership.model.type.State;
+import rgeoroceanu.cardealership.model.type.Transmission;
 
 /**
  * Layout associated with a {@link Car} entity for creating, editing or deleting it.

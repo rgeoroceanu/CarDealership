@@ -1,4 +1,4 @@
-package rgeoroceanu;
+package rgeoroceanu.cardealership;
 
 import static com.google.common.base.Predicates.or;
 import static springfox.documentation.builders.PathSelectors.regex;
@@ -27,7 +27,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import com.google.common.base.Predicate;
 
-import rgeoroceanu.cms.localization.Localizer;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
@@ -43,7 +43,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableJpaRepositories
 @EnableTransactionManagement
-@EntityScan({"rgeoroceanu.model.business", "rgeoroceanu.model.converter"})
+@EntityScan({"rgeoroceanu..cardealership.model.business", "rgeoroceanu.cardealership.model.converter"})
 @EnableSwagger2
 @Import({springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration.class})
 public class ApplicationConfiguration {

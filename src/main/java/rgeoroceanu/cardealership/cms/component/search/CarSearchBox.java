@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.component.search;
+package rgeoroceanu.cardealership.cms.component.search;
 
 import com.vaadin.data.Binder;
 import com.vaadin.ui.Alignment;
@@ -10,10 +10,10 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import rgeoroceanu.cms.component.form.CarSearchForm;
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.cms.CarSearchCriteria;
+import rgeoroceanu.cardealership.cms.component.form.CarSearchForm;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
+import rgeoroceanu.cardealership.model.cms.CarSearchCriteria;
 
 /**
  * Search box that contains multiple search terms and a search button to submit the search.

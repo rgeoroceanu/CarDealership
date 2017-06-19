@@ -1,11 +1,11 @@
-package rgeoroceanu.model.cms;
+package rgeoroceanu.cardealership.model.cms;
 
 import java.time.LocalDate;
 
 import lombok.Getter;
 import lombok.Setter;
-import rgeoroceanu.model.type.Engine;
-import rgeoroceanu.model.type.Make;
+import rgeoroceanu.cardealership.model.type.Engine;
+import rgeoroceanu.cardealership.model.type.Make;
 
 @Getter
 @Setter

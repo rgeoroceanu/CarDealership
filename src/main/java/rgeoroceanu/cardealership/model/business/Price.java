@@ -1,4 +1,4 @@
-package rgeoroceanu.model.business;
+package rgeoroceanu.cardealership.model.business;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import javax.persistence.Embeddable;
 
 import lombok.Getter;
 import lombok.Setter;
-import rgeoroceanu.model.type.Currency;
+import rgeoroceanu.cardealership.model.type.Currency;
 
 @Getter
 @Setter

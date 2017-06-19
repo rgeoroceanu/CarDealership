@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.component.form;
+package rgeoroceanu.cardealership.cms.component.form;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
@@ -6,8 +6,8 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.localization.Localizer;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
 
 /**
  * Basic form layout with save, discard and remove buttons.

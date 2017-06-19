@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.page;
+package rgeoroceanu.cardealership.cms.page;
 
 import org.springframework.stereotype.Component;
 import org.vaadin.dialogs.ConfirmDialog;
@@ -9,11 +9,11 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Notification;
 
-import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.layout.DealershipEditLayout;
-import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.business.Dealership;
-import rgeoroceanu.service.exception.DataDoesNotExistException;
+import rgeoroceanu.cardealership.cms.App;
+import rgeoroceanu.cardealership.cms.layout.DealershipEditLayout;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
+import rgeoroceanu.cardealership.model.business.Dealership;
+import rgeoroceanu.cardealership.service.exception.DataDoesNotExistException;
 
 /**
  * Page used for managing users and general dealership information.

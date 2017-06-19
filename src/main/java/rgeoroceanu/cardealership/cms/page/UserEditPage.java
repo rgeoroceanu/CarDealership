@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.page;
+package rgeoroceanu.cardealership.cms.page;
 
 import org.springframework.stereotype.Component;
 import org.vaadin.dialogs.ConfirmDialog;
@@ -9,12 +9,12 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Notification;
 
-import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.layout.UserEditLayout;
-import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.business.User;
-import rgeoroceanu.service.exception.DataDoesNotExistException;
+import rgeoroceanu.cardealership.cms.App;
+import rgeoroceanu.cardealership.cms.layout.UserEditLayout;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.business.User;
+import rgeoroceanu.cardealership.service.exception.DataDoesNotExistException;
 
 /**
  * Page used for editing and adding of {@link Car} entities.

@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cardealership.cms.layout;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.components.grid.ItemClickListener;
 import com.vaadin.ui.themes.ValoTheme;
 
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.localization.Localizer;
-import rgeoroceanu.model.business.User;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
+import rgeoroceanu.cardealership.model.business.User;
 
 public class UsersLayout extends PageLayout implements Localizable {
 

@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.page;
+package rgeoroceanu.cardealership.cms.page;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 
-import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.layout.UsersLayout;
-import rgeoroceanu.model.business.User;
+import rgeoroceanu.cardealership.cms.App;
+import rgeoroceanu.cardealership.cms.layout.UsersLayout;
+import rgeoroceanu.cardealership.model.business.User;
 
 /**
  * Page used for managing users and general dealership information.

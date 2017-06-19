@@ -1,9 +1,9 @@
-package rgeoroceanu.model.access;
+package rgeoroceanu.cardealership.model.access;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import rgeoroceanu.model.business.User;
+import rgeoroceanu.cardealership.model.business.User;
 
 /**
  * DAO that provides methods for handling {@link User} entities.

@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.page;
+package rgeoroceanu.cardealership.cms.page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,10 +10,10 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Notification;
 
-import rgeoroceanu.cms.layout.CarSearchLayout;
-import rgeoroceanu.model.business.Car;
-import rgeoroceanu.model.cms.CarSearchCriteria;
-import rgeoroceanu.model.cms.CarSearchResult;
+import rgeoroceanu.cardealership.cms.layout.CarSearchLayout;
+import rgeoroceanu.cardealership.model.business.Car;
+import rgeoroceanu.cardealership.model.cms.CarSearchCriteria;
+import rgeoroceanu.cardealership.model.cms.CarSearchResult;
 
 /**
  * Page that provides search funtionality for {@link Car} entries.

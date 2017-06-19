@@ -1,4 +1,4 @@
-package rgeoroceanu.model.type;
+package rgeoroceanu.cardealership.model.type;
 
 import java.util.Arrays;
 import java.util.HashSet;

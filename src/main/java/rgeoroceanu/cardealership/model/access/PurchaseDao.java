@@ -1,4 +1,4 @@
-package rgeoroceanu.model.access;
+package rgeoroceanu.cardealership.model.access;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import rgeoroceanu.model.business.Purchase;
+import rgeoroceanu.cardealership.model.business.Purchase;
 
 /**
  * DAO that provides methods for accessing {@link Purchase} entities.

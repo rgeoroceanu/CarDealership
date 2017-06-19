@@ -1,11 +1,11 @@
-package rgeoroceanu.model.access;
+package rgeoroceanu.cardealership.model.access;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
-import rgeoroceanu.model.business.Dealership;
+import rgeoroceanu.cardealership.model.business.Dealership;
 
 /**
  * DAO that provides methods for handling {@link Dealership} entities.

@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.layout;
+package rgeoroceanu.cardealership.cms.layout;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -16,9 +16,9 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import rgeoroceanu.cms.App;
-import rgeoroceanu.cms.localization.Localizable;
-import rgeoroceanu.cms.localization.Localizer;
+import rgeoroceanu.cardealership.cms.App;
+import rgeoroceanu.cardealership.cms.localization.Localizable;
+import rgeoroceanu.cardealership.cms.localization.Localizer;
 
 /**
  * Layout of all pages of this application. It is composed mainly by header, content and footer.

@@ -1,4 +1,4 @@
-package rgeoroceanu.cms.localization;
+package rgeoroceanu.cardealership.cms.localization;
 
 import java.util.Locale;
 
