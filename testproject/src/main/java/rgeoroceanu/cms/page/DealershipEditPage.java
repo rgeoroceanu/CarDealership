@@ -5,6 +5,7 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Binder;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Notification;
 
@@ -22,6 +23,7 @@ import rgeoroceanu.service.exception.DataDoesNotExistException;
  */
 @Component
 @UIScope
+@SpringView
 public class DealershipEditPage extends Page {
 
 	private static final long serialVersionUID = 1L;
@@ -40,15 +42,11 @@ public class DealershipEditPage extends Page {
 		dealershipLayout.setContentBorderless();
 		this.setLayout(dealershipLayout);
 	}
-
+	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		checkPermissions();
+		super.enter(event);
 		open();
-	}
-
-	private void checkPermissions() {
-
 	}
 
 	private void open() {

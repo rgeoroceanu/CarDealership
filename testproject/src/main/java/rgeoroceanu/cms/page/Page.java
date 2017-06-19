@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
-import com.vaadin.ui.Component;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.CustomComponent;
 
+import rgeoroceanu.cms.App;
+import rgeoroceanu.cms.layout.PageLayout;
 import rgeoroceanu.service.DataService;
 import rgeoroceanu.service.ImageService;
 
@@ -25,7 +27,23 @@ public abstract class Page extends CustomComponent implements View {
 	@Autowired
 	protected ImageService imageService;
 	
-	public void setLayout(Component layout) {
+	public void setLayout(PageLayout layout) {
 		this.setCompositionRoot(layout);
+	}
+	
+	@Override
+	public void enter(ViewChangeEvent event) {
+		handleAccess();
+	}
+	
+	private void handleAccess() {	
+		if (App.getCurrent().isUser() == false && App.getCurrent().isAdmin() == false) {
+			App.getCurrent().navigateToErrorPage("Permission denied!");
+			return;
+		}
+		if(!App.getCurrent().isAdmin()) {
+			final PageLayout layout = (PageLayout) this.getCompositionRoot();
+			layout.disableManagerCommands();
+		}
 	}
 }

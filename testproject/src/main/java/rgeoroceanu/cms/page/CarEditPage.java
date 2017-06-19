@@ -10,6 +10,7 @@ import org.vaadin.dialogs.ConfirmDialog;
 import com.vaadin.data.Binder;
 import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Notification;
 
@@ -31,6 +32,7 @@ import rgeoroceanu.service.exception.ImageWriteException;
  */
 @Component
 @UIScope
+@SpringView
 public class CarEditPage extends Page {
 
 	private static final long serialVersionUID = 1L;
@@ -51,17 +53,13 @@ public class CarEditPage extends Page {
 		carEditLayout.setContentBorderless();
 		this.setLayout(carEditLayout);
 	}
-
+	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		checkPermissions();
+		super.enter(event);
 		final String parameters = event.getParameters();
 		final Car car = extractCarFromParameters(parameters);
 		open(car);	
-	}
-
-	private void checkPermissions() {
-
 	}
 
 	private void bindFields() {

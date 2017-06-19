@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import org.springframework.stereotype.Component;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 
 import rgeoroceanu.cms.layout.StatisticsLayout;
@@ -24,6 +25,7 @@ import rgeoroceanu.model.type.Make;
  */
 @Component
 @UIScope
+@SpringView
 public class StatisticsPage extends Page {
 	
 	private static final long serialVersionUID = 1L;
@@ -36,6 +38,7 @@ public class StatisticsPage extends Page {
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
+		super.enter(event);
 		setStatisticsData();
 	}
 	

@@ -1,6 +1,12 @@
 package rgeoroceanu.cms;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
@@ -21,6 +27,7 @@ import rgeoroceanu.cms.page.StartPage;
 import rgeoroceanu.cms.page.StatisticsPage;
 import rgeoroceanu.cms.page.UserEditPage;
 import rgeoroceanu.cms.page.UsersPage;
+import rgeoroceanu.model.type.Role;
 
 /**
  * UI entry point of the CMS.
@@ -159,10 +166,7 @@ public class App extends UI implements Localizable {
 	 * @param message
 	 */
 	public void navigateToErrorPage(final String message) {
-		if (message != null) {
-			errorPage.setErrorMessage(message);
-		}
-		navigator.navigateTo(ERROR_PAGE_NAV_NAME);
+		navigator.navigateTo(ERROR_PAGE_NAV_NAME + "/" + message);
 	}
 	
 	/**
@@ -200,6 +204,22 @@ public class App extends UI implements Localizable {
 		Page.getCurrent().open(LOGOUT_URL, null);
 	}
 	
+	/**
+	 * Check if current has CMS authority.
+	 * @return true if user has CMS role.
+	 */
+	public boolean isUser() {
+		return getAuthorities().contains(Role.CMS.toString());
+	}
+	
+	/**
+	 * Check if current user has ADMIN authority.
+	 * @return true if user has admin role.
+	 */
+	public boolean isAdmin() {
+		return getAuthorities().contains(Role.ADMIN.toString());
+	}
+	
 	private void localizeRecursive(HasComponents root) {
 		if(root instanceof Localizable) {
 			((Localizable) root).localize();
@@ -215,5 +235,19 @@ public class App extends UI implements Localizable {
 	        	localizeRecursive((HasComponents) child);
 	        }
 	    }
+	}
+	
+	private Set<String> getAuthorities() {
+		Authentication auth = (Authentication) SecurityContextHolder.getContext().getAuthentication();
+		Set<String> authorities = new HashSet<>();
+		if(auth!= null) {
+			org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) auth.getPrincipal();
+			if(user != null && user.getAuthorities() != null) {
+				for(GrantedAuthority ga : user.getAuthorities()) {
+					authorities.add(ga.getAuthority());
+				}
+			}
+		}
+		return authorities;
 	}
 }

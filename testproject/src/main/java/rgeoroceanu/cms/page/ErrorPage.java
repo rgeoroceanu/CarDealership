@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -16,6 +17,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 @Component
 @UIScope
+@SpringView
 public class ErrorPage extends VerticalLayout implements View {
 
 	private static final long serialVersionUID = 1L;
@@ -24,15 +26,15 @@ public class ErrorPage extends VerticalLayout implements View {
 	
 	public ErrorPage() {
 		label = new Label();
+		label.setValue(DEFAULT_ERROR_MESSAGE);
 		this.addComponent(label);
 	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		label.setValue(DEFAULT_ERROR_MESSAGE);
-	}
-	
-	public void setErrorMessage(final String message) {
-		label.setValue(message);
+		final String message = event.getParameters();
+		if (message != null) {
+			label.setValue(message);
+		}
 	}
 }

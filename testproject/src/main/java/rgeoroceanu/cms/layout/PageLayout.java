@@ -111,6 +111,10 @@ public class PageLayout extends VerticalLayout implements Localizable {
 		this.setMargin(false);
 	}
 	
+	public void disableManagerCommands() {
+		managerItem.setVisible(false);
+	}
+	
 	@Override
 	public void localize() {
 		// localize

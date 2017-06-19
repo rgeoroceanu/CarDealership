@@ -49,7 +49,7 @@ public class SpringSecurityConfiguration {
 			.requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/login.html"))
 			.and()
 			.authorizeRequests()
-			.antMatchers("/cms**").hasAuthority("CMS")
+			.antMatchers("/cms**").hasAnyAuthority("CMS,ADMIN")
 			.and()
 			.formLogin()
 			.usernameParameter("username")

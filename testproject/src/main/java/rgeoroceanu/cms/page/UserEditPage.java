@@ -5,6 +5,7 @@ import org.vaadin.dialogs.ConfirmDialog;
 
 import com.vaadin.data.Binder;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Notification;
 
@@ -23,6 +24,7 @@ import rgeoroceanu.service.exception.DataDoesNotExistException;
  */
 @Component
 @UIScope
+@SpringView
 public class UserEditPage extends Page {
 
 	private static final long serialVersionUID = 1L;
@@ -45,16 +47,16 @@ public class UserEditPage extends Page {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-		checkPermissions();
+		super.enter(event);
+		if (App.getCurrent().isAdmin() == false) {
+			App.getCurrent().navigateToErrorPage("Permission denied!");
+			return;
+		}
 		final String parameters = event.getParameters();
 		final User user = extractUserFromParameters(parameters);
 		open(user);	
 	}
 
-	private void checkPermissions() {
-
-	}
-	
 	private void bindFields() {
 		binder.forField(userEditLayout.getUsernameField())
 			.asRequired("Please provide username!")

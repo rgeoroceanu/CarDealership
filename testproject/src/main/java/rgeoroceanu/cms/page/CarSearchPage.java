@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Notification;
 
@@ -22,6 +23,7 @@ import rgeoroceanu.model.cms.CarSearchResult;
  */
 @Component
 @UIScope
+@SpringView
 public class CarSearchPage extends Page {
 
 	private static final long serialVersionUID = 1L;
@@ -33,9 +35,10 @@ public class CarSearchPage extends Page {
 		searchLayout.addSearchButtonListener( e -> startSearch());
 		this.setLayout(searchLayout);
 	}
-
+	
 	@Override
 	public void enter(ViewChangeEvent event) { 
+		super.enter(event);
 		searchLayout.clear();
 	}
 

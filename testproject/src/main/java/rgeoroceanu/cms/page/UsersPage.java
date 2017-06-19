@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 
 import rgeoroceanu.cms.App;
@@ -19,6 +20,7 @@ import rgeoroceanu.model.business.User;
  */
 @Component
 @UIScope
+@SpringView
 public class UsersPage extends Page {
 
 	private static final long serialVersionUID = 1L;
@@ -35,20 +37,19 @@ public class UsersPage extends Page {
 		usersLayout.addAddButtonListener(click -> App.getCurrent().navigateToUserPage(null));
 		this.setLayout(usersLayout);
 	}
-
+	
 	@Override
 	public void enter(ViewChangeEvent event) {
-		checkPermissions();
+		super.enter(event);
+		if (App.getCurrent().isAdmin() == false) {
+			App.getCurrent().navigateToErrorPage("Permission denied!");
+			return;
+		}
 		open();
-	}
-
-	private void checkPermissions() {
-
 	}
 	
 	private void open() {
 		final List<User> users = dataService.getAllUsers();
 		usersLayout.setUsers(users);
-		
 	}
 }
