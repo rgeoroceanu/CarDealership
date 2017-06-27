@@ -1,7 +1,7 @@
 # Car Dealership Demo
 ## Description
 Demo web application for a car dealership to handle internal processing of vehicle catalog, purchases, statistics, users, etc...
-It provides a content management interface for manipulation of the data as well as a REST API for giving access to the data to other applications.
+It provides a content management interface for manipulation of the data as well as a REST API with read-only access.
 ## Implementation
 * Spring Boot 1.5
 * Vaadin 8
