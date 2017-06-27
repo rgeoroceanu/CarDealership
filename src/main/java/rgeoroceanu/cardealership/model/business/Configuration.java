@@ -13,5 +13,6 @@ import lombok.Setter;
 public class Configuration {
 	
 	private String webServerUrl;
-	private String imagesPath;
+	private String imagesUrlPath;
+	private String imagesFolderPath;
 }

@@ -43,7 +43,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableJpaRepositories
 @EnableTransactionManagement
-@EntityScan({"rgeoroceanu..cardealership.model.business", "rgeoroceanu.cardealership.model.converter"})
+@EntityScan({"rgeoroceanu.cardealership.model.business", "rgeoroceanu.cardealership.model.converter"})
 @EnableSwagger2
 @Import({springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration.class})
 public class ApplicationConfiguration {

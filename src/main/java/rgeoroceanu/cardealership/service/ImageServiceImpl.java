@@ -56,13 +56,22 @@ public class ImageServiceImpl implements ImageService {
 		final File previewDestinationFile = new File(carImagesFolderPath + "/" + previewFilename);
 		final File fullDestinationFile = new File(carImagesFolderPath + "/" + fullFilename);
 		final File fullDestinationFolder = fullDestinationFile.getParentFile();
+		
 		if (fullDestinationFolder.exists() == false) {
-			fullDestinationFolder.mkdirs();
+			boolean success = fullDestinationFolder.mkdirs();
+			if (success == false) {
+				LOG.error("Error saving images for car id " + carId + "! Cannot create directories!");
+				throw new ImageWriteException("Error saving images for car id " + carId + "! Reason: cannot create directories");
+			}
 		}
 		
 		final File previewDestinationFolder = previewDestinationFile.getParentFile();
 		if (previewDestinationFolder.exists() == false) {
-			previewDestinationFolder.mkdirs();
+			boolean success = previewDestinationFolder.mkdirs();
+			if (success == false) {
+				LOG.error("Error saving images for car id " + carId + "! Cannot create directories!");
+				throw new ImageWriteException("Error saving images for car id " + carId + "! Reason: cannot create directories");
+			}
 		}
 		
 		try {
@@ -160,13 +169,13 @@ public class ImageServiceImpl implements ImageService {
 	}
 	
 	private String getCarFolderPath(final Long carId) {
-		final String imagesPath = configuration.getImagesPath();
+		final String imagesPath = configuration.getImagesFolderPath();
 		return imagesPath + "/" + carId;
 	}
 	
 	private String getCarFolderUrl(final Long carId) {
 		final String webServerUrl = configuration.getWebServerUrl();
-		final String imagesPath = configuration.getImagesPath();
+		final String imagesPath = configuration.getImagesUrlPath();
 		return webServerUrl + "/" + imagesPath + "/" + carId;
 	}
 	

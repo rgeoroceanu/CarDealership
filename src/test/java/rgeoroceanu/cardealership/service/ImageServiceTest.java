@@ -52,7 +52,8 @@ public class ImageServiceTest extends BaseTest {
 	@Before
 	public void prepare() throws DataDoesNotExistException, IOException {
 		File imagesFolder = testFolder.newFolder("images");	
-		configuration.setImagesPath(imagesFolder.getAbsolutePath());
+		configuration.setImagesFolderPath(imagesFolder.getAbsolutePath());
+		configuration.setImagesUrlPath(imagesFolder.getAbsolutePath());
 		configuration.setWebServerUrl("http://testurl.com");
 	}
 	
