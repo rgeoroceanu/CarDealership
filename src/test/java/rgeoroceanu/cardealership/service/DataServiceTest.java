@@ -151,7 +151,7 @@ public class DataServiceTest extends BaseTest {
 	
 	@Test
 	public void testGetUser() throws DataDoesNotExistException {
-		final User user = dataService.getUser(1l);	
+		final User user = dataService.getUser(2l);	
 		assertThat(user.getUsername()).isEqualTo("testuser");
 		assertThat(user.getPassword().length()).isGreaterThan(20);
 		assertThat(user.getRoles()).contains(Role.API);
@@ -166,8 +166,8 @@ public class DataServiceTest extends BaseTest {
 	@Test
 	public void testGetAllUsers() {
 		final List<User> users = dataService.getAllUsers();
-		assertThat(users).hasSize(1);
-		assertThat(users.get(0).getUsername()).isEqualTo("testuser");
+		assertThat(users).hasSize(2);
+		assertThat(users.get(1).getUsername()).isEqualTo("testuser");
 	}
 	
 	@Test
@@ -190,7 +190,7 @@ public class DataServiceTest extends BaseTest {
 	public void testRemoveUser() throws DataDoesNotExistException {
 		dataService.removeUser(1l);
 		final List<User> results = dataService.getAllUsers();
-		assertThat(results).isEmpty();
+		assertThat(results).hasSize(1);
 	}
 	
 	@Test

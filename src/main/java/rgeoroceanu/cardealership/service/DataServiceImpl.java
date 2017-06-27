@@ -1,10 +1,14 @@
 package rgeoroceanu.cardealership.service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,7 @@ import rgeoroceanu.cardealership.model.business.Purchase;
 import rgeoroceanu.cardealership.model.business.User;
 import rgeoroceanu.cardealership.model.cms.CarSearchCriteria;
 import rgeoroceanu.cardealership.model.type.Make;
+import rgeoroceanu.cardealership.model.type.Role;
 import rgeoroceanu.cardealership.service.exception.DataDoesNotExistException;
 
 @Service
@@ -44,6 +49,18 @@ public class DataServiceImpl implements DataService {
 	private DealershipDao dealershipDao;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@PostConstruct
+	public void init() {
+		// add initial user
+		if (userDao.findAll().isEmpty()) {
+			final User tempUser = new User();
+			tempUser.setUsername("tempuser");
+			tempUser.setPassword("temppass");
+			tempUser.setRoles(new HashSet<>(Arrays.asList(Role.values())));
+			userDao.saveAndFlush(tempUser);
+		}
+	}
 	
 	@Transactional(readOnly = true)
 	@Override
